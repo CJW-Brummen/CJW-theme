@@ -52,7 +52,6 @@
 					.flex-control-thumbs {
 
 						li {
-
 							@include column-width($i);
 
 							&:nth-child(#{$i}n) {
@@ -77,10 +76,10 @@
 	}
 
 	&.in-stock {
-		color: $woocommerce__color-success;
+		color: $woocommerce-color-success;
 	}
 
 	&.out-of-stock {
-		color: $woocommerce__color-error;
+		color: $woocommerce-color-error;
 	}
 }

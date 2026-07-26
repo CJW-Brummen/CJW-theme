@@ -4,11 +4,13 @@ input,
 select,
 optgroup,
 textarea {
-	color: $color__text-main;
-	font-family: $font__main;
+	color: $color-text-main;
+	font-family: $font-main;
 	font-size: 1rem;
-	line-height: $font__line-height-body;
+	line-height: $font-line-height-body;
 }
 
+/* stylelint-disable-next-line no-invalid-position-at-import-rule -- Sass resolves this at compile time; moving it would change the cascade order. */
 @import "headings";
+/* stylelint-disable-next-line no-invalid-position-at-import-rule -- Sass resolves this at compile time; moving it would change the cascade order. */
 @import "copy";

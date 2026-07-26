@@ -29,6 +29,7 @@
 	height: 1.618em;
 	line-height: 1.618;
 	width: 5.3em;
+	/* stylelint-disable-next-line font-family-no-missing-generic-family-keyword -- "star" is the WooCommerce icon font; a generic fallback would render wrong glyphs. */
 	font-family: star;
 	font-weight: 400;
 
@@ -55,7 +56,7 @@
 		top: 0;
 		position: absolute;
 		left: 0;
-		color: $color__link;
+		color: $color-link;
 	}
 }
 
@@ -72,7 +73,6 @@ p.stars {
 		font-weight: 400;
 
 		&::before {
-
 			display: block;
 			position: absolute;
 			top: 0;
@@ -80,9 +80,10 @@ p.stars {
 			width: 1em;
 			height: 1em;
 			line-height: 1;
+			/* stylelint-disable-next-line font-family-no-missing-generic-family-keyword -- "star" is the WooCommerce icon font; a generic fallback would render wrong glyphs. */
 			font-family: star;
 			content: "\53";
-			color: $color__text-main;
+			color: $color-text-main;
 			text-indent: 0;
 			opacity: 0.25;
 		}
@@ -91,7 +92,7 @@ p.stars {
 
 			~ a::before {
 				content: "\53";
-				color: $color__text-main;
+				color: $color-text-main;
 				opacity: 0.25;
 			}
 		}
@@ -103,7 +104,7 @@ p.stars {
 
 			&::before {
 				content: "\53";
-				color: $color__link;
+				color: $color-link;
 				opacity: 1;
 			}
 		}
@@ -115,13 +116,13 @@ p.stars {
 
 			&::before {
 				content: "\53";
-				color: $color__link;
+				color: $color-link;
 				opacity: 1;
 			}
 
 			~ a::before {
 				content: "\53";
-				color: $color__text-main;
+				color: $color-text-main;
 				opacity: 0.25;
 			}
 		}
@@ -130,7 +131,7 @@ p.stars {
 
 			&::before {
 				content: "\53";
-				color: $color__link;
+				color: $color-link;
 				opacity: 1;
 			}
 		}
@@ -175,19 +176,19 @@ p.stars {
 	text-align: right;
 
 	&.strong {
-		color: $woocommerce__color-success;
+		color: $woocommerce-color-success;
 	}
 
 	&.short {
-		color: $woocommerce__color-error;
+		color: $woocommerce-color-error;
 	}
 
 	&.bad {
-		color: $woocommerce__color-error;
+		color: $woocommerce-color-error;
 	}
 
 	&.good {
-		color: $woocommerce__color-info;
+		color: $woocommerce-color-info;
 	}
 }
 
@@ -199,14 +200,14 @@ p.stars {
 	&.woocommerce-validated {
 
 		input.input-text {
-			box-shadow: inset 2px 0 0 $woocommerce__color-success;
+			box-shadow: inset 2px 0 0 $woocommerce-color-success;
 		}
 	}
 
 	&.woocommerce-invalid {
 
 		input.input-text {
-			box-shadow: inset 2px 0 0 $woocommerce__color-error;
+			box-shadow: inset 2px 0 0 $woocommerce-color-error;
 		}
 	}
 }
@@ -223,18 +224,18 @@ p.stars {
 .woocommerce-error,
 .woocommerce-noreviews,
 p.no-comments {
-	background-color: $woocommerce__color-success;
+	background-color: $woocommerce-color-success;
 	clear: both;
 }
 
 .woocommerce-info,
 .woocommerce-noreviews,
 p.no-comments {
-	background-color: $woocommerce__color-info;
+	background-color: $woocommerce-color-info;
 }
 
 .woocommerce-error {
-	background-color: $woocommerce__color-error;
+	background-color: $woocommerce-color-error;
 }
 
 .demo_store {
@@ -244,12 +245,11 @@ p.no-comments {
 	right: 0;
 	margin: 0;
 	padding: 1em;
-	background-color: $woocommerce__color-info;
+	background-color: $woocommerce-color-info;
 	z-index: 9999;
 }
 
 @media screen and (min-width: 48em) {
-
 	/**
 	 * Header cart
 	 */

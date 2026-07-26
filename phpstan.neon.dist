@@ -1,0 +1,16 @@
+parameters:
+    level: 3
+    paths:
+        - .
+    excludePaths:
+        analyse:
+            - vendor
+            - node_modules (?)
+            - build (?)
+            - dist (?)
+            - tests (?)
+    scanFiles:
+        - vendor/php-stubs/woocommerce-stubs/woocommerce-stubs.php
+    bootstrapFiles:
+        - phpstan-bootstrap.php
+    treatPhpDocTypesAsCertain: false

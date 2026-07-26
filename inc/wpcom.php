@@ -1,4 +1,5 @@
 <?php
+
 /**
  * WordPress.com-specific functions and definitions
  *
@@ -12,20 +13,21 @@
  *
  * @global array $themecolors
  */
-function cjw_theme_wpcom_setup() {
-	global $themecolors;
+function cjw_theme_wpcom_setup()
+{
+    global $themecolors;
 
-	// Set theme colors for third party services.
-	if ( ! isset( $themecolors ) ) {
-		// Whitelist wpcom specific variable intended to be overruled.
-		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
-		$themecolors = array(
-			'bg'     => '',
-			'border' => '',
-			'text'   => '',
-			'link'   => '',
-			'url'    => '',
-		);
-	}
+    // Set theme colors for third party services.
+    if (! isset($themecolors)) {
+        // Whitelist wpcom specific variable intended to be overruled.
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
+        $themecolors = [
+            'bg' => '',
+            'border' => '',
+            'text' => '',
+            'link' => '',
+            'url' => '',
+        ];
+    }
 }
-add_action( 'after_setup_theme', 'cjw_theme_wpcom_setup' );
+add_action('after_setup_theme', 'cjw_theme_wpcom_setup');

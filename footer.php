@@ -13,17 +13,17 @@
 
 	<footer id="colophon" class="site-footer">
 		<div class="site-info">
-			<a href="<?php echo esc_url( __( 'https://wordpress.org/', 'cjw-brummen' ) ); ?>">
+			<a href="<?php echo esc_url(__('https://wordpress.org/', 'cjw-brummen')); ?>">
 				<?php
-				/* translators: %s: CMS name, i.e. WordPress. */
-				printf( esc_html__( 'Proudly powered by %s', 'cjw-brummen' ), 'WordPress' );
-				?>
+                /* translators: %s: CMS name, i.e. WordPress. */
+                printf(esc_html__('Proudly powered by %s', 'cjw-brummen'), 'WordPress');
+?>
 			</a>
 			<span class="sep"> | </span>
 				<?php
-				/* translators: 1: Theme name, 2: Theme author. */
-				printf( esc_html__( 'Theme: %1$s by %2$s.', 'cjw-brummen' ), 'cjw-brummen', '<a href="https://automattic.com/">Automattic</a>' );
-				?>
+/* translators: 1: Theme name, 2: Theme author. */
+printf(esc_html__('Theme: %1$s by %2$s.', 'cjw-brummen'), 'cjw-brummen', '<a href="https://automattic.com/">Automattic</a>');
+?>
 		</div><!-- .site-info -->
 	</footer><!-- #colophon -->
 </div><!-- #page -->

@@ -1,6 +1,6 @@
 .site {
 	display: grid;
-	grid-template-columns: auto ($size__site-sidebar);
+	grid-template-columns: auto ($size-site-sidebar);
 	grid-template-areas:
 		"header header"
 		"main sidebar"
@@ -24,4 +24,5 @@
 	grid-area: footer;
 }
 
+/* stylelint-disable-next-line no-invalid-position-at-import-rule -- Sass resolves this at compile time; moving it would change the cascade order. */
 @import "no-sidebar";

@@ -1,6 +1,7 @@
 /* Text meant only for screen readers. */
 .screen-reader-text {
 	border: 0;
+	/* stylelint-disable-next-line property-no-deprecated -- Deprecated "clip" is kept as a fallback for older browsers; removing it would change rendering there. */
 	clip: rect(1px, 1px, 1px, 1px);
 	clip-path: inset(50%);
 	height: 1px;
@@ -9,15 +10,16 @@
 	padding: 0;
 	position: absolute !important;
 	width: 1px;
-	word-wrap: normal !important; // Many screen reader and browser combinations announce broken words as they would appear visually.
+	overflow-wrap: normal !important; // Many screen reader and browser combinations announce broken words as they would appear visually.
 
 	&:focus {
-		background-color: $color__background-screen;
+		background-color: $color-background-screen;
 		border-radius: 3px;
 		box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
+		/* stylelint-disable-next-line property-no-deprecated -- Deprecated "clip" is kept as a fallback for older browsers; removing it would change rendering there. */
 		clip: auto !important;
 		clip-path: none;
-		color: $color__text-screen;
+		color: $color-text-screen;
 		display: block;
 		font-size: 0.875rem;
 		font-weight: 700;
