@@ -1,0 +1,125 @@
+// Off-canvas mobile menu. Opened by js/theme.js (.is-open + the inert
+// attribute keep it out of the tab order while closed).
+
+.menu-drawer {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 70;
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	box-sizing: border-box;
+	width: min(320px, 85vw);
+	padding: 24px 32px 32px;
+	overflow-y: auto;
+	background: var(--paper);
+	border-left: 3px dashed var(--sage);
+	box-shadow: -10px 0 40px rgba(38, 51, 45, 0.15);
+	visibility: hidden;
+	transform: translateX(110%);
+	transition:
+		transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.1),
+		visibility 0s linear 0.35s;
+
+	&.is-open {
+		visibility: visible;
+		transform: translateX(0);
+		transition:
+			transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.1),
+			visibility 0s;
+	}
+
+	// The drawer only exists below the navigation breakpoint; hide it on
+	// desktop so it can never linger next to the regular navigation.
+	@media (min-width: ($cjw-nav-breakpoint + 1)) {
+		display: none;
+	}
+}
+
+.menu-drawer__close {
+	position: sticky;
+	top: 0;
+	z-index: 1;
+	align-self: flex-end;
+	margin: 0 -12px 6px 0;
+	padding: 0 6px;
+	background: var(--paper);
+	border: none;
+	color: var(--ink);
+	font-family: $cjw-font-hand;
+	font-weight: 700;
+	font-size: 34px;
+	line-height: 1;
+	cursor: pointer;
+}
+
+.menu-drawer__menu {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+
+	li {
+		margin: 0;
+	}
+
+	a {
+		color: var(--ink);
+		font-family: $cjw-font-hand;
+		font-weight: 700;
+		font-size: 36px;
+		text-decoration: none;
+		opacity: 0;
+		transform: translateX(24px);
+		transition: opacity 0.3s, transform 0.3s;
+
+		&:visited {
+			color: var(--ink);
+		}
+
+		&:hover,
+		&:focus-visible {
+			color: var(--year-accent);
+		}
+	}
+
+	@for $i from 1 through 8 {
+		li:nth-child(#{$i}) a {
+			transition-delay: #{0.06 * $i + 0.02}s;
+		}
+	}
+}
+
+.menu-drawer.is-open .menu-drawer__menu a {
+	opacity: 1;
+	transform: translateX(0);
+}
+
+// The drawer CTA drops the .btn drop shadow and hover rotation: in the
+// design it only fades in and squeezes slightly when pressed.
+.menu-drawer__cta {
+	margin-top: 18px;
+	padding: 14px 24px;
+	font-size: 18px;
+	text-align: center;
+	box-shadow: none;
+	opacity: 0;
+	transition: opacity 0.3s ease 0.45s, transform 0.15s;
+
+	&:hover,
+	&:focus-visible {
+		transform: none;
+	}
+
+	&:active {
+		transform: scale(0.95);
+	}
+}
+
+.menu-drawer.is-open .menu-drawer__cta {
+	opacity: 1;
+}

@@ -78,7 +78,7 @@ function cjw_brummen_setup()
         apply_filters(
             'cjw_theme_custom_background_args',
             [
-                'default-color' => 'ffffff',
+                'default-color' => 'faf6ee',
                 'default-image' => '',
             ]
         )
@@ -139,14 +139,25 @@ function cjw_theme_widgets_init()
 add_action('widgets_init', 'cjw_theme_widgets_init');
 
 /**
+ * Swap the html element's no-js class for js as early as possible, so the
+ * stylesheet can fall back to the plain navigation when JavaScript is off.
+ */
+function cjw_brummen_js_detection()
+{
+    echo "<script>document.documentElement.classList.replace('no-js','js');</script>\n";
+}
+add_action('wp_head', 'cjw_brummen_js_detection', 0);
+
+/**
  * Enqueue scripts and styles.
  */
 function cjw_brummen_scripts()
 {
     wp_enqueue_style('cjw-theme-style', get_stylesheet_uri(), [], CJW_BRUMMEN_VERSION);
     wp_style_add_data('cjw-theme-style', 'rtl', 'replace');
+    wp_add_inline_style('cjw-theme-style', cjw_brummen_accent_inline_css());
 
-    wp_enqueue_script('cjw-theme-navigation', get_template_directory_uri() . '/js/navigation.js', [], CJW_BRUMMEN_VERSION, true);
+    wp_enqueue_script('cjw-theme-js', get_template_directory_uri() . '/js/theme.js', [], CJW_BRUMMEN_VERSION, true);
 
     if (is_singular() && comments_open() && get_option('thread_comments')) {
         wp_enqueue_script('comment-reply');
@@ -173,6 +184,16 @@ require get_template_directory() . '/inc/template-functions.php';
  * Customizer additions.
  */
 require get_template_directory() . '/inc/customizer.php';
+
+/**
+ * Front page (CJW Homepage design) settings and helpers.
+ */
+require get_template_directory() . '/inc/front-page.php';
+
+/**
+ * Bridge to the cjw-* plugins (source of truth for all camp data).
+ */
+require get_template_directory() . '/inc/summer-camp.php';
 
 /**
  * Load Jetpack compatibility file.

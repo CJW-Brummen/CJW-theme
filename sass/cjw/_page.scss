@@ -1,0 +1,277 @@
+// Inner pages ("CJW Pagina Template" design): the sage page-header band,
+// entry content typography, the photo/facts aside and the signup CTA band.
+
+.page-band {
+	position: relative;
+	padding: 64px 24px 120px;
+	overflow: hidden;
+	background: var(--sage);
+}
+
+.page-band__doodle {
+	position: absolute;
+	right: 6%;
+	bottom: 30px;
+	color: rgba(250, 246, 238, 0.25);
+}
+
+.page-band__inner {
+	position: relative;
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+.page-band__kicker {
+	display: inline-block;
+	padding: 7px 18px;
+	background: var(--apricot);
+	color: var(--ink);
+	font-weight: 900;
+	font-size: 14px;
+	letter-spacing: 1.5px;
+	text-transform: uppercase;
+	transform: rotate(-3deg);
+
+	@include cjw-sketch-radius(225px 15px 255px 15px, 15px 255px 15px 225px);
+}
+
+.page-band__title {
+	margin: 16px 0 8px;
+	color: #fff;
+	font-size: clamp(52px, 7vw, 92px);
+	line-height: 0.95;
+}
+
+.page-band__lead {
+	max-width: 56ch;
+	margin: 0;
+	color: rgba(250, 246, 238, 0.95);
+	font-weight: 700;
+	font-size: clamp(16px, 2vw, 19px);
+}
+
+.page-band__wave {
+	position: absolute;
+	right: 0;
+	bottom: -1px;
+	left: 0;
+	display: block;
+	width: 100%;
+	height: 56px;
+	pointer-events: none;
+}
+
+/* Content layout
+--------------------------------------------- */
+
+.page-layout {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 44px;
+	max-width: 1100px;
+	margin: 0 auto;
+	padding: 50px 24px 20px;
+}
+
+.page-layout__article {
+	flex: 1 1 520px;
+	min-width: 300px;
+
+	.entry-content {
+		margin: 0;
+	}
+}
+
+.page-layout__aside {
+	display: flex;
+	flex: 1 1 300px;
+	flex-direction: column;
+	gap: 28px;
+	min-width: 270px;
+}
+
+/* Entry content typography
+--------------------------------------------- */
+
+.entry-content {
+	h2 {
+		margin: 26px 0 12px;
+		font-size: clamp(38px, 4.5vw, 54px);
+		line-height: 1;
+
+		&:first-child {
+			margin-top: 0;
+		}
+	}
+
+	h3 {
+		margin: 20px 0 8px;
+		font-size: clamp(28px, 3vw, 36px);
+		line-height: 1;
+	}
+
+	p {
+		max-width: 60ch;
+		margin: 0 0 16px;
+		font-size: 17px;
+	}
+
+	ul {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		max-width: 60ch;
+		margin: 0 0 22px;
+		padding: 0;
+		list-style: none;
+		font-size: 17px;
+
+		li {
+			position: relative;
+			padding-left: 30px;
+
+			&::before {
+				content: "";
+				position: absolute;
+				top: 0.4em;
+				left: 0;
+				width: 16px;
+				height: 16px;
+				background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2 9 L6 13 L14 3" fill="none" stroke="%23588c7e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>') no-repeat center / contain;
+			}
+		}
+
+		ul {
+			margin: 8px 0 0;
+		}
+	}
+
+	ol {
+		max-width: 60ch;
+		margin: 0 0 22px;
+		padding-left: 24px;
+		font-size: 17px;
+
+		li {
+			margin-bottom: 10px;
+			padding-left: 6px;
+
+			&::marker {
+				color: var(--sage-deep);
+				font-weight: 900;
+			}
+		}
+	}
+
+	img {
+		max-width: 100%;
+		height: auto;
+		border-radius: 18px;
+	}
+}
+
+/* Aside: photo blob and facts card
+--------------------------------------------- */
+
+.page-blob {
+	position: relative;
+	display: flex;
+	justify-content: center;
+}
+
+.page-blob__frame {
+	position: absolute;
+	inset: -12px 4px 8px -8px;
+	border: 3px dashed var(--apricot);
+	transform: rotate(4deg);
+
+	@include cjw-sketch-radius(58% 42% 55% 45%, 48% 58% 42% 52%);
+}
+
+.page-blob__media {
+	position: relative;
+	width: 100%;
+	overflow: hidden;
+
+	@include cjw-aspect(1, 0.9);
+	@include cjw-sketch-radius(58% 42% 55% 45%, 48% 58% 42% 52%);
+
+	img {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+}
+
+.page-blob__empty {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+	background: rgba(88, 140, 126, 0.14);
+	color: var(--sage);
+}
+
+.page-facts {
+	padding: 26px;
+	background: #fffdf6;
+	border: 3px solid var(--sage);
+	transform: rotate(-0.8deg);
+
+	@include cjw-sketch-radius(255px 20px 225px 20px, 20px 225px 20px 255px);
+
+	p {
+		margin: 0 0 6px;
+		font-size: 15px;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+}
+
+.page-facts__title {
+	margin: 0 0 8px;
+	font-size: 34px;
+	line-height: 1;
+}
+
+/* Signup CTA band
+--------------------------------------------- */
+
+.page-cta {
+	max-width: 1100px;
+	margin: 0 auto;
+	padding: 30px 24px 70px;
+}
+
+.page-cta__box {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 22px;
+	padding: 36px 32px;
+	background: var(--year-accent-tint);
+	border: 3px solid var(--year-accent);
+
+	@include cjw-sketch-radius(255px 25px 225px 25px, 25px 225px 25px 255px);
+
+	@supports (background: color-mix(in oklab, red 10%, white)) {
+		background: color-mix(in oklab, var(--year-accent) 10%, var(--paper));
+	}
+}
+
+.page-cta__title {
+	margin: 0 0 4px;
+	font-size: clamp(38px, 4.5vw, 52px);
+	line-height: 1;
+}
+
+.page-cta__text {
+	margin: 0;
+	font-weight: 700;
+	font-size: 16px;
+}

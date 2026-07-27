@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2b2550"></stop>
+      <stop offset="0.55" stop-color="#4c6a72"></stop>
+      <stop offset="1" stop-color="#f0ae73"></stop>
+    </linearGradient>
+    <linearGradient id="glow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffd9a8"></stop>
+      <stop offset="1" stop-color="#f0ae73"></stop>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#sky)"></rect>
+  <g fill="#fff" opacity="0.85">
+    <rect x="180" y="120" width="10" height="10"></rect><rect x="420" y="80" width="8" height="8"></rect>
+    <rect x="700" y="150" width="10" height="10"></rect><rect x="980" y="70" width="8" height="8"></rect>
+    <rect x="1240" y="130" width="10" height="10"></rect><rect x="1440" y="90" width="8" height="8"></rect>
+    <rect x="320" y="220" width="6" height="6"></rect><rect x="1120" y="210" width="6" height="6"></rect>
+  </g>
+  <g fill="#ff7ba9" opacity="0.9">
+    <path d="M560 190h12v12h12v-12h12v12h-12v12h-12v-12h-12z" transform="translate(0,-6)"></path>
+    <path d="M1300 240h10v10h10v-10h10v10h-10v10h-10v-10h-10z"></path>
+  </g>
+  <circle cx="1100" cy="430" r="150" fill="url(#glow)"></circle>
+  <circle cx="1100" cy="430" r="112" fill="#ffe3b8" opacity="0.7"></circle>
+  <path d="M0 560 L120 470 L260 560 L400 480 L540 570 L700 460 L860 570 L1020 490 L1180 575 L1340 480 L1470 560 L1600 500 L1600 900 L0 900 Z" fill="#3f6b5f"></path>
+  <g fill="#33564c">
+    <path d="M0 640 L60 560 L120 640 L180 545 L240 640 L300 560 L360 640 L430 540 L500 640 L560 565 L620 640 L690 550 L760 640 L820 560 L880 640 L950 545 L1020 640 L1080 565 L1140 640 L1210 550 L1280 640 L1340 560 L1400 640 L1470 545 L1540 640 L1600 580 L1600 900 L0 900 Z"></path>
+  </g>
+  <path d="M0 900 L0 730 Q 400 690 800 730 T 1600 720 L1600 900 Z" fill="#2c443d"></path>
+  <g>
+    <path d="M420 760 L500 640 L580 760 Z" fill="#22332e"></path>
+    <path d="M478 760 L500 700 L522 760 Z" fill="#ffce8a"></path>
+    <path d="M1060 780 L1130 675 L1200 780 Z" fill="#22332e"></path>
+    <path d="M1112 780 L1130 730 L1148 780 Z" fill="#ffce8a"></path>
+  </g>
+  <g transform="translate(790,770)">
+    <ellipse cx="0" cy="26" rx="60" ry="12" fill="#1d2b27"></ellipse>
+    <path d="M-26 22 Q -18 -14 0 -30 Q 6 -8 16 -14 Q 26 4 18 22 Q 0 32 -26 22" fill="#f0ae73"></path>
+    <path d="M-12 22 Q -6 -2 2 -12 Q 10 4 8 20 Q -2 28 -12 22" fill="#ffdf9e"></path>
+    <path d="M-40 30 l80 8 M-38 38 l76 -6" stroke="#1d2b27" stroke-width="7" stroke-linecap="round" fill="none"></path>
+  </g>
+</svg>

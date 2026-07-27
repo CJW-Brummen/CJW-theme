@@ -1,0 +1,107 @@
+// Site-wide base styles for the CJW design: paper background, ink text,
+// Nunito body copy, Amatic SC headings and the yearly accent color.
+
+html {
+	scroll-behavior: smooth;
+
+	// Keep anchor targets clear of the sticky header.
+	scroll-padding-top: 96px;
+}
+
+body {
+	background: var(--paper);
+	color: var(--ink);
+	font-family: $cjw-font-body;
+	line-height: 1.6;
+	overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: $cjw-font-hand;
+	font-weight: 700;
+	clear: none;
+}
+
+a {
+	color: var(--sage-deep);
+
+	&:visited {
+		color: var(--sage-deep);
+	}
+
+	&:hover,
+	&:focus,
+	&:active {
+		color: var(--year-accent);
+	}
+
+	// Replace the underscores "thin dotted" a:focus outline with the
+	// accent focus ring (keyboard focus only).
+	&:focus {
+		outline: 0;
+	}
+
+	&:focus-visible {
+		outline: 3px solid var(--year-accent);
+		outline-offset: 3px;
+		border-radius: 8px;
+	}
+}
+
+::selection {
+	background: var(--apricot);
+	color: #26332d;
+}
+
+:focus-visible {
+	outline: 3px solid var(--year-accent);
+	outline-offset: 3px;
+	border-radius: 8px;
+}
+
+@keyframes cjw-flicker {
+	0%,
+	100% {
+		transform: scale(1) rotate(-2deg);
+	}
+
+	50% {
+		transform: scale(1.08) rotate(2deg);
+	}
+}
+
+// Hand-drawn underline for accented words in headings.
+.squiggle {
+	white-space: nowrap;
+	background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 12" preserveAspectRatio="none"><path d="M2 9 Q20 3 40 8 T80 6 T118 8" fill="none" stroke="%23f0ae73" stroke-width="5" stroke-linecap="round"/></svg>') no-repeat bottom left / 100% 0.22em;
+	padding-bottom: 0.12em;
+}
+
+// Scroll-reveal (the class is added by js/theme.js, so content stays
+// visible without JavaScript or with reduced motion enabled).
+.reveal {
+	opacity: 0;
+	transform: translateY(24px);
+	transition: opacity 0.7s ease, transform 0.7s ease;
+
+	&.is-revealed {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	* {
+		animation: none !important;
+		transition: none !important;
+	}
+
+	html {
+		scroll-behavior: auto;
+	}
+}

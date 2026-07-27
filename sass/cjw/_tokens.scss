@@ -1,0 +1,33 @@
+// Design tokens for the CJW homepage design.
+
+$cjw-font-hand: "Amatic SC", cursive;
+$cjw-font-body: "Nunito", sans-serif;
+$cjw-nav-breakpoint: 920px;
+
+// Hand-drawn "sketchy" border radius, as used on buttons, cards and badges.
+// Interpolation keeps the slash out of Sass math.
+@mixin cjw-sketch-radius($horizontal: 255px 15px 225px 15px, $vertical: 15px 225px 15px 255px) {
+	border-radius: #{$horizontal} / #{$vertical};
+}
+
+@mixin cjw-aspect($width, $height) {
+	aspect-ratio: #{$width} / #{$height};
+}
+
+:root {
+	--paper: #faf6ee;
+	--ink: #26332d;
+
+	// The palette tokens below are overridden at runtime from the
+	// cjw-summer-camp plugin settings — the source of truth — via
+	// cjw_brummen_accent_inline_css(); these are the design defaults
+	// used when the plugin is not active.
+	--sage: #588c7e;
+	--sage-deep: #3c665c;
+	--forest: #2c443d;
+	--apricot: #f0ae73;
+	--year-accent: #7c4dff;
+	--year-accent-soft: rgba(124, 77, 255, 0.4);
+	--year-accent-softer: rgba(124, 77, 255, 0.3);
+	--year-accent-tint: #efe7f0;
+}

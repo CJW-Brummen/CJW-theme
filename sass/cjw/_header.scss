@@ -1,0 +1,152 @@
+// Sticky site header with the tent logo, flat navigation and signup button.
+
+.site-header {
+	position: sticky;
+	top: 0;
+	z-index: 60;
+	background: var(--paper);
+	border-bottom: 2px dashed rgba(88, 140, 126, 0.4);
+}
+
+// Stick below the admin bar for logged-in users.
+.admin-bar .site-header {
+	top: 32px;
+
+	@media (max-width: 782px) {
+		top: 46px;
+	}
+}
+
+.site-header__inner {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 10px 24px;
+}
+
+.site-brand {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	color: var(--ink);
+	text-decoration: none;
+
+	&:visited,
+	&:hover,
+	&:focus {
+		color: var(--ink);
+	}
+
+	.custom-logo {
+		width: auto;
+		max-height: 46px;
+	}
+}
+
+.site-brand__text {
+	display: flex;
+	flex-direction: column;
+	line-height: 1;
+}
+
+.site-brand__title {
+	font-family: $cjw-font-hand;
+	font-weight: 700;
+	font-size: 34px;
+	letter-spacing: 2px;
+}
+
+.site-brand__tagline {
+	color: var(--sage-deep);
+	font-size: 11px;
+	font-weight: 800;
+	letter-spacing: 1.5px;
+	text-transform: uppercase;
+}
+
+.site-nav {
+	display: flex;
+	align-items: center;
+	gap: 22px;
+
+	@media (max-width: $cjw-nav-breakpoint) {
+		display: none;
+
+		// Without JavaScript the drawer cannot open; show the plain
+		// navigation instead of a dead menu button.
+		.no-js & {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: flex-end;
+		}
+	}
+}
+
+.site-nav__menu {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 22px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+
+	li {
+		margin: 0;
+	}
+
+	a {
+		display: inline-block;
+		color: var(--ink);
+		font-weight: 800;
+		font-size: 15px;
+		text-decoration: none;
+		transition: transform 0.2s, color 0.2s;
+
+		&:visited {
+			color: var(--ink);
+		}
+
+		&:hover,
+		&:focus-visible {
+			color: var(--year-accent);
+			transform: rotate(-2deg);
+		}
+	}
+}
+
+.menu-toggle {
+	display: none;
+	padding: 8px 14px;
+	background: none;
+	border: 3px solid var(--sage);
+	color: var(--ink);
+	font-family: $cjw-font-hand;
+	font-weight: 700;
+	font-size: 24px;
+	line-height: 1;
+	cursor: pointer;
+
+	@include cjw-sketch-radius(225px 15px 255px 15px, 15px 255px 15px 225px);
+
+	// Keep the sage border; the underscores base button styles recolor
+	// button borders on hover/focus/active.
+	&:hover,
+	&:focus,
+	&:active {
+		background: none;
+		border-color: var(--sage);
+		color: var(--ink);
+	}
+
+	@media (max-width: $cjw-nav-breakpoint) {
+		display: inline-block;
+
+		.no-js & {
+			display: none;
+		}
+	}
+}

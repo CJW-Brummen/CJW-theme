@@ -1,0 +1,48 @@
+<?php
+/**
+ * Front page hero: full-bleed yearly theme photo with title, date badge,
+ * signup button and the treeline/wave transition into the page.
+ *
+ * All content comes from the cjw-summer-camp plugin settings (source of
+ * truth); the bundled illustration is the fallback hero image.
+ *
+ * @package cjw-brummen
+ */
+
+$cjw_brummen_hero_id = cjw_brummen_hero_image_id();
+$cjw_brummen_badge = cjw_brummen_hero_badge_text();
+$cjw_brummen_cta = cjw_brummen_signup_cta();
+?>
+
+<section class="fp-hero">
+	<div class="fp-hero__media">
+		<?php
+        $cjw_brummen_hero_img = $cjw_brummen_hero_id ? wp_get_attachment_image($cjw_brummen_hero_id, 'full', false, [ 'class' => 'fp-hero__img' ]) : '';
+
+if ($cjw_brummen_hero_img) {
+    echo $cjw_brummen_hero_img; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- wp_get_attachment_image() returns safe markup.
+} else {
+    printf(
+        '<img class="fp-hero__img" src="%s" alt="">',
+        esc_url(get_template_directory_uri() . '/assets/images/hero-2026.svg')
+    );
+}
+?>
+	</div>
+
+	<div class="fp-hero__overlay">
+		<div class="fp-hero__container">
+			<div class="fp-hero__content">
+				<?php if ($cjw_brummen_badge) : ?>
+					<span class="fp-hero__badge"><span aria-hidden="true">✏</span> <?php echo esc_html($cjw_brummen_badge); ?></span>
+				<?php endif; ?>
+				<h1 class="fp-hero__title"><?php echo esc_html(cjw_brummen_hero_title()); ?></h1>
+				<p class="fp-hero__lead"><?php echo esc_html(cjw_brummen_hero_subtitle()); ?></p>
+				<a class="btn btn--hero" href="<?php echo esc_url($cjw_brummen_cta['url']); ?>"><?php echo esc_html($cjw_brummen_cta['label']); ?></a>
+			</div>
+		</div>
+	</div>
+
+	<svg class="fp-hero__treeline" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path fill="var(--sage)" d="M0 120 L0 78 L30 40 L52 74 L70 26 L96 70 L118 44 L138 76 L160 22 L186 72 L210 48 L232 78 L258 30 L282 72 L306 50 L326 78 L352 24 L378 70 L400 44 L422 76 L448 34 L472 72 L494 52 L516 80 L540 26 L566 72 L590 46 L612 76 L636 30 L662 70 L686 50 L708 78 L732 22 L758 72 L782 44 L804 76 L830 32 L854 70 L878 52 L900 80 L924 26 L950 72 L974 46 L996 76 L1020 30 L1046 70 L1070 50 L1092 78 L1116 24 L1142 72 L1166 44 L1188 76 L1214 34 L1238 70 L1262 52 L1284 80 L1308 26 L1334 72 L1358 46 L1380 76 L1404 36 L1428 70 L1440 60 L1440 120 Z"></path></svg>
+	<svg class="fp-hero__wave" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path fill="var(--paper)" d="M0 60 Q 60 20 140 44 T 300 40 T 470 52 T 640 30 T 810 50 T 980 34 T 1150 52 T 1320 36 T 1440 48 L1440 90 L0 90 Z"></path></svg>
+</section>

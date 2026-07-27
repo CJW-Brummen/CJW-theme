@@ -1,0 +1,51 @@
+// The "Schrijf je in!" button family: accent background with a sketchy
+// hand-drawn outline shape.
+
+.btn {
+	display: inline-block;
+	padding: 11px 24px;
+	background: var(--year-accent);
+	color: #fff;
+	border: 0;
+	font-family: $cjw-font-body;
+	font-weight: 900;
+	font-size: 16px;
+	line-height: 1.4;
+	text-decoration: none;
+	cursor: pointer;
+	box-shadow: 0 3px 0 rgba(38, 51, 45, 0.25);
+	transition: transform 0.15s;
+
+	@include cjw-sketch-radius;
+
+	&:visited,
+	&:hover,
+	&:focus,
+	&:active {
+		color: #fff;
+	}
+
+	&:hover,
+	&:focus-visible {
+		transform: rotate(-2deg) scale(1.05);
+	}
+
+	&:active {
+		transform: scale(0.95, 0.92);
+	}
+}
+
+.btn--hero {
+	padding: 16px 38px;
+	font-size: clamp(18px, 2.2vw, 22px);
+	box-shadow: 0 5px 0 rgba(38, 51, 45, 0.35);
+
+	&:hover,
+	&:focus-visible {
+		transform: rotate(-2deg) scale(1.06);
+	}
+
+	&:active {
+		transform: scale(0.94, 0.9);
+	}
+}
