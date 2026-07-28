@@ -23,7 +23,7 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 <div id="page" class="site">
-	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e('Skip to content', 'cjw-brummen'); ?></a>
+	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e('Ga naar de inhoud', 'cjw-brummen'); ?></a>
 
 	<header id="masthead" class="site-header">
 		<div class="site-header__inner">
@@ -56,8 +56,12 @@ if ($cjw_brummen_description || is_customize_preview()) :
         ]
     );
 ?>
-				<?php $cjw_brummen_cta = cjw_brummen_signup_cta(); ?>
-				<a class="btn site-nav__cta" href="<?php echo esc_url($cjw_brummen_cta['url']); ?>"><?php echo esc_html($cjw_brummen_cta['label']); ?></a>
+				<?php
+    $cjw_brummen_cta = cjw_brummen_signup_cta();
+$cjw_brummen_cta_class = $cjw_brummen_cta['open'] ? 'btn site-nav__cta' : 'btn site-nav__cta btn--muted';
+$cjw_brummen_cta_label = $cjw_brummen_cta['open'] ? $cjw_brummen_cta['label'] : __('Inschrijving gesloten', 'cjw-brummen');
+?>
+				<a class="<?php echo esc_attr($cjw_brummen_cta_class); ?>" href="<?php echo esc_url($cjw_brummen_cta['url']); ?>"><?php echo esc_html($cjw_brummen_cta_label); ?></a>
 			</nav>
 
 			<button class="menu-toggle" aria-controls="menu-drawer" aria-expanded="false" data-label-open="<?php esc_attr_e('Menu', 'cjw-brummen'); ?>" data-label-close="<?php esc_attr_e('Sluit', 'cjw-brummen'); ?>">
@@ -81,6 +85,10 @@ if ($cjw_brummen_description || is_customize_preview()) :
             );
 ?>
 		</nav>
-		<?php $cjw_brummen_drawer_cta = cjw_brummen_signup_cta(); ?>
-		<a class="btn menu-drawer__cta" href="<?php echo esc_url($cjw_brummen_drawer_cta['url']); ?>"><?php echo esc_html($cjw_brummen_drawer_cta['label']); ?></a>
+		<?php
+        $cjw_brummen_drawer_cta = cjw_brummen_signup_cta();
+$cjw_brummen_drawer_cta_class = $cjw_brummen_drawer_cta['open'] ? 'btn menu-drawer__cta' : 'btn menu-drawer__cta btn--muted';
+$cjw_brummen_drawer_cta_label = $cjw_brummen_drawer_cta['open'] ? $cjw_brummen_drawer_cta['label'] : __('Inschrijving gesloten', 'cjw-brummen');
+?>
+		<a class="<?php echo esc_attr($cjw_brummen_drawer_cta_class); ?>" href="<?php echo esc_url($cjw_brummen_drawer_cta['url']); ?>"><?php echo esc_html($cjw_brummen_drawer_cta_label); ?></a>
 	</div><!-- #menu-drawer -->

@@ -32,13 +32,13 @@ if (post_password_required()) {
         if ('1' === $cjw_brummen_comment_count) {
             printf(
                 /* translators: 1: title. */
-                esc_html__('One thought on &ldquo;%1$s&rdquo;', 'cjw-brummen'),
+                esc_html__('Eén reactie op &ldquo;%1$s&rdquo;', 'cjw-brummen'),
                 '<span>' . wp_kses_post(get_the_title()) . '</span>'
             );
         } else {
             printf(
                 /* translators: 1: comment count number, 2: title. */
-                esc_html(_nx('%1$s thought on &ldquo;%2$s&rdquo;', '%1$s thoughts on &ldquo;%2$s&rdquo;', $cjw_brummen_comment_count, 'comments title', 'cjw-brummen')),
+                esc_html(_nx('%1$s reactie op &ldquo;%2$s&rdquo;', '%1$s reacties op &ldquo;%2$s&rdquo;', $cjw_brummen_comment_count, 'comments title', 'cjw-brummen')),
                 number_format_i18n($cjw_brummen_comment_count), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                 '<span>' . wp_kses_post(get_the_title()) . '</span>'
             );
@@ -65,7 +65,7 @@ wp_list_comments(
 // If comments are closed and there are comments, let's leave a little note, shall we?
 if (! comments_open()) :
     ?>
-			<p class="no-comments"><?php esc_html_e('Comments are closed.', 'cjw-brummen'); ?></p>
+			<p class="no-comments"><?php esc_html_e('Reacties zijn gesloten.', 'cjw-brummen'); ?></p>
 			<?php
 endif;
 

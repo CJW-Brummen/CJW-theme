@@ -2,9 +2,13 @@
 /**
  * The front page template: the "CJW Homepage" design.
  *
- * Shows the hero with the yearly theme photo, the introduction, the yearly
- * theme teaser with countdown, the navigation cards, the polaroid photo wall
- * and the sponsor section.
+ * The front page is a static page composed of the six cjw/* dynamic blocks
+ * (cjw/hero, cjw/intro, cjw/jaarthema, cjw/cards, cjw/photos, cjw/sponsors),
+ * registered in inc/blocks.php. Each block renders its template part in
+ * template-parts/front-page/, so the markup matches the classic design while
+ * the sections are editable (reorder/remove) in the block editor. All camp
+ * data still comes from the cjw-* plugins (source of truth); this template
+ * only provides the outer shell and the loop.
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#front-page-display
  *
@@ -16,12 +20,14 @@ get_header();
 
 	<main id="primary" class="site-main front-page">
 
-		<?php get_template_part('template-parts/front-page/hero'); ?>
-		<?php get_template_part('template-parts/front-page/intro'); ?>
-		<?php get_template_part('template-parts/front-page/jaarthema'); ?>
-		<?php get_template_part('template-parts/front-page/cards'); ?>
-		<?php get_template_part('template-parts/front-page/photos'); ?>
-		<?php get_template_part('template-parts/front-page/sponsors'); ?>
+		<?php
+		if (have_posts()) {
+			while (have_posts()) {
+				the_post();
+				the_content();
+			}
+		}
+		?>
 
 	</main><!-- #primary -->
 

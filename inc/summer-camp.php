@@ -245,9 +245,26 @@ function cjw_brummen_theme_year()
 }
 
 /**
+ * Whether the camp registration is currently open, per the plugin's
+ * registration deadline. True when the plugins are not active.
+ *
+ * @return bool
+ */
+function cjw_brummen_registration_open()
+{
+    $camp = cjw_brummen_camp();
+
+    if ($camp && method_exists($camp, 'isRegistrationOpen')) {
+        return $camp->isRegistrationOpen();
+    }
+
+    return true;
+}
+
+/**
  * The signup call-to-action, from the plugin's primary hero CTA.
  *
- * @return array{label: string, url: string}
+ * @return array{label: string, url: string, open: bool}
  */
 function cjw_brummen_signup_cta()
 {
@@ -260,6 +277,7 @@ function cjw_brummen_signup_cta()
             return [
                 'label' => $cta['label'],
                 'url' => $cta['url'],
+                'open' => cjw_brummen_registration_open(),
             ];
         }
     }
@@ -267,7 +285,173 @@ function cjw_brummen_signup_cta()
     return [
         'label' => __('Schrijf je in!', 'cjw-brummen'),
         'url' => cjw_brummen_front_page_defaults()['signup_url'],
+        'open' => cjw_brummen_registration_open(),
     ];
+}
+
+/**
+ * Reads one plugin setting through the given service getter, falling back
+ * to the theme default when the plugins are inactive, the getter does not
+ * exist yet, or the stored value is empty.
+ *
+ * @param string $method Getter method name on CJW_Summer_Camp_Service.
+ * @param string $default Theme default from cjw_brummen_front_page_defaults().
+ * @return string
+ */
+function cjw_brummen_camp_setting($method, $default)
+{
+    $camp = cjw_brummen_camp();
+
+    if ($camp && method_exists($camp, $method)) {
+        $value = $camp->{$method}();
+        if ('' !== $value) {
+            return $value;
+        }
+    }
+
+    return $default;
+}
+
+/**
+ * The homepage introduction copy (title + HTML text) from the plugin
+ * settings. The title may contain the "|" squiggle marker; render it
+ * with cjw_brummen_squiggle_title().
+ *
+ * @return array{title: string, text: string}
+ */
+function cjw_brummen_home_intro()
+{
+    $defaults = cjw_brummen_front_page_defaults();
+
+    return [
+        'title' => cjw_brummen_camp_setting('getHomeIntroTitle', $defaults['home_intro_title']),
+        'text' => cjw_brummen_camp_setting('getHomeIntroText', $defaults['home_intro_text']),
+    ];
+}
+
+/**
+ * The copy for the three front page cards from the plugin settings. The
+ * {jaar} token in the signup text is already replaced with the camp year.
+ *
+ * @return array{zomerkamp: array{title: string, text: string}, info: array{title: string, text: string}, signup: array{title: string, text: string}}
+ */
+function cjw_brummen_cards_copy()
+{
+    $defaults = cjw_brummen_front_page_defaults();
+    $signup_text = cjw_brummen_camp_setting('getCardSignupText', $defaults['card_signup_text']);
+
+    return [
+        'zomerkamp' => [
+            'title' => cjw_brummen_camp_setting('getCardZomerkampTitle', $defaults['card_zomerkamp_title']),
+            'text' => cjw_brummen_camp_setting('getCardZomerkampText', $defaults['card_zomerkamp_text']),
+        ],
+        'info' => [
+            'title' => cjw_brummen_camp_setting('getCardInfoTitle', $defaults['card_info_title']),
+            'text' => cjw_brummen_camp_setting('getCardInfoText', $defaults['card_info_text']),
+        ],
+        'signup' => [
+            'title' => cjw_brummen_camp_setting('getCardSignupTitle', $defaults['card_signup_title']),
+            'text' => str_replace('{jaar}', cjw_brummen_theme_year(), $signup_text),
+        ],
+    ];
+}
+
+/**
+ * The photo-wall copy (title + lead) from the plugin settings. The title
+ * may contain the "|" squiggle marker.
+ *
+ * @return array{title: string, lead: string}
+ */
+function cjw_brummen_photos_copy()
+{
+    $defaults = cjw_brummen_front_page_defaults();
+
+    return [
+        'title' => cjw_brummen_camp_setting('getPhotosTitle', $defaults['photos_title']),
+        'lead' => cjw_brummen_camp_setting('getPhotosLead', $defaults['photos_lead']),
+    ];
+}
+
+/**
+ * The sponsor section copy (title, lead and the "become a sponsor" CTA)
+ * from the plugin settings. The title may contain the "|" squiggle marker.
+ *
+ * @return array{title: string, lead: string, cta: string}
+ */
+function cjw_brummen_sponsors_copy()
+{
+    $defaults = cjw_brummen_front_page_defaults();
+
+    return [
+        'title' => cjw_brummen_camp_setting('getSponsorsTitle', $defaults['sponsors_title']),
+        'lead' => cjw_brummen_camp_setting('getSponsorsLead', $defaults['sponsors_lead']),
+        'cta' => cjw_brummen_camp_setting('getSponsorsCtaText', $defaults['sponsors_cta_text']),
+    ];
+}
+
+/**
+ * The footer copy (about line + organisation line) from the plugin
+ * settings.
+ *
+ * @return array{about: string, org: string}
+ */
+function cjw_brummen_footer_copy()
+{
+    $defaults = cjw_brummen_front_page_defaults();
+
+    return [
+        'about' => cjw_brummen_camp_setting('getFooterAbout', $defaults['footer_about']),
+        'org' => cjw_brummen_camp_setting('getFooterOrg', $defaults['footer_org']),
+    ];
+}
+
+/**
+ * The signup CTA band copy (title + text) from the plugin settings.
+ *
+ * @return array{title: string, text: string}
+ */
+function cjw_brummen_cta_band()
+{
+    $defaults = cjw_brummen_front_page_defaults();
+
+    return [
+        'title' => cjw_brummen_camp_setting('getCtaTitle', $defaults['cta_title']),
+        'text' => cjw_brummen_camp_setting('getCtaText', $defaults['cta_text']),
+    ];
+}
+
+/**
+ * The camp fact lines (age range + location) from the plugin settings.
+ *
+ * @return array{age: string, location: string}
+ */
+function cjw_brummen_camp_facts()
+{
+    $defaults = cjw_brummen_front_page_defaults();
+
+    return [
+        'age' => cjw_brummen_camp_setting('getCampAgeRange', $defaults['camp_age_range']),
+        'location' => cjw_brummen_camp_setting('getCampLocation', $defaults['camp_location']),
+    ];
+}
+
+/**
+ * Renders a title with the "|" squiggle marker: the part after the first
+ * "|" is wrapped in <span class="squiggle">. Both halves are escaped with
+ * esc_html(), so the returned string is safe HTML ready to echo.
+ *
+ * @param string $title Title, e.g. "Welkom bij |CJW Zomerkampen".
+ * @return string Escaped HTML.
+ */
+function cjw_brummen_squiggle_title($title)
+{
+    $parts = explode('|', $title, 2);
+
+    if (2 === count($parts)) {
+        return esc_html($parts[0]) . '<span class="squiggle">' . esc_html($parts[1]) . '</span>';
+    }
+
+    return esc_html($title);
 }
 
 /**

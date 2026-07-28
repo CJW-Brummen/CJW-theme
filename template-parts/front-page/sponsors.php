@@ -11,13 +11,14 @@
  */
 
 $cjw_brummen_sponsors = cjw_brummen_sponsors();
+$cjw_brummen_sponsors_copy = cjw_brummen_sponsors_copy();
 ?>
 
 <section id="sponsoren" class="fp-sponsors" data-reveal>
 	<svg class="fp-sponsors__wave" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path fill="var(--paper)" d="M0 0 L1440 0 L1440 26 Q 1300 44 1160 30 T 880 36 T 600 24 T 320 40 T 0 28 Z"></path></svg>
 	<div class="fp-sponsors__inner">
-		<h2 class="fp-sponsors__title"><?php esc_html_e('Bedankt!', 'cjw-brummen'); ?></h2>
-		<p class="fp-sponsors__lead"><?php esc_html_e('Zonder onze sponsoren geen tenten, geen bus en geen marshmallows. Dankjewel aan alle bedrijven uit Brummen en omstreken.', 'cjw-brummen'); ?></p>
+		<h2 class="fp-sponsors__title"><?php echo cjw_brummen_squiggle_title($cjw_brummen_sponsors_copy['title']); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- cjw_brummen_squiggle_title() returns escaped HTML. ?></h2>
+		<p class="fp-sponsors__lead"><?php echo esc_html($cjw_brummen_sponsors_copy['lead']); ?></p>
 		<?php if ($cjw_brummen_sponsors) : ?>
 			<div class="fp-sponsors__grid">
 				<?php foreach (array_values($cjw_brummen_sponsors) as $cjw_brummen_index => $cjw_brummen_sponsor) : ?>
@@ -37,6 +38,6 @@ $cjw_brummen_sponsors = cjw_brummen_sponsors();
 				<?php endforeach; ?>
 			</div>
 		<?php endif; ?>
-		<p class="fp-sponsors__cta"><a href="#contact"><?php esc_html_e('Ook sponsor worden? Leuk! →', 'cjw-brummen'); ?></a></p>
+		<p class="fp-sponsors__cta"><a href="#contact"><?php echo esc_html($cjw_brummen_sponsors_copy['cta']); ?></a></p>
 	</div>
 </section>

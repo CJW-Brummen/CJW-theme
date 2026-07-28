@@ -6,13 +6,13 @@
  * @package cjw-brummen
  */
 
+$cjw_brummen_intro_copy = cjw_brummen_home_intro();
 ?>
 
 <section class="fp-intro" data-reveal>
 	<div class="fp-intro__copy">
-		<h2 class="fp-intro__title"><?php esc_html_e('Welkom bij', 'cjw-brummen'); ?> <span class="squiggle"><?php esc_html_e('CJW Zomerkampen', 'cjw-brummen'); ?></span></h2>
-		<p><?php esc_html_e('Elke zomer strijken we met honderden kinderen en een berg tenten neer in de bossen van Brummen. Een week lang geen schermen maar bosspellen, zwemmen, kampvuur en vrienden voor het leven — helemaal georganiseerd door vrijwilligers die zelf ooit als kamper begonnen.', 'cjw-brummen'); ?></p>
-		<p><?php esc_html_e('Of je nu 7 bent of 17: er is een kamp dat bij je past. Slapen doe je in een tent, eten uit de grote keukentent, en moe word je vanzelf.', 'cjw-brummen'); ?></p>
+		<h2 class="fp-intro__title"><?php echo cjw_brummen_squiggle_title($cjw_brummen_intro_copy['title']); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- cjw_brummen_squiggle_title() returns escaped HTML. ?></h2>
+		<?php echo wp_kses_post(wpautop($cjw_brummen_intro_copy['text'])); ?>
 		<div class="fp-intro__doodles" aria-hidden="true">
 			<svg width="34" height="48" viewBox="0 0 40 56" focusable="false"><path d="M20 4 L8 22 H14 L5 38 H13 L4 52 H36 L27 38 H35 L26 22 H32 Z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"></path></svg>
 			<svg class="fp-intro__doodle-apricot" width="26" height="38" viewBox="0 0 40 56" focusable="false"><path d="M20 4 L8 22 H14 L5 38 H13 L4 52 H36 L27 38 H35 L26 22 H32 Z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"></path></svg>

@@ -1,0 +1,112 @@
+{
+  "$schema": "https://schemas.wp.org/wp/6.6/theme.json",
+  "version": 3,
+  "settings": {
+    "color": {
+      "custom": false,
+      "customDuotone": false,
+      "customGradient": false,
+      "defaultGradients": false,
+      "defaultPalette": false,
+      "palette": [
+        {
+          "color": "#faf6ee",
+          "name": "Papier",
+          "slug": "papier"
+        },
+        {
+          "color": "#26332d",
+          "name": "Inkt",
+          "slug": "inkt"
+        },
+        {
+          "color": "#588c7e",
+          "name": "Salie",
+          "slug": "salie"
+        },
+        {
+          "color": "#3c665c",
+          "name": "Salie donker",
+          "slug": "salie-diep"
+        },
+        {
+          "color": "#2c443d",
+          "name": "Bos",
+          "slug": "bos"
+        },
+        {
+          "color": "#f0ae73",
+          "name": "Abrikoos",
+          "slug": "abrikoos"
+        },
+        {
+          "color": "#7c4dff",
+          "name": "Jaaraccent",
+          "slug": "jaaraccent"
+        }
+      ]
+    },
+    "layout": {
+      "contentSize": "720px",
+      "wideSize": "1100px"
+    },
+    "spacing": {
+      "blockGap": true,
+      "margin": true,
+      "padding": true,
+      "units": ["px", "rem", "%"]
+    },
+    "typography": {
+      "customFontSize": false,
+      "defaultFontSizes": false,
+      "fontFamilies": [
+        {
+          "fontFamily": "'Amatic SC', 'Segoe Print', 'Comic Sans MS', cursive",
+          "name": "Amatic SC",
+          "slug": "hand"
+        },
+        {
+          "fontFamily": "Nunito, system-ui, -apple-system, 'Segoe UI', sans-serif",
+          "name": "Nunito",
+          "slug": "body"
+        }
+      ],
+      "fontSizes": [
+        {
+          "name": "Klein",
+          "size": "15px",
+          "slug": "klein"
+        },
+        {
+          "name": "Standaard",
+          "size": "17px",
+          "slug": "standaard"
+        },
+        {
+          "name": "Groot",
+          "size": "clamp(20px, 2vw, 22px)",
+          "slug": "groot"
+        },
+        {
+          "name": "Kop",
+          "size": "clamp(28px, 3vw, 36px)",
+          "slug": "kop"
+        },
+        {
+          "name": "Reuzenkop",
+          "size": "clamp(38px, 4.5vw, 54px)",
+          "slug": "reuzenkop"
+        }
+      ]
+    }
+  },
+  "styles": {
+    "elements": {
+      "link": {
+        "color": {
+          "text": "var(--sage-deep)"
+        }
+      }
+    }
+  }
+}

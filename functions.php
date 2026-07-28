@@ -51,9 +51,12 @@ function cjw_brummen_setup()
     // This theme uses wp_nav_menu() in one location.
     register_nav_menus(
         [
-            'menu-1' => esc_html__('Primary', 'cjw-brummen'),
+            'menu-1' => esc_html__('Hoofdmenu', 'cjw-brummen'),
         ]
     );
+
+    // Polaroid crop for the kampplakboek photos on the front page.
+    add_image_size('cjw-polaroid', 900, 675, true);
 
     /*
         * Switch default core markup for search form, comment form, and comments
@@ -84,9 +87,6 @@ function cjw_brummen_setup()
         )
     );
 
-    // Add theme support for selective refresh for widgets.
-    add_theme_support('customize-selective-refresh-widgets');
-
     /**
      * Add support for core custom logo.
      *
@@ -116,27 +116,6 @@ function cjw_theme_content_width()
     $GLOBALS['content_width'] = apply_filters('cjw_theme_content_width', 640);
 }
 add_action('after_setup_theme', 'cjw_theme_content_width', 0);
-
-/**
- * Register widget area.
- *
- * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
- */
-function cjw_theme_widgets_init()
-{
-    register_sidebar(
-        [
-            'name' => esc_html__('Sidebar', 'cjw-brummen'),
-            'id' => 'sidebar-1',
-            'description' => esc_html__('Add widgets here.', 'cjw-brummen'),
-            'before_widget' => '<section id="%1$s" class="widget %2$s">',
-            'after_widget' => '</section>',
-            'before_title' => '<h2 class="widget-title">',
-            'after_title' => '</h2>',
-        ]
-    );
-}
-add_action('widgets_init', 'cjw_theme_widgets_init');
 
 /**
  * Swap the html element's no-js class for js as early as possible, so the
@@ -194,6 +173,17 @@ require get_template_directory() . '/inc/front-page.php';
  * Bridge to the cjw-* plugins (source of truth for all camp data).
  */
 require get_template_directory() . '/inc/summer-camp.php';
+
+/**
+ * Block editor integration: theme.json palette sync, editor styles and
+ * block patterns.
+ */
+require get_template_directory() . '/inc/editor-setup.php';
+
+/**
+ * Dynamic blocks that render the front-page sections (cjw/hero, ...).
+ */
+require get_template_directory() . '/inc/blocks.php';
 
 /**
  * Load Jetpack compatibility file.

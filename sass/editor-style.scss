@@ -1,0 +1,150 @@
+/*!
+Block editor stylesheet for CJW Brummen (compiled to editor-style.css and
+loaded via add_editor_style()). Imports the CJW design partials so editing
+is WYSIWYG, plus a few editor-only defaults on the wrapper itself. The
+header, footer and mobile drawer partials are intentionally left out.
+*/
+
+/* Webfonts
+--------------------------------------------- */
+@import "cjw/fonts";
+
+/* Tokens
+--------------------------------------------- */
+@import "cjw/tokens";
+
+/* Base overrides
+--------------------------------------------- */
+@import "cjw/base";
+
+/* Buttons
+--------------------------------------------- */
+@import "cjw/buttons";
+
+/* Front page
+--------------------------------------------- */
+@import "cjw/front-page";
+
+/* Inner pages
+--------------------------------------------- */
+@import "cjw/page";
+
+/* Core blocks
+--------------------------------------------- */
+@import "cjw/blocks";
+
+/* Editor-only defaults
+--------------------------------------------- */
+
+.editor-styles-wrapper {
+	background: var(--paper);
+	color: var(--ink);
+	font-family: $cjw-font-body;
+	font-size: 17px;
+	line-height: 1.6;
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		font-family: $cjw-font-hand;
+		font-weight: 700;
+	}
+
+	h2 {
+		font-size: clamp(38px, 4.5vw, 54px);
+		line-height: 1;
+	}
+
+	h3 {
+		font-size: clamp(28px, 3vw, 36px);
+		line-height: 1;
+	}
+
+	// The entry-content checkmark bullets from _page.scss, mirrored for
+	// the editor canvas (the .entry-content wrapper does not exist there).
+	ul.wp-block-list {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		max-width: 60ch;
+		margin: 0 0 22px;
+		padding: 0;
+		list-style: none;
+
+		li {
+			position: relative;
+			padding-left: 30px;
+
+			&::before {
+				content: "";
+				position: absolute;
+				top: 0.4em;
+				left: 0;
+				width: 16px;
+				height: 16px;
+				background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2 9 L6 13 L14 3" fill="none" stroke="%23588c7e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>') no-repeat center / contain;
+			}
+		}
+	}
+
+	ol.wp-block-list {
+		max-width: 60ch;
+		margin: 0 0 22px;
+		padding-left: 24px;
+
+		li::marker {
+			color: var(--sage-deep);
+			font-weight: 900;
+		}
+	}
+
+	// The "Zonder vinkjes" block style, back to regular discs.
+	ul.wp-block-list.is-style-geen-vinkjes {
+		display: block;
+		padding-left: 24px;
+		list-style: disc;
+
+		li {
+			margin-bottom: 8px;
+			padding-left: 4px;
+
+			&::before {
+				content: none;
+			}
+
+			&::marker {
+				color: var(--sage-deep);
+			}
+		}
+	}
+}
+
+// Editor-only hint shown when a CJW section has no content yet, so an empty
+// section is not an invisible block (see inc/blocks.php).
+.cjw-block-placeholder {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	padding: 28px 32px;
+	border: 2px dashed rgba(88, 140, 126, 0.55);
+	background: rgba(88, 140, 126, 0.07);
+	color: var(--ink);
+	font-family: $cjw-font-body;
+
+	@include cjw-sketch-radius;
+
+	strong {
+		font-family: $cjw-font-hand;
+		font-size: 30px;
+		line-height: 1.1;
+		color: var(--sage-deep);
+	}
+
+	span {
+		font-size: 15px;
+		max-width: 60ch;
+	}
+}

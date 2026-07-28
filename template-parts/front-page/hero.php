@@ -12,6 +12,8 @@
 $cjw_brummen_hero_id = cjw_brummen_hero_image_id();
 $cjw_brummen_badge = cjw_brummen_hero_badge_text();
 $cjw_brummen_cta = cjw_brummen_signup_cta();
+$cjw_brummen_cta_class = $cjw_brummen_cta['open'] ? 'btn btn--hero' : 'btn btn--hero btn--muted';
+$cjw_brummen_cta_label = $cjw_brummen_cta['open'] ? $cjw_brummen_cta['label'] : __('Inschrijving gesloten', 'cjw-brummen');
 ?>
 
 <section class="fp-hero">
@@ -24,7 +26,7 @@ if ($cjw_brummen_hero_img) {
 } else {
     printf(
         '<img class="fp-hero__img" src="%s" alt="">',
-        esc_url(get_template_directory_uri() . '/assets/images/hero-2026.svg')
+        esc_url(get_template_directory_uri() . '/assets/images/hero-illustratie.svg')
     );
 }
 ?>
@@ -38,7 +40,7 @@ if ($cjw_brummen_hero_img) {
 				<?php endif; ?>
 				<h1 class="fp-hero__title"><?php echo esc_html(cjw_brummen_hero_title()); ?></h1>
 				<p class="fp-hero__lead"><?php echo esc_html(cjw_brummen_hero_subtitle()); ?></p>
-				<a class="btn btn--hero" href="<?php echo esc_url($cjw_brummen_cta['url']); ?>"><?php echo esc_html($cjw_brummen_cta['label']); ?></a>
+				<a class="<?php echo esc_attr($cjw_brummen_cta_class); ?>" href="<?php echo esc_url($cjw_brummen_cta['url']); ?>"><?php echo esc_html($cjw_brummen_cta_label); ?></a>
 			</div>
 		</div>
 	</div>

@@ -1,16 +1,16 @@
+@charset "UTF-8";
 /*!
-Theme Name: cjw-brummen
-Theme URI: https://underscores.me/
-Author: Automattic
-Author URI: https://automattic.com/
-Description: Hi. I'm a starter theme called <code>_s</code>, or <em>underscores</em>, if you like. I'm a theme meant for hacking so don't use me as a <em>Parent Theme</em>. Instead try turning me into the next, most awesome, WordPress theme out there. That's what I'm here for.
-Version: 1.0.0
-Tested up to: 5.4
-Requires PHP: 5.6
+Theme Name: CJW Brummen
+Author: Imre Boersma
+Description: Het speelse CJW Zomerkampen-ontwerp: papier, salie en abrikoos met handgetekende accenten, volledig geïntegreerd met de blok-editor.
+Version: 1.1.0
+Requires at least: 6.6
+Tested up to: 7.1
+Requires PHP: 8.1
 License: GNU General Public License v2 or later
 License URI: LICENSE
 Text Domain: cjw-brummen
-Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready
+Tags: block-styles, wide-blocks, editor-style, custom-logo, custom-menu, featured-images, translation-ready
 
 This theme, like WordPress, is licensed under the GPL.
 Use it to make something cool, have fun, and share what you've learned.
@@ -734,15 +734,6 @@ textarea {
   display: block;
 }
 
-/* Widgets
---------------------------------------------- */
-.widget {
-  margin: 0 0 1.5em;
-}
-.widget select {
-  max-width: 100%;
-}
-
 /* Media
 --------------------------------------------- */
 .page-content .wp-smiley,
@@ -1105,6 +1096,19 @@ a:focus-visible {
 }
 .btn--hero:active {
   transform: scale(0.94, 0.9);
+}
+
+.btn--muted {
+  background: rgba(88, 140, 126, 0.18);
+  color: var(--ink);
+  box-shadow: none;
+  opacity: 0.85;
+}
+.btn--muted:visited, .btn--muted:hover, .btn--muted:focus, .btn--muted:active {
+  color: var(--ink);
+}
+.btn--muted:hover, .btn--muted:focus-visible, .btn--muted:active {
+  transform: none;
 }
 
 /* Header
@@ -2249,6 +2253,227 @@ a:focus-visible {
   margin: 0;
   font-weight: 700;
   font-size: 16px;
+}
+
+/* 404 page
+--------------------------------------------- */
+.error-404__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 26px;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 50px 24px 70px;
+}
+.error-404__actions .search-form {
+  width: 100%;
+}
+
+/* Core blocks
+--------------------------------------------- */
+/* Quotes
+--------------------------------------------- */
+.entry-content blockquote,
+.wp-block-quote {
+  max-width: 60ch;
+  margin: 0 0 22px;
+  padding: 8px 22px 8px 18px;
+  border-right: 5px solid var(--apricot);
+  border-radius: 24px 4px 18px 4px;
+  font-size: 17px;
+}
+.entry-content blockquote p,
+.wp-block-quote p {
+  margin: 0 0 10px;
+}
+.entry-content blockquote p:last-of-type,
+.wp-block-quote p:last-of-type {
+  margin-bottom: 6px;
+}
+.entry-content blockquote cite,
+.wp-block-quote cite {
+  display: block;
+  color: var(--sage-deep);
+  font-family: "Amatic SC", cursive;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 1.1;
+}
+
+.wp-block-pullquote {
+  margin: 0 0 26px;
+  padding: 30px 26px;
+  border: 3px dashed var(--apricot);
+  text-align: center;
+  border-radius: 20px 255px 20px 225px/255px 20px 225px 20px;
+}
+.wp-block-pullquote blockquote {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+}
+.wp-block-pullquote blockquote p {
+  margin: 0 0 10px;
+  font-family: "Amatic SC", cursive;
+  font-weight: 700;
+  font-size: clamp(28px, 3vw, 36px);
+  line-height: 1.1;
+}
+.wp-block-pullquote blockquote cite {
+  display: block;
+  color: var(--sage-deep);
+  font-family: "Nunito", sans-serif;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+/* Tables
+--------------------------------------------- */
+.wp-block-table {
+  margin: 0 0 26px;
+  overflow-x: auto;
+}
+.wp-block-table table {
+  width: 100%;
+  background: #fffdf6;
+  border: 2px solid var(--sage);
+  border-collapse: collapse;
+  font-size: 16px;
+}
+.wp-block-table th,
+.wp-block-table td {
+  padding: 10px 14px;
+  border: 1px solid rgba(88, 140, 126, 0.45);
+}
+.wp-block-table th {
+  background: rgba(88, 140, 126, 0.12);
+  font-family: "Amatic SC", cursive;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 1.1;
+  text-align: right;
+}
+
+/* Separator
+--------------------------------------------- */
+hr.wp-block-separator:not(.is-style-dots) {
+  height: auto;
+  margin: 32px auto;
+  border: 0;
+  border-top: 3px dashed var(--sage);
+  opacity: 1;
+}
+
+hr.wp-block-separator.wp-block-separator:not(.is-style-wide, .is-style-dots) {
+  width: min(260px, 100%);
+}
+
+/* Buttons
+--------------------------------------------- */
+.wp-block-button__link {
+  padding: 11px 24px;
+  background: var(--year-accent);
+  color: #fff;
+  border: 0;
+  font-family: "Nunito", sans-serif;
+  font-weight: 900;
+  font-size: 16px;
+  line-height: 1.4;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 3px 0 rgba(38, 51, 45, 0.25);
+  transition: transform 0.15s;
+  border-radius: 15px 255px 15px 225px/225px 15px 255px 15px;
+}
+.wp-block-button__link:visited, .wp-block-button__link:hover, .wp-block-button__link:focus, .wp-block-button__link:active {
+  color: #fff;
+}
+.wp-block-button__link:hover, .wp-block-button__link:focus-visible {
+  transform: rotate(2deg) scale(1.05);
+}
+.wp-block-button__link:active {
+  transform: scale(0.95, 0.92);
+}
+
+/* Captions
+--------------------------------------------- */
+.wp-block-image figcaption,
+.wp-element-caption {
+  margin-top: 8px;
+  color: var(--sage-deep);
+  font-size: 14px;
+  text-align: center;
+}
+
+/* Galleries
+--------------------------------------------- */
+.wp-block-gallery.has-nested-images {
+  --wp--style--unstable-gallery-gap: 18px;
+  gap: 18px;
+}
+
+/* Details
+--------------------------------------------- */
+.wp-block-details {
+  max-width: 60ch;
+  margin: 0 0 22px;
+  padding: 18px 22px;
+  background: #fffdf6;
+  border: 2px solid var(--sage);
+  font-size: 17px;
+  border-radius: 15px 255px 15px 225px/225px 15px 255px 15px;
+}
+.wp-block-details summary {
+  font-weight: 900;
+  cursor: pointer;
+}
+.wp-block-details summary::marker {
+  color: var(--sage-deep);
+}
+.wp-block-details[open] summary {
+  margin-bottom: 10px;
+}
+
+/* Code
+--------------------------------------------- */
+.wp-block-code,
+.wp-block-preformatted {
+  max-width: 100%;
+  margin: 0 0 22px;
+  padding: 18px 20px;
+  overflow-x: auto;
+  background: #f3e9d5;
+  border: 0;
+  border-radius: 14px;
+  font-size: 15px;
+}
+
+/* List style: zonder vinkjes
+--------------------------------------------- */
+.entry-content ul.is-style-geen-vinkjes,
+.entry-content ul.is-style-geen-vinkjes ul {
+  display: block;
+  padding-right: 24px;
+  list-style: disc;
+}
+.entry-content ul.is-style-geen-vinkjes li,
+.entry-content ul.is-style-geen-vinkjes ul li {
+  margin-bottom: 8px;
+  padding-right: 4px;
+}
+.entry-content ul.is-style-geen-vinkjes li::before,
+.entry-content ul.is-style-geen-vinkjes ul li::before {
+  content: none;
+}
+.entry-content ul.is-style-geen-vinkjes li::marker,
+.entry-content ul.is-style-geen-vinkjes ul li::marker {
+  color: var(--sage-deep);
 }
 
 /* Mobile menu drawer

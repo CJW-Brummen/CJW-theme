@@ -49,3 +49,26 @@
 		transform: scale(0.94, 0.9);
 	}
 }
+
+// Muted variant while the registration is closed: a quiet sage chip in ink
+// at reduced emphasis, without the playful lift. It stays a link, so the
+// pointer cursor is kept.
+.btn--muted {
+	background: rgba(88, 140, 126, 0.18);
+	color: var(--ink);
+	box-shadow: none;
+	opacity: 0.85;
+
+	&:visited,
+	&:hover,
+	&:focus,
+	&:active {
+		color: var(--ink);
+	}
+
+	&:hover,
+	&:focus-visible,
+	&:active {
+		transform: none;
+	}
+}

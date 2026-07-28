@@ -13,6 +13,7 @@ $cjw_brummen_contact_email = cjw_brummen_contact_email();
 $cjw_brummen_socials = cjw_brummen_social_links();
 $cjw_brummen_facebook = $cjw_brummen_socials['facebook'];
 $cjw_brummen_instagram = $cjw_brummen_socials['instagram'];
+$cjw_brummen_footer_copy = cjw_brummen_footer_copy();
 ?>
 
 	<div class="site-footer-treeline" aria-hidden="true">
@@ -26,7 +27,7 @@ $cjw_brummen_instagram = $cjw_brummen_socials['instagram'];
 					<svg class="site-footer__flame" width="44" height="52" viewBox="0 0 48 56" aria-hidden="true" focusable="false"><path d="M14 50 l20 6 M12 56 l22 -4" stroke="#f0ae73" stroke-width="4" stroke-linecap="round"></path><path d="M14 46 Q 16 22 24 10 Q 28 24 34 20 Q 40 34 32 46 Q 22 52 14 46" fill="none" stroke="#f0ae73" stroke-width="3.5" stroke-linejoin="round"></path><path d="M22 44 Q 22 32 26 26 Q 30 34 28 42" fill="none" stroke="#ffce8a" stroke-width="3" stroke-linecap="round"></path></svg>
 					<span class="site-footer__brand"><?php bloginfo('name'); ?></span>
 				</div>
-				<p><?php esc_html_e('Al generaties lang dé kampweek in de bossen van Brummen, gedragen door vrijwilligers.', 'cjw-brummen'); ?></p>
+				<p><?php echo esc_html($cjw_brummen_footer_copy['about']); ?></p>
 			</div>
 
 			<nav class="site-footer__nav" aria-label="<?php esc_attr_e('Footermenu', 'cjw-brummen'); ?>">
@@ -49,7 +50,7 @@ $cjw_brummen_instagram = $cjw_brummen_socials['instagram'];
 				<?php if ($cjw_brummen_contact_email) : ?>
 					<a class="site-footer__email" href="mailto:<?php echo esc_attr($cjw_brummen_contact_email); ?>"><?php echo esc_html($cjw_brummen_contact_email); ?></a>
 				<?php endif; ?>
-				<span class="site-footer__org"><?php esc_html_e('Stichting CJW · Brummen (Gelderland)', 'cjw-brummen'); ?></span>
+				<span class="site-footer__org"><?php echo esc_html($cjw_brummen_footer_copy['org']); ?></span>
 				<?php if ($cjw_brummen_facebook || $cjw_brummen_instagram) : ?>
 					<div class="site-footer__social">
 						<?php if ($cjw_brummen_facebook) : ?>

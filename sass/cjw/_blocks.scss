@@ -1,0 +1,242 @@
+// Core block styling for the CJW design: quotes, tables, separators,
+// buttons, captions, galleries, details and code blocks — used on the
+// front end and (via editor-style.scss) inside the block editor.
+
+/* Quotes
+--------------------------------------------- */
+
+.entry-content blockquote,
+.wp-block-quote {
+	max-width: 60ch;
+	margin: 0 0 22px;
+	padding: 8px 18px 8px 22px;
+	border-left: 5px solid var(--apricot);
+	border-radius: 4px 24px 4px 18px;
+	font-size: 17px;
+
+	p {
+		margin: 0 0 10px;
+
+		&:last-of-type {
+			margin-bottom: 6px;
+		}
+	}
+
+	cite {
+		display: block;
+		color: var(--sage-deep);
+		font-family: $cjw-font-hand;
+		font-style: normal;
+		font-weight: 700;
+		font-size: 24px;
+		line-height: 1.1;
+	}
+}
+
+.wp-block-pullquote {
+	margin: 0 0 26px;
+	padding: 30px 26px;
+	border: 3px dashed var(--apricot);
+	text-align: center;
+
+	@include cjw-sketch-radius(255px 20px 225px 20px, 20px 255px 20px 225px);
+
+	blockquote {
+		max-width: none;
+		margin: 0;
+		padding: 0;
+		border: 0;
+		border-radius: 0;
+
+		p {
+			margin: 0 0 10px;
+			font-family: $cjw-font-hand;
+			font-weight: 700;
+			font-size: clamp(28px, 3vw, 36px);
+			line-height: 1.1;
+		}
+
+		cite {
+			display: block;
+			color: var(--sage-deep);
+			font-family: $cjw-font-body;
+			font-style: normal;
+			font-weight: 800;
+			font-size: 15px;
+			line-height: 1.4;
+		}
+	}
+}
+
+/* Tables
+--------------------------------------------- */
+
+.wp-block-table {
+	margin: 0 0 26px;
+	overflow-x: auto;
+
+	table {
+		width: 100%;
+		background: #fffdf6;
+		border: 2px solid var(--sage);
+		border-collapse: collapse;
+		font-size: 16px;
+	}
+
+	th,
+	td {
+		padding: 10px 14px;
+		border: 1px solid rgba(88, 140, 126, 0.45);
+	}
+
+	th {
+		background: rgba(88, 140, 126, 0.12);
+		font-family: $cjw-font-hand;
+		font-weight: 700;
+		font-size: 24px;
+		line-height: 1.1;
+		text-align: left;
+	}
+}
+
+/* Separator
+--------------------------------------------- */
+
+hr.wp-block-separator:not(.is-style-dots) {
+	height: auto;
+	margin: 32px auto;
+	border: 0;
+	border-top: 3px dashed var(--sage);
+	opacity: 1;
+}
+
+// The doubled class matches the specificity of the core theme.css rule
+// (.wp-block-separator:not(.is-style-wide):not(.is-style-dots)) that
+// sets width: 100px.
+hr.wp-block-separator.wp-block-separator:not(.is-style-wide, .is-style-dots) {
+	width: min(260px, 100%);
+}
+
+/* Buttons
+--------------------------------------------- */
+
+// Mirrors .btn from _buttons.scss so core buttons look native.
+.wp-block-button__link {
+	padding: 11px 24px;
+	background: var(--year-accent);
+	color: #fff;
+	border: 0;
+	font-family: $cjw-font-body;
+	font-weight: 900;
+	font-size: 16px;
+	line-height: 1.4;
+	text-decoration: none;
+	cursor: pointer;
+	box-shadow: 0 3px 0 rgba(38, 51, 45, 0.25);
+	transition: transform 0.15s;
+
+	@include cjw-sketch-radius;
+
+	&:visited,
+	&:hover,
+	&:focus,
+	&:active {
+		color: #fff;
+	}
+
+	&:hover,
+	&:focus-visible {
+		transform: rotate(-2deg) scale(1.05);
+	}
+
+	&:active {
+		transform: scale(0.95, 0.92);
+	}
+}
+
+/* Captions
+--------------------------------------------- */
+
+.wp-block-image figcaption,
+.wp-element-caption {
+	margin-top: 8px;
+	color: var(--sage-deep);
+	font-size: 14px;
+	text-align: center;
+}
+
+/* Galleries
+--------------------------------------------- */
+
+.wp-block-gallery.has-nested-images {
+	--wp--style--unstable-gallery-gap: 18px;
+
+	gap: 18px;
+}
+
+/* Details
+--------------------------------------------- */
+
+.wp-block-details {
+	max-width: 60ch;
+	margin: 0 0 22px;
+	padding: 18px 22px;
+	background: #fffdf6;
+	border: 2px solid var(--sage);
+	font-size: 17px;
+
+	@include cjw-sketch-radius(255px 15px 225px 15px, 15px 225px 15px 255px);
+
+	summary {
+		font-weight: 900;
+		cursor: pointer;
+
+		&::marker {
+			color: var(--sage-deep);
+		}
+	}
+
+	&[open] summary {
+		margin-bottom: 10px;
+	}
+}
+
+/* Code
+--------------------------------------------- */
+
+.wp-block-code,
+.wp-block-preformatted {
+	max-width: 100%;
+	margin: 0 0 22px;
+	padding: 18px 20px;
+	overflow-x: auto;
+	background: #f3e9d5;
+	border: 0;
+	border-radius: 14px;
+	font-size: 15px;
+}
+
+/* List style: zonder vinkjes
+--------------------------------------------- */
+
+// Opt-out of the entry-content checkmark bullets (see _page.scss):
+// restores regular discs for lists with the "geen-vinkjes" block style.
+.entry-content ul.is-style-geen-vinkjes,
+.entry-content ul.is-style-geen-vinkjes ul {
+	display: block;
+	padding-left: 24px;
+	list-style: disc;
+
+	li {
+		margin-bottom: 8px;
+		padding-left: 4px;
+
+		&::before {
+			content: none;
+		}
+
+		&::marker {
+			color: var(--sage-deep);
+		}
+	}
+}

@@ -20,8 +20,8 @@ get_header();
 
             the_post_navigation(
                 [
-                    'prev_text' => '<span class="nav-subtitle">' . esc_html__('Previous:', 'cjw-brummen') . '</span> <span class="nav-title">%title</span>',
-                    'next_text' => '<span class="nav-subtitle">' . esc_html__('Next:', 'cjw-brummen') . '</span> <span class="nav-title">%title</span>',
+                    'prev_text' => '<span class="nav-subtitle">' . esc_html__('Vorige:', 'cjw-brummen') . '</span> <span class="nav-title">%title</span>',
+                    'next_text' => '<span class="nav-subtitle">' . esc_html__('Volgende:', 'cjw-brummen') . '</span> <span class="nav-title">%title</span>',
                 ]
             );
 
@@ -36,5 +36,4 @@ get_header();
 	</main><!-- #main -->
 
 <?php
-get_sidebar();
 get_footer();

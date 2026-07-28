@@ -22,7 +22,7 @@
 
 wp_link_pages(
     [
-        'before' => '<div class="page-links">' . esc_html__('Pages:', 'cjw-brummen'),
+        'before' => '<div class="page-links">' . esc_html__('Pagina&rsquo;s:', 'cjw-brummen'),
         'after' => '</div>',
     ]
 );
@@ -36,7 +36,7 @@ wp_link_pages(
         sprintf(
             wp_kses(
                 /* translators: %s: Name of current post. Only visible to screen readers */
-                __('Edit <span class="screen-reader-text">%s</span>', 'cjw-brummen'),
+                __('Bewerk <span class="screen-reader-text">%s</span>', 'cjw-brummen'),
                 [
                     'span' => [
                         'class' => [],

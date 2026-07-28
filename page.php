@@ -38,7 +38,7 @@ while (have_posts()) :
 
     wp_link_pages(
         [
-            'before' => '<div class="page-links">' . esc_html__('Pages:', 'cjw-brummen'),
+            'before' => '<div class="page-links">' . esc_html__('Pagina&rsquo;s:', 'cjw-brummen'),
             'after' => '</div>',
         ]
     );
@@ -56,14 +56,19 @@ while (have_posts()) :
 			<?php endif; ?>
 		</div>
 
+		<?php
+    $cjw_brummen_cta_band = cjw_brummen_cta_band();
+    $cjw_brummen_cta = cjw_brummen_signup_cta();
+    $cjw_brummen_cta_class = $cjw_brummen_cta['open'] ? 'btn btn--hero' : 'btn btn--hero btn--muted';
+    $cjw_brummen_cta_label = $cjw_brummen_cta['open'] ? $cjw_brummen_cta['label'] : __('Inschrijving gesloten', 'cjw-brummen');
+    ?>
 		<section class="page-cta">
 			<div class="page-cta__box">
 				<div>
-					<h2 class="page-cta__title"><?php esc_html_e('Zin gekregen?', 'cjw-brummen'); ?></h2>
-					<p class="page-cta__text"><?php esc_html_e('Vol = vol, dus wacht niet te lang.', 'cjw-brummen'); ?></p>
+					<h2 class="page-cta__title"><?php echo esc_html($cjw_brummen_cta_band['title']); ?></h2>
+					<p class="page-cta__text"><?php echo esc_html($cjw_brummen_cta_band['text']); ?></p>
 				</div>
-				<?php $cjw_brummen_cta = cjw_brummen_signup_cta(); ?>
-				<a class="btn btn--hero" href="<?php echo esc_url($cjw_brummen_cta['url']); ?>"><?php echo esc_html($cjw_brummen_cta['label']); ?></a>
+				<a class="<?php echo esc_attr($cjw_brummen_cta_class); ?>" href="<?php echo esc_url($cjw_brummen_cta['url']); ?>"><?php echo esc_html($cjw_brummen_cta_label); ?></a>
 			</div>
 		</section>
 

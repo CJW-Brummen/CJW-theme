@@ -11,7 +11,7 @@
 
 <section class="no-results not-found">
 	<header class="page-header">
-		<h1 class="page-title"><?php esc_html_e('Nothing Found', 'cjw-brummen'); ?></h1>
+		<h1 class="page-title"><?php esc_html_e('Niets gevonden', 'cjw-brummen'); ?></h1>
 	</header><!-- .page-header -->
 
 	<div class="page-content">
@@ -21,7 +21,7 @@
             printf(
                 '<p>' . wp_kses(
                     /* translators: 1: link to WP admin new post page. */
-                    __('Ready to publish your first post? <a href="%1$s">Get started here</a>.', 'cjw-brummen'),
+                    __('Klaar om je eerste bericht te publiceren? <a href="%1$s">Begin hier</a>.', 'cjw-brummen'),
                     [
                         'a' => [
                             'href' => [],
@@ -33,13 +33,13 @@
         elseif (is_search()) :
             ?>
 
-			<p><?php esc_html_e('Sorry, but nothing matched your search terms. Please try again with some different keywords.', 'cjw-brummen'); ?></p>
+			<p><?php esc_html_e('Sorry, er kwam niets overeen met je zoekopdracht. Probeer het nog eens met andere zoektermen.', 'cjw-brummen'); ?></p>
 			<?php
             get_search_form();
         else :
             ?>
 
-			<p><?php esc_html_e('It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help.', 'cjw-brummen'); ?></p>
+			<p><?php esc_html_e('We kunnen niet vinden wat je zoekt. Misschien helpt zoeken.', 'cjw-brummen'); ?></p>
 			<?php
             get_search_form();
 

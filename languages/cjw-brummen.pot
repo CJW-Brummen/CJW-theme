@@ -1,198 +1,676 @@
-# Copyright (C) 2020 Automattic
+# Copyright (C) 2026 Imre Boersma
 # This file is distributed under the GNU General Public License v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: cjw-brummen 1.0.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/_s\n"
+"Project-Id-Version: CJW Brummen 1.1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/cjw-theme\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-04-17T21:03:15+00:00\n"
+"POT-Creation-Date: 2026-07-28T06:53:03+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.4.0\n"
+"X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: cjw-brummen\n"
 
 #. Theme Name of the theme
-msgid "_s"
-msgstr ""
-
-#. Theme URI of the theme
-msgid "https://underscores.me/"
+#: style.css
+msgid "CJW Brummen"
 msgstr ""
 
 #. Description of the theme
-msgid "Hi. I'm a starter theme called <code>_s</code>, or <em>underscores</em>, if you like. I'm a theme meant for hacking so don't use me as a <em>Parent Theme</em>. Instead try turning me into the next, most awesome, WordPress theme out there. That's what I'm here for."
+#: style.css
+msgid "Het speelse CJW Zomerkampen-ontwerp: papier, salie en abrikoos met handgetekende accenten, volledig geïntegreerd met de blok-editor."
 msgstr ""
 
 #. Author of the theme
-msgid "Automattic"
+#: style.css
+msgid "Imre Boersma"
 msgstr ""
 
-#. Author URI of the theme
-msgid "https://automattic.com/"
+#: 404.php:20
+msgid "Foutcode 404"
 msgstr ""
 
-#: 404.php:18
-msgid "Oops! That page can&rsquo;t be found."
+#: 404.php:21
+msgid "Oeps, dit pad loopt dood in het bos"
 msgstr ""
 
 #: 404.php:22
-msgid "It looks like nothing was found at this location. Maybe try one of the links below or a search?"
+msgid "De pagina die je zoekt bestaat niet (meer) of is verhuisd. Loop een stukje terug, of zoek hieronder verder naar wat je nodig hebt."
 msgstr ""
 
-#: 404.php:31
-msgid "Most Used Categories"
-msgstr ""
-
-#. translators: %1$s: smiley
-#: 404.php:49
-msgid "Try looking in the monthly archives. %1$s"
+#: 404.php:29
+msgid "Terug naar de homepage"
 msgstr ""
 
 #. translators: 1: title.
 #: comments.php:35
-msgid "One thought on &ldquo;%1$s&rdquo;"
+#, php-format
+msgid "Eén reactie op &ldquo;%1$s&rdquo;"
 msgstr ""
 
 #. translators: 1: comment count number, 2: title.
 #: comments.php:41
+#, php-format
 msgctxt "comments title"
-msgid "%1$s thought on &ldquo;%2$s&rdquo;"
-msgid_plural "%1$s thoughts on &ldquo;%2$s&rdquo;"
+msgid "%1$s reactie op &ldquo;%2$s&rdquo;"
+msgid_plural "%1$s reacties op &ldquo;%2$s&rdquo;"
 msgstr[0] ""
 msgstr[1] ""
 
 #: comments.php:68
-msgid "Comments are closed."
+msgid "Reacties zijn gesloten."
 msgstr ""
 
-#: footer.php:18
-msgid "https://wordpress.org/"
+#: footer.php:33
+msgid "Footermenu"
 msgstr ""
 
-#. translators: %s: CMS name, i.e. WordPress.
-#: footer.php:21
-msgid "Proudly powered by %s"
+#: footer.php:34
+#: template-parts/front-page/cards.php:20
+msgid "Snel naar"
 msgstr ""
 
-#. translators: 1: Theme name, 2: Theme author.
-#: footer.php:27
-msgid "Theme: %1$s by %2$s."
+#: footer.php:49
+#: inc/front-page.php:88
+msgid "Contact"
 msgstr ""
 
-#: functions.php:53
-msgid "Primary"
+#: footer.php:57
+msgid "Facebook"
 msgstr ""
 
-#: functions.php:130
-msgid "Sidebar"
+#: footer.php:60
+msgid "Instagram"
 msgstr ""
 
-#: functions.php:132
-msgid "Add widgets here."
+#. translators: 1: current year, 2: site name.
+#: footer.php:70
+#, php-format
+msgid "© %1$s %2$s · gemaakt met modder aan onze schoenen"
+msgstr ""
+
+#: functions.php:54
+#: header.php:47
+msgid "Hoofdmenu"
 msgstr ""
 
 #: header.php:26
-msgid "Skip to content"
+msgid "Ga naar de inhoud"
 msgstr ""
 
-#: header.php:49
-msgid "Primary Menu"
+#: header.php:62
+#: header.php:91
+#: page-templates/met-feitenkaart.php:20
+#: page.php:63
+#: template-parts/front-page/cards.php:16
+#: template-parts/front-page/hero.php:16
+msgid "Inschrijving gesloten"
+msgstr ""
+
+#: header.php:67
+#: header.php:68
+msgid "Menu"
+msgstr ""
+
+#: header.php:67
+msgid "Sluit"
+msgstr ""
+
+#: header.php:73
+#: header.php:75
+msgid "Mobiel menu"
+msgstr ""
+
+#: header.php:74
+msgid "Sluit menu"
+msgstr ""
+
+#: inc/blocks.php:26
+msgid "CJW Hero"
+msgstr ""
+
+#: inc/blocks.php:27
+msgid "De openingssectie met kampfoto, datumbadge en aanmeldknop."
+msgstr ""
+
+#: inc/blocks.php:30
+msgid "hero"
+msgstr ""
+
+#: inc/blocks.php:31
+msgid "kamp"
+msgstr ""
+
+#: inc/blocks.php:32
+msgid "aanmelden"
+msgstr ""
+
+#: inc/blocks.php:36
+msgid "CJW Introductie"
+msgstr ""
+
+#: inc/blocks.php:37
+msgid "De welkomsttekst met de belangrijkste kampfeiten."
+msgstr ""
+
+#: inc/blocks.php:40
+msgid "introductie"
+msgstr ""
+
+#: inc/blocks.php:41
+msgid "welkom"
+msgstr ""
+
+#: inc/blocks.php:42
+msgid "over"
+msgstr ""
+
+#: inc/blocks.php:46
+msgid "CJW Jaarthema & aftellen"
+msgstr ""
+
+#: inc/blocks.php:47
+msgid "De jaarthema-teaser met het aftellen naar het kamp."
+msgstr ""
+
+#: inc/blocks.php:50
+msgid "jaarthema"
+msgstr ""
+
+#: inc/blocks.php:51
+msgid "aftellen"
+msgstr ""
+
+#: inc/blocks.php:52
+msgid "countdown"
+msgstr ""
+
+#: inc/blocks.php:56
+msgid "CJW Snel-naar kaarten"
+msgstr ""
+
+#: inc/blocks.php:57
+msgid "De drie navigatiekaarten naar zomerkamp, praktische info en inschrijven."
+msgstr ""
+
+#: inc/blocks.php:60
+msgid "kaarten"
+msgstr ""
+
+#: inc/blocks.php:61
+msgid "navigatie"
+msgstr ""
+
+#: inc/blocks.php:62
+msgid "inschrijven"
+msgstr ""
+
+#: inc/blocks.php:66
+msgid "CJW Kampplakboek"
+msgstr ""
+
+#: inc/blocks.php:67
+msgid "De polaroid-fotowand met beelden van vorige kampen."
+msgstr ""
+
+#: inc/blocks.php:70
+msgid "foto's"
+msgstr ""
+
+#: inc/blocks.php:71
+msgid "plakboek"
+msgstr ""
+
+#: inc/blocks.php:72
+msgid "polaroid"
+msgstr ""
+
+#: inc/blocks.php:76
+msgid "CJW Sponsors"
+msgstr ""
+
+#: inc/blocks.php:77
+msgid "De sponsorsectie met logo's en de sponsor-oproep."
+msgstr ""
+
+#: inc/blocks.php:80
+msgid "sponsors"
+msgstr ""
+
+#: inc/blocks.php:81
+msgid "sponsoren"
+msgstr ""
+
+#: inc/blocks.php:82
+msgid "partners"
+msgstr ""
+
+#: inc/blocks.php:103
+msgid "Kies foto's bij Zomerkamp → Website → Kampplakboek. Zonder foto's blijft deze sectie verborgen op de site."
+msgstr ""
+
+#: inc/blocks.php:104
+msgid "Voeg sponsoren toe via Sponsoren in het menu. Een sponsor heeft een logo (uitgelichte afbeelding) nodig."
+msgstr ""
+
+#: inc/blocks.php:106
+msgid "Vul deze sectie met inhoud via Zomerkamp → Website."
+msgstr ""
+
+#: inc/blocks.php:195
+#: inc/editor-setup.php:178
+#: page-templates/met-feitenkaart.php:31
+msgid "CJW Zomerkamp"
+msgstr ""
+
+#: inc/editor-setup.php:55
+msgid "Papier"
+msgstr ""
+
+#: inc/editor-setup.php:60
+msgid "Inkt"
+msgstr ""
+
+#: inc/editor-setup.php:65
+msgid "Salie"
+msgstr ""
+
+#: inc/editor-setup.php:70
+msgid "Salie donker"
+msgstr ""
+
+#: inc/editor-setup.php:75
+msgid "Bos"
+msgstr ""
+
+#: inc/editor-setup.php:80
+msgid "Abrikoos"
+msgstr ""
+
+#: inc/editor-setup.php:85
+msgid "Jaaraccent"
+msgstr ""
+
+#: inc/editor-setup.php:171
+msgid "Zonder vinkjes"
+msgstr ""
+
+#: inc/front-page.php:64
+msgid "Home"
+msgstr ""
+
+#: inc/front-page.php:68
+msgid "Zomerkamp"
+msgstr ""
+
+#: inc/front-page.php:72
+msgid "Praktische info"
+msgstr ""
+
+#: inc/front-page.php:76
+msgid "Historie"
+msgstr ""
+
+#: inc/front-page.php:80
+msgid "Verhuur"
+msgstr ""
+
+#: inc/front-page.php:84
+msgid "Sponsoren"
+msgstr ""
+
+#: inc/summer-camp.php:286
+#: patterns/cta-band.php:28
+msgid "Schrijf je in!"
+msgstr ""
+
+#: inc/summer-camp.php:688
+#: template-parts/front-page/jaarthema.php:36
+msgid "nachtje slapen tot kamp!"
+msgid_plural "nachtjes slapen tot kamp!"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/summer-camp.php:690
+#: template-parts/front-page/jaarthema.php:38
+msgid "NU"
+msgstr ""
+
+#: inc/summer-camp.php:691
+#: template-parts/front-page/jaarthema.php:39
+msgid "We zitten nú op kamp in het bos!"
+msgstr ""
+
+#: inc/summer-camp.php:694
+#: template-parts/front-page/jaarthema.php:41
+msgid "Dat was ’m weer — tot volgend jaar!"
 msgstr ""
 
 #. translators: %s: post date.
-#: inc/template-tags.php:30
+#: inc/template-tags.php:31
+#, php-format
 msgctxt "post date"
 msgid "Posted on %s"
 msgstr ""
 
 #. translators: %s: post author.
-#: inc/template-tags.php:46
+#: inc/template-tags.php:47
+#, php-format
 msgctxt "post author"
 msgid "by %s"
 msgstr ""
 
 #. translators: used between list items, there is a space after the comma
-#: inc/template-tags.php:63
+#: inc/template-tags.php:64
 msgid ", "
 msgstr ""
 
 #. translators: 1: list of categories.
-#: inc/template-tags.php:66
+#: inc/template-tags.php:67
+#, php-format
 msgid "Posted in %1$s"
 msgstr ""
 
 #. translators: used between list items, there is a space after the comma
-#: inc/template-tags.php:70
+#: inc/template-tags.php:71
 msgctxt "list item separator"
 msgid ", "
 msgstr ""
 
 #. translators: 1: list of tags.
-#: inc/template-tags.php:73
+#: inc/template-tags.php:74
+#, php-format
 msgid "Tagged %1$s"
 msgstr ""
 
 #. translators: %s: post title
-#: inc/template-tags.php:83
+#: inc/template-tags.php:84
+#, php-format
 msgid "Leave a Comment<span class=\"screen-reader-text\"> on %s</span>"
 msgstr ""
 
 #. translators: %s: Name of current post. Only visible to screen readers
-#: inc/template-tags.php:100
-#: template-parts/content-page.php:39
+#: inc/template-tags.php:101
+#, php-format
 msgid "Edit <span class=\"screen-reader-text\">%s</span>"
 msgstr ""
 
-#: inc/woocommerce.php:186
+#: inc/woocommerce.php:192
 msgid "View your shopping cart"
 msgstr ""
 
 #. translators: number of items in the mini cart.
-#: inc/woocommerce.php:190
+#: inc/woocommerce.php:196
+#, php-format
 msgid "%d item"
 msgid_plural "%d items"
 msgstr[0] ""
 msgstr[1] ""
 
+#. Template Name of the theme
+msgid "Pagina met feitenkaart"
+msgstr ""
+
+#: page-templates/met-feitenkaart.php:56
+msgid "Goed om te weten"
+msgstr ""
+
+#: page-templates/met-feitenkaart.php:57
+msgid "Data:"
+msgstr ""
+
+#: page-templates/met-feitenkaart.php:59
+msgid "Leeftijd:"
+msgstr ""
+
+#: page-templates/met-feitenkaart.php:62
+msgid "Locatie:"
+msgstr ""
+
+#: page-templates/met-feitenkaart.php:65
+msgid "Kosten:"
+msgstr ""
+
+#. translators: 1: week price, 2: weekend price.
+#: page-templates/met-feitenkaart.php:69
+#, php-format
+msgid "€ %1$s (week) · € %2$s (weekend)"
+msgstr ""
+
+#: page.php:41
+#: template-parts/content-page.php:25
+#: template-parts/content.php:53
+msgid "Pagina&rsquo;s:"
+msgstr ""
+
+#: patterns/checklijst.php
+msgctxt "Pattern title"
+msgid "Checklijst"
+msgstr ""
+
+#: patterns/checklijst.php
+msgctxt "Pattern description"
+msgid "Kop, korte intro en een lijst met vinkjes — een startpunt voor bijvoorbeeld de paklijst."
+msgstr ""
+
+#: patterns/checklijst.php:15
+msgid "Wat neem je <span class=\"squiggle\">mee?</span>"
+msgstr ""
+
+#: patterns/checklijst.php:19
+msgid "Gebruik deze paklijst als startpunt — de vinkjes krijg je er gratis bij."
+msgstr ""
+
+#: patterns/checklijst.php:24
+msgid "Slaapzak, kussen en luchtbed of matje"
+msgstr ""
+
+#: patterns/checklijst.php:28
+msgid "Zaklamp met extra batterijen"
+msgstr ""
+
+#: patterns/checklijst.php:32
+msgid "Regenjas en laarzen"
+msgstr ""
+
+#: patterns/checklijst.php:36
+msgid "Zwemkleren en handdoek"
+msgstr ""
+
+#: patterns/checklijst.php:40
+msgid "Verkleedkleren voor het jaarthema"
+msgstr ""
+
+#: patterns/cta-band.php
+msgctxt "Pattern title"
+msgid "Oproep-banner"
+msgstr ""
+
+#: patterns/cta-band.php
+msgctxt "Pattern description"
+msgid "Inschrijf-oproep in een omkaderd vlak met titel, tekst en knop, zoals onderaan elke pagina."
+msgstr ""
+
+#: patterns/cta-band.php:18
+msgid "Zin gekregen?"
+msgstr ""
+
+#: patterns/cta-band.php:22
+msgid "Vol = vol, dus wacht niet te lang."
+msgstr ""
+
+#: patterns/foto-met-tekst.php
+msgctxt "Pattern title"
+msgid "Foto met tekst"
+msgstr ""
+
+#: patterns/foto-met-tekst.php
+msgctxt "Pattern description"
+msgid "Foto naast een kop met onderstreping, een alinea en een lijst met vinkjes."
+msgstr ""
+
+#: patterns/foto-met-tekst.php:16
+msgid "Een dag op <span class=\"squiggle\">kamp</span>"
+msgstr ""
+
+#: patterns/foto-met-tekst.php:20
+msgid "Van het ochtendlied bij de vlag tot marshmallows boven het kampvuur: op kamp zit geen minuut stil."
+msgstr ""
+
+#: patterns/foto-met-tekst.php:25
+msgid "Bosspellen met je tentgroep"
+msgstr ""
+
+#: patterns/foto-met-tekst.php:29
+msgid "Koken boven het kampvuur"
+msgstr ""
+
+#: patterns/foto-met-tekst.php:33
+msgid "Bonte avond met het hele kamp"
+msgstr ""
+
 #. translators: %s: search query.
-#: search.php:22
-msgid "Search Results for: %s"
+#: search.php:21
+#, php-format
+msgid "Zoekresultaten voor: %s"
 msgstr ""
 
 #: single.php:23
-msgid "Previous:"
+msgid "Vorige:"
 msgstr ""
 
 #: single.php:24
-msgid "Next:"
+msgid "Volgende:"
 msgstr ""
 
 #: template-parts/content-none.php:14
-msgid "Nothing Found"
+msgid "Niets gevonden"
 msgstr ""
 
 #. translators: 1: link to WP admin new post page.
 #: template-parts/content-none.php:24
-msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+#, php-format
+msgid "Klaar om je eerste bericht te publiceren? <a href=\"%1$s\">Begin hier</a>."
 msgstr ""
 
-#: template-parts/content-none.php:37
-msgid "Sorry, but nothing matched your search terms. Please try again with some different keywords."
+#: template-parts/content-none.php:36
+msgid "Sorry, er kwam niets overeen met je zoekopdracht. Probeer het nog eens met andere zoektermen."
 msgstr ""
 
-#: template-parts/content-none.php:44
-msgid "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help."
+#: template-parts/content-none.php:42
+msgid "We kunnen niet vinden wat je zoekt. Misschien helpt zoeken."
 msgstr ""
 
-#: template-parts/content-page.php:25
-#: template-parts/content.php:53
-msgid "Pages:"
+#. translators: %s: Name of current post. Only visible to screen readers
+#: template-parts/content-page.php:39
+#, php-format
+msgid "Bewerk <span class=\"screen-reader-text\">%s</span>"
 msgstr ""
 
 #. translators: %s: Name of current post. Only visible to screen readers
 #: template-parts/content.php:40
-msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
+#, php-format
+msgid "Lees verder<span class=\"screen-reader-text\"> \"%s\"</span>"
+msgstr ""
+
+#: template-parts/front-page/cards.php:15
+msgid "Schrijf je in →"
+msgstr ""
+
+#: template-parts/front-page/cards.php:26
+#: template-parts/front-page/cards.php:33
+msgid "Lees meer →"
+msgstr ""
+
+#: template-parts/front-page/jaarthema.php:20
+msgid "Dit jaar"
+msgstr ""
+
+#. translators: %s: camp year.
+#: template-parts/front-page/jaarthema.php:24
+#, php-format
+msgid "Thema %s:"
+msgstr ""
+
+#: template-parts/front-page/jaarthema.php:37
+msgid "nachtjes slapen tot kamp!"
+msgstr ""
+
+#. translators: %s: sponsor name.
+#: template-parts/front-page/sponsors.php:31
+#, php-format
+msgid "%s (opent in nieuw tabblad)"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Papier"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Inkt"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Salie"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Salie donker"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Bos"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Abrikoos"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Jaaraccent"
+msgstr ""
+
+#: theme.json
+msgctxt "Font family name"
+msgid "Amatic SC"
+msgstr ""
+
+#: theme.json
+msgctxt "Font family name"
+msgid "Nunito"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Klein"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Standaard"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Groot"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Kop"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Reuzenkop"
 msgstr ""
