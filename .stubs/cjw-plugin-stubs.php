@@ -11,6 +11,12 @@
  * This file is only scanned by PHPStan (`scanFiles` in phpstan.neon.dist); it is never
  * loaded at runtime and is excluded from analysis, PHPCS and PHP-CS-Fixer.
  *
+ * Only the signatures matter, so the service is declared `abstract` and its methods have
+ * no bodies. Empty bodies behind a declared return type make editors (Intelephense,
+ * PhpStorm) report "not all code paths return a value" on every getter, and Intelephense
+ * has no inline suppression for it. If the theme ever needs `new CJW_Summer_Camp_Service`,
+ * drop `abstract` here and give each method a `throw` body instead.
+ *
  * Keep in sync with the plugin: wp-content/plugins/cjw/inc/shared/class-camp-type.php
  * and wp-content/plugins/cjw/inc/shared/class-summer-camp-service.php.
  *
@@ -31,12 +37,13 @@ enum CampType: string
  */
 function cjw_summer_camp(): CJW_Summer_Camp_Service
 {
+    throw new LogicException('Stub only; the real implementation lives in the cjw plugin.');
 }
 
 /**
  * Service class for handling Summer Camp data and logic.
  */
-class CJW_Summer_Camp_Service
+abstract class CJW_Summer_Camp_Service
 {
     /**
      * The top-level WordPress option key for summer camp settings.
@@ -60,45 +67,35 @@ class CJW_Summer_Camp_Service
      *
      * @return DateTimeImmutable|null
      */
-    public function getStartDate(): ?DateTimeImmutable
-    {
-    }
+    abstract public function getStartDate(): ?DateTimeImmutable;
 
     /**
      * Returns the end date of the summer camp.
      *
      * @return DateTimeImmutable|null
      */
-    public function getEndDate(): ?DateTimeImmutable
-    {
-    }
+    abstract public function getEndDate(): ?DateTimeImmutable;
 
     /**
      * Returns the registration deadline.
      *
      * @return DateTimeImmutable|null
      */
-    public function getRegistrationDeadline(): ?DateTimeImmutable
-    {
-    }
+    abstract public function getRegistrationDeadline(): ?DateTimeImmutable;
 
     /**
      * Checks if the registration is currently open based on status and deadline.
      *
      * @return bool
      */
-    public function isRegistrationOpen(): bool
-    {
-    }
+    abstract public function isRegistrationOpen(): bool;
 
     /**
      * Retrieves the text shown when registration is closed.
      *
      * @return string
      */
-    public function getRegistrationClosedText(): string
-    {
-    }
+    abstract public function getRegistrationClosedText(): string;
 
     /**
      * Retrieves the generated private link for late registration requests.
@@ -107,18 +104,14 @@ class CJW_Summer_Camp_Service
      *
      * @return string
      */
-    public function getLateRegistrationLink(?string $baseUrl = null): string
-    {
-    }
+    abstract public function getLateRegistrationLink(?string $baseUrl = null): string;
 
     /**
      * Retrieves the private late-registration token.
      *
      * @return string
      */
-    public function getLateRegistrationToken(): string
-    {
-    }
+    abstract public function getLateRegistrationToken(): string;
 
     /**
      * Checks whether a submitted late-registration token matches the stored token.
@@ -127,9 +120,7 @@ class CJW_Summer_Camp_Service
      *
      * @return bool
      */
-    public function isLateRegistrationTokenValid(?string $token): bool
-    {
-    }
+    abstract public function isLateRegistrationTokenValid(?string $token): bool;
 
     /**
      * Retrieves the price for a specific visit type, considering early_bird discounts.
@@ -138,108 +129,84 @@ class CJW_Summer_Camp_Service
      *
      * @return int
      */
-    public function getPrice(CampType $type): int
-    {
-    }
+    abstract public function getPrice(CampType $type): int;
 
     /**
      * Checks if the current date falls within the early_bird discount period.
      *
      * @return bool
      */
-    public function isEarlyBird(): bool
-    {
-    }
+    abstract public function isEarlyBird(): bool;
 
     /**
      * Retrieves the introduction text for the summer camp.
      *
      * @return string
      */
-    public function getIntroText(): string
-    {
-    }
+    abstract public function getIntroText(): string;
 
     /**
      * Returns a human-readable camp date range.
      *
      * @return string
      */
-    public function getDateRangeText(): string
-    {
-    }
+    abstract public function getDateRangeText(): string;
 
     /**
      * Returns the camp age range shown on the website (e.g. "6 t/m 17 jaar").
      *
      * @return string
      */
-    public function getCampAgeRange(): string
-    {
-    }
+    abstract public function getCampAgeRange(): string;
 
     /**
      * Returns the camp location shown on the website (e.g. "Landgoed Brockhausen, Stokkum").
      *
      * @return string
      */
-    public function getCampLocation(): string
-    {
-    }
+    abstract public function getCampLocation(): string;
 
     /**
      * Returns the public theme/campaign name for the current camp year.
      *
      * @return string
      */
-    public function getThemeName(): string
-    {
-    }
+    abstract public function getThemeName(): string;
 
     /**
      * Returns the configured theme year.
      *
      * @return string
      */
-    public function getThemeYear(): string
-    {
-    }
+    abstract public function getThemeYear(): string;
 
     /**
      * Returns all values needed by the theme hero.
      *
      * @return array
      */
-    public function getHeroConfig(): array
-    {
-    }
+    abstract public function getHeroConfig(): array;
 
     /**
      * Returns the hero title with a theme-name fallback.
      *
      * @return string
      */
-    public function getHeroTitle(): string
-    {
-    }
+    abstract public function getHeroTitle(): string;
 
     /**
      * Returns the hero subtitle, falling back to a camp date range when possible.
      *
      * @return string
      */
-    public function getHeroSubtitle(): string
-    {
-    }
+    abstract public function getHeroSubtitle(): string;
 
     /**
      * Returns the configured hero image attachment ID.
      *
      * @return int
      */
-    public function getHeroImageId(): int
-    {
-    }
+    abstract public function getHeroImageId(): int;
 
     /**
      * Returns the configured hero image URL.
@@ -248,180 +215,140 @@ class CJW_Summer_Camp_Service
      *
      * @return string
      */
-    public function getHeroImageUrl(string $size = 'full'): string
-    {
-    }
+    abstract public function getHeroImageUrl(string $size = 'full'): string;
 
     /**
      * Returns the hero image alternative text.
      *
      * @return string
      */
-    public function getHeroImageAlt(): string
-    {
-    }
+    abstract public function getHeroImageAlt(): string;
 
     /**
      * Returns the primary hero call-to-action.
      *
      * @return array
      */
-    public function getPrimaryHeroCta(): array
-    {
-    }
+    abstract public function getPrimaryHeroCta(): array;
 
     /**
      * Returns the secondary hero call-to-action.
      *
      * @return array
      */
-    public function getSecondaryHeroCta(): array
-    {
-    }
+    abstract public function getSecondaryHeroCta(): array;
 
     /**
      * Returns the configured public theme colors.
      *
      * @return array
      */
-    public function getThemeColors(): array
-    {
-    }
+    abstract public function getThemeColors(): array;
 
     /**
      * Returns the configured image overlay opacity as a percentage.
      *
      * @return int
      */
-    public function getHeroOverlayOpacity(): int
-    {
-    }
+    abstract public function getHeroOverlayOpacity(): int;
 
     /**
      * Returns the public description of the yearly theme (website teaser).
      *
      * @return string
      */
-    public function getThemeDescription(): string
-    {
-    }
+    abstract public function getThemeDescription(): string;
 
     /**
      * Returns the attachment ID of the website's introduction photo.
      *
      * @return int
      */
-    public function getIntroImageId(): int
-    {
-    }
+    abstract public function getIntroImageId(): int;
 
     /**
      * Returns the page ID behind the "Zomerkamp" card on the front page.
      *
      * @return int
      */
-    public function getCardZomerkampPageId(): int
-    {
-    }
+    abstract public function getCardZomerkampPageId(): int;
 
     /**
      * Returns the page ID behind the "Praktische info" card on the front page.
      *
      * @return int
      */
-    public function getCardInfoPageId(): int
-    {
-    }
+    abstract public function getCardInfoPageId(): int;
 
     /**
      * Returns the configured photo-wall polaroids (slots with an image).
      *
      * @return array<int, array{image_id: int, caption: string}>
      */
-    public function getPolaroids(): array
-    {
-    }
+    abstract public function getPolaroids(): array;
 
     /**
      * Returns the public contact e-mail address.
      *
      * @return string
      */
-    public function getContactEmail(): string
-    {
-    }
+    abstract public function getContactEmail(): string;
 
     /**
      * Returns the configured social profile URLs.
      *
      * @return array{facebook: string, instagram: string}
      */
-    public function getSocialLinks(): array
-    {
-    }
+    abstract public function getSocialLinks(): array;
 
     /**
      * Returns the title of the front-page introduction section.
      *
      * @return string
      */
-    public function getHomeIntroTitle(): string
-    {
-    }
+    abstract public function getHomeIntroTitle(): string;
 
     /**
      * Returns the text of the front-page introduction section.
      *
      * @return string
      */
-    public function getHomeIntroText(): string
-    {
-    }
+    abstract public function getHomeIntroText(): string;
 
     /**
      * Returns the title of the "Zomerkamp" card on the front page.
      *
      * @return string
      */
-    public function getCardZomerkampTitle(): string
-    {
-    }
+    abstract public function getCardZomerkampTitle(): string;
 
     /**
      * Returns the text of the "Zomerkamp" card on the front page.
      *
      * @return string
      */
-    public function getCardZomerkampText(): string
-    {
-    }
+    abstract public function getCardZomerkampText(): string;
 
     /**
      * Returns the title of the "Praktische info" card on the front page.
      *
      * @return string
      */
-    public function getCardInfoTitle(): string
-    {
-    }
+    abstract public function getCardInfoTitle(): string;
 
     /**
      * Returns the text of the "Praktische info" card on the front page.
      *
      * @return string
      */
-    public function getCardInfoText(): string
-    {
-    }
+    abstract public function getCardInfoText(): string;
 
     /**
      * Returns the title of the sign-up card on the front page.
      *
      * @return string
      */
-    public function getCardSignupTitle(): string
-    {
-    }
+    abstract public function getCardSignupTitle(): string;
 
     /**
      * Returns the text of the sign-up card on the front page.
@@ -430,98 +357,76 @@ class CJW_Summer_Camp_Service
      *
      * @return string
      */
-    public function getCardSignupText(): string
-    {
-    }
+    abstract public function getCardSignupText(): string;
 
     /**
      * Returns the title of the photo-wall section.
      *
      * @return string
      */
-    public function getPhotosTitle(): string
-    {
-    }
+    abstract public function getPhotosTitle(): string;
 
     /**
      * Returns the lead text of the photo-wall section.
      *
      * @return string
      */
-    public function getPhotosLead(): string
-    {
-    }
+    abstract public function getPhotosLead(): string;
 
     /**
      * Returns the title of the sponsors section.
      *
      * @return string
      */
-    public function getSponsorsTitle(): string
-    {
-    }
+    abstract public function getSponsorsTitle(): string;
 
     /**
      * Returns the lead text of the sponsors section.
      *
      * @return string
      */
-    public function getSponsorsLead(): string
-    {
-    }
+    abstract public function getSponsorsLead(): string;
 
     /**
      * Returns the call-to-action text of the sponsors section.
      *
      * @return string
      */
-    public function getSponsorsCtaText(): string
-    {
-    }
+    abstract public function getSponsorsCtaText(): string;
 
     /**
      * Returns the "about" text in the website footer.
      *
      * @return string
      */
-    public function getFooterAbout(): string
-    {
-    }
+    abstract public function getFooterAbout(): string;
 
     /**
      * Returns the organisation text in the website footer.
      *
      * @return string
      */
-    public function getFooterOrg(): string
-    {
-    }
+    abstract public function getFooterOrg(): string;
 
     /**
      * Returns the title of the call-to-action band.
      *
      * @return string
      */
-    public function getCtaTitle(): string
-    {
-    }
+    abstract public function getCtaTitle(): string;
 
     /**
      * Returns the text of the call-to-action band.
      *
      * @return string
      */
-    public function getCtaText(): string
-    {
-    }
+    abstract public function getCtaText(): string;
 
     /**
      * Retrieves the list of drive dates (ritten).
      *
      * @return array
      */
-    public function getDriveDates(): array
-    {
-    }
+    abstract public function getDriveDates(): array;
 
 }

@@ -1,0 +1,100 @@
+{
+    // ─── Intelephense (PHP IntelliSense) ──────────────────────────────────────
+    //
+    // The theme already ships the stubs that describe everything it calls:
+    //   vendor/php-stubs/wordpress-stubs/wordpress-stubs.php     (~5 MB)
+    //   vendor/php-stubs/woocommerce-stubs/woocommerce-stubs.php (~4 MB)
+    //   .stubs/cjw-plugin-stubs.php                              (cjw plugin API)
+    //
+    // Intelephense silently skips any file larger than `files.maxSize`, which
+    // defaults to 1 MB — so both WordPress and WooCommerce were never indexed and
+    // every `get_the_title()` / `WC()` call had no completion, hover, signature
+    // help or go-to-definition. Raising the limit past the largest stub is the fix.
+    "intelephense.files.maxSize": 8000000,
+
+    // Match composer.json ("php": ">=8.5") so 8.5 syntax and stdlib signatures resolve.
+    "intelephense.environment.phpVersion": "8.5.0",
+
+    // Everything below `vendor/` except php-stubs/ is CI tooling (PHPStan, PHPCS,
+    // WPCS, PHP-CS-Fixer, wp-cli) that the theme never calls. Skipping it keeps the
+    // initial index fast and keeps sniff/rule classes out of completion lists.
+    // The first ten entries are Intelephense's own defaults — setting this key
+    // replaces them wholesale, so they have to be repeated.
+    "intelephense.files.exclude": [
+        "**/.git/**",
+        "**/.svn/**",
+        "**/.hg/**",
+        "**/CVS/**",
+        "**/.DS_Store/**",
+        "**/node_modules/**",
+        "**/bower_components/**",
+        "**/vendor/**/{Tests,tests}/**",
+        "**/.history/**",
+        "**/vendor/**/vendor/**",
+        "**/vendor/phpstan/**",
+        "**/vendor/squizlabs/**",
+        "**/vendor/phpcsstandards/**",
+        "**/vendor/phpcompatibility/**",
+        "**/vendor/wp-coding-standards/**",
+        "**/vendor/friendsofphp/**",
+        "**/vendor/symfony/**",
+        "**/vendor/wp-cli/**",
+        "**/vendor/enlightn/**",
+        "**/vendor/php-parallel-lint/**",
+        "**/vendor/dealerdirect/**"
+    ],
+
+    // VS Code's built-in PHP support only does word-based suggestions and would
+    // outrank Intelephense's; its validator would also double-report syntax errors
+    // Intelephense already reports. Both are off per Intelephense's own guidance.
+    "php.suggest.basic": false,
+    "php.validate.enable": false,
+
+    // ─── PHPCS (ikappas.phpcs) ────────────────────────────────────────────────
+    //
+    // executablePath is deliberately unset: the extension then resolves phpcs
+    // through composer.json to ./vendor/bin/phpcs, which stays correct on any
+    // machine. autoConfigSearch picks up phpcs.xml.dist from the theme root, so
+    // the editor reports exactly what `composer phpcs` reports in CI.
+    "phpcs.enable": true,
+    "phpcs.autoConfigSearch": true,
+    "phpcs.showSources": true,
+    "phpcs.ignorePatterns": [
+        "**/vendor/**",
+        "**/node_modules/**",
+        "**/assets/**",
+        "**/.stubs/**"
+    ],
+
+    // ─── PHP-CS-Fixer (junstyle.php-cs-fixer) ─────────────────────────────────
+    //
+    // Use the project's pinned binary and config instead of the extension's
+    // bundled phar and its @PSR12 default — the theme's config intentionally
+    // disables the indentation rules that would otherwise flatten the mixed
+    // PHP/HTML templates (see the comments in .php-cs-fixer.dist.php).
+    // `rules` must stay empty so the config file is the single source of truth.
+    "php-cs-fixer.executablePath": "${workspaceFolder}/vendor/bin/php-cs-fixer",
+    "php-cs-fixer.config": ".php-cs-fixer.dist.php",
+    "php-cs-fixer.rules": "",
+    "php-cs-fixer.allowRisky": false,
+    "php-cs-fixer.formatHtml": false,
+    "php-cs-fixer.onsave": false,
+    // Applies to the "PHP CS Fixer: fix" command (the formatter itself always runs
+    // through a temp file and forces override): intersection makes an explicit fix
+    // on .stubs/, assets/ or vendor/ a no-op, matching `composer format`.
+    "php-cs-fixer.pathMode": "intersection",
+
+    "[php]": {
+        "editor.defaultFormatter": "junstyle.php-cs-fixer",
+        "editor.formatOnSave": false
+    },
+
+    // ─── Misc ─────────────────────────────────────────────────────────────────
+    "files.exclude": {
+        "**/.DS_Store": true
+    },
+    "search.exclude": {
+        "**/vendor": true,
+        "**/node_modules": true
+    }
+}

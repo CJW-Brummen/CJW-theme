@@ -1,0 +1,18 @@
+{
+    "recommendations": [
+        "bmewburn.vscode-intelephense-client",
+        "ikappas.phpcs",
+        "junstyle.php-cs-fixer",
+        "xdebug.php-debug",
+        "editorconfig.editorconfig",
+        "dbaeumer.vscode-eslint"
+    ],
+    // Other PHP language servers index the same symbols as Intelephense and cause
+    // duplicated completions and conflicting diagnostics when run alongside it.
+    "unwantedRecommendations": [
+        "devsense.phptools-vscode",
+        "zobo.php-intellisense",
+        "felixfbecker.php-intellisense",
+        "hvyindustries.crane"
+    ]
+}
