@@ -11,7 +11,7 @@
     "enlightn/security-checker": "^2.0",
     "friendsofphp/php-cs-fixer": "^3.95.17",
     "php-parallel-lint/php-parallel-lint": "^1.4",
-    "php-stubs/woocommerce-stubs": "^10.9.4",
+    "php-stubs/woocommerce-stubs": "^11.0.0",
     "phpcompatibility/phpcompatibility-wp": "^2.1.8",
     "phpstan/extension-installer": "^1.4.3",
     "phpstan/phpstan": "^2.2.6",
