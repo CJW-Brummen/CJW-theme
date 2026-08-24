@@ -97,6 +97,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # Mirrors the PHP job's audit-first order. Threshold is `high` on purpose:
+      # everything in devDependencies is build tooling that never reaches a
+      # browser, so a low or moderate advisory there is not worth a red build.
+      - name: Security audit
+        run: npm audit --audit-level=high
+
       - name: Lint assets
         run: npm run lint
 
