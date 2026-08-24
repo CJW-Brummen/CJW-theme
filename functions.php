@@ -10,7 +10,7 @@
 
 if (! defined('CJW_BRUMMEN_VERSION')) {
     // Replace the version number of the theme on each release.
-    define('CJW_BRUMMEN_VERSION', '1.0.0');
+    define('CJW_BRUMMEN_VERSION', '1.1.0');
 }
 
 /**
@@ -184,17 +184,3 @@ require get_template_directory() . '/inc/editor-setup.php';
  * Dynamic blocks that render the front-page sections (cjw/hero, ...).
  */
 require get_template_directory() . '/inc/blocks.php';
-
-/**
- * Load Jetpack compatibility file.
- */
-if (defined('JETPACK__VERSION')) {
-    require get_template_directory() . '/inc/jetpack.php';
-}
-
-/**
- * Load WooCommerce compatibility file.
- */
-if (class_exists('WooCommerce')) {
-    require get_template_directory() . '/inc/woocommerce.php';
-}
