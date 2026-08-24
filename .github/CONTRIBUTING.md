@@ -1,43 +1,79 @@
-Thanks for contributing to `_s` (Underscores) — you rock!
+# Contributing
 
-## Maintainers
+The CJW Brummen site is two repositories that are deliberately kept on the same
+toolchain:
 
-`_s` is maintained by the [Automattic Theme Team](https://themeshaper.com/about/).
+| Repository | Directory | What it is |
+| --- | --- | --- |
+| `CJW-theme` | `wp-content/themes/cjw-theme` | the theme: markup, styles, blocks |
+| `CJW-plugin` | `wp-content/plugins/cjw` | the plugin: camp settings, form builder, shared services |
 
-## Reporting issues
+The plugin owns the data, the theme renders it. The theme reads everything
+through `cjw_summer_camp()` / `CJW_Summer_Camp_Service` and falls back to design
+defaults when the plugin is not active, so it never fatals on its own.
 
-Before submitting your issue, make sure it has not been discussed earlier. You can search for existing tickets [here](https://github.com/Automattic/_s/search).
+`.github/dependabot.yml`, `.github/workflows/quality.yml`, `.editorconfig`,
+`.php-cs-fixer.dist.php` and the `rules` block of `.stylelintrc.json` are
+identical in both repositories on purpose. **Change one, change the other.**
 
-Here are some tips to consider and to help you write a great report:
+## Setup
 
-* `_s` supports Microsoft Internet Explorer 11 and Edge, as well as the latest two versions of all other major browsers.
-* `_s` is backwards compatible with the two versions prior to the current stable version of WordPress.
-* `_s` uses HTML5 markup.
-* We decided not to include translations [[#50](https://github.com/Automattic/_s/pull/50)] beyond the existing `_s.pot` file, a RTL stylesheet [[#263](https://github.com/Automattic/_s/pull/263)], or editor styles [[#225](https://github.com/Automattic/_s/pull/225)], as they are likely to change during development of an `_s` based theme.
+```bash
+composer install
+npm ci
+```
 
-## Sending a Pull Request
+Requires PHP 8.5+ and Node 22+.
 
-Found a bug you can fix? Fantastic! Patches are always welcome. Here's a few tips for crafting a great pull request:
+## Checks
 
-* Include the purpose of your PR. Be explicit about the issue your PR solves.
-* Reference any existing issues that relate to your PR. This allows everyone to easily see all related discussions.
-* `_s` complies with the [WordPress Coding Standards](https://make.wordpress.org/core/handbook/best-practices/coding-standards/) and any PR should comply as well.
+Both repositories expose the same commands, and CI runs exactly these:
 
-### Before submitting a pull request, please make sure the following is done:
+```bash
+composer check        # security, lint, phpcs, format:check, analyze, test
+npm run lint          # eslint + stylelint
+```
 
-1. Fork the repo and create your branch from master.
-2. Run `npm install` and `composer install`.
-3. When submitting a change that affects SCSS sources, please make sure there is no linting errors using `npm run lint:scss`, then generate the css files using `npm run compile:css` and `npm run compile:rtl`.
-4. When submitting a change that affects PHP files, please make sure there is no syntax or linting errors by running `composer lint:php` then `composer lint:wpcs`.
-5. When submitting a change that affects JS files, please make sure there is no linting errors by running `npm run lint:js`.
-6. When submitting a change that affects text strings, make sure to regenerate the POT file by running `composer make-pot`.
+Individually:
 
-By contributing code to `_s`, you grant its use under the [GNU General Public License v2 (or later)](LICENSE).
+| Command | What it does |
+| --- | --- |
+| `composer security` | audits `composer.lock` against the advisory database |
+| `composer lint` | PHP syntax check on every file |
+| `composer phpcs` | WordPress coding standards + PHP compatibility |
+| `composer phpcbf` | auto-fixes what `phpcs` can fix |
+| `composer format` | applies the PHP-CS-Fixer ruleset |
+| `composer format:check` | reports formatting drift without writing |
+| `composer analyze` | PHPStan, level 3 |
+| `composer test` | PHPUnit, against a lightweight WordPress shim |
+| `composer make-pot` | regenerates the translation template |
+| `npm run lint:fix` | auto-fixes eslint + stylelint findings |
 
-## Underscores.me
+Formatting is split on purpose: PHP-CS-Fixer owns formatting, PHPCS owns
+WordPress safety and compatibility. The formatting sniffs are silenced in
+`phpcs.xml.dist` so the two never fight. Don't re-enable them without reading
+the comments in `.php-cs-fixer.dist.php` first — the templates mix PHP with
+inline HTML and several PER-CS rules mangle them.
 
-If your issue is specific to the [Underscores.me](https://underscores.me) website, the [Underscores.me GitHub repo](https://github.com/Automattic/underscores.me) is the right place for you.
+## Theme-only: styles
 
-The preferred method of generating a new theme based on `_s` is the [Underscores.me](https://underscores.me) website. If you have an alternative method, such as a shell script, write a blog post about it or host it in a separate repo -- and make sure to mention [@underscoresme](https://twitter.com/underscoresme) in your tweets!
+`style.css`, `style-rtl.css` and `editor-style.css` are **compiled output** and
+are committed. After touching anything under `sass/`:
 
-Want to have your avatar listed as one of the `_s` contributors [here](https://underscores.me/#contribute)? Just make sure you have an email address added to both GitHub and your local Git installation.
+```bash
+npm run compile       # compile:css + compile:rtl
+```
+
+The theme header (Theme Name, Version, …) lives in `sass/style.scss`, not in
+`style.css`. Bump `CJW_BRUMMEN_VERSION` in `functions.php` to match when you
+change the version.
+
+## Pull requests
+
+- Branch off `main`.
+- `composer check` and `npm run lint` must pass; CI runs the same commands.
+- Dependency bumps are Dependabot's job. Minor and patch bumps arrive grouped
+  once a week; majors and security fixes arrive on their own.
+
+Both repositories are licensed under the
+[GNU General Public License v2 (or later)](LICENSE).

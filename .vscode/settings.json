@@ -1,25 +1,41 @@
 {
+    // Shared verbatim by CJW-theme and CJW-plugin. Change one, change the other.
+    //
+    // ─── Scope note (read this before debugging "my setting does nothing") ────
+    //
+    // VS Code settings have a scope. Only `resource`-scoped ones can be set in a
+    // folder's .vscode/settings.json while a multi-root .code-workspace is open;
+    // `window`-scoped ones are ignored there and VS Code marks them "This setting
+    // cannot be applied in this workspace." The window-scoped keys in this file —
+    //   intelephense.files.maxSize, intelephense.environment.phpVersion,
+    //   php.suggest.basic, php.validate.enable, every php-cs-fixer.*
+    // — therefore only take effect when this folder is opened on its own. They are
+    // kept here for exactly that case, and mirrored in CJW.code-workspace for the
+    // multi-root setup. Change one, change the other.
+    //
+    // Resource-scoped and so always live: intelephense.files.exclude, phpcs.*,
+    // the [php] block, files.exclude, search.exclude.
+
     // ─── Intelephense (PHP IntelliSense) ──────────────────────────────────────
     //
-    // The theme already ships the stubs that describe everything it calls:
-    //   vendor/php-stubs/wordpress-stubs/wordpress-stubs.php     (~5 MB)
-    //   vendor/php-stubs/woocommerce-stubs/woocommerce-stubs.php (~4 MB)
-    //   .stubs/cjw-plugin-stubs.php                              (cjw plugin API)
+    // Both repositories ship the stubs that describe what they call:
+    //   vendor/php-stubs/wordpress-stubs/wordpress-stubs.php  (~5 MB, both)
+    //   .stubs/                                               (cross-repo API, per repo)
     //
     // Intelephense silently skips any file larger than `files.maxSize`, which
-    // defaults to 1 MB — so both WordPress and WooCommerce were never indexed and
-    // every `get_the_title()` / `WC()` call had no completion, hover, signature
-    // help or go-to-definition. Raising the limit past the largest stub is the fix.
+    // defaults to 1 MB — so WordPress itself was never indexed and every
+    // `get_the_title()` call had no completion, hover, signature help or
+    // go-to-definition. Raising the limit past the largest stub is the fix.
     "intelephense.files.maxSize": 8000000,
 
     // Match composer.json ("php": ">=8.5") so 8.5 syntax and stdlib signatures resolve.
     "intelephense.environment.phpVersion": "8.5.0",
 
-    // Everything below `vendor/` except php-stubs/ is CI tooling (PHPStan, PHPCS,
-    // WPCS, PHP-CS-Fixer, wp-cli) that the theme never calls. Skipping it keeps the
-    // initial index fast and keeps sniff/rule classes out of completion lists.
-    // The first ten entries are Intelephense's own defaults — setting this key
-    // replaces them wholesale, so they have to be repeated.
+    // Everything below `vendor/` except php-stubs/ and phpunit/ is CI tooling
+    // (PHPStan, PHPCS, WPCS, PHP-CS-Fixer, wp-cli) that neither repository calls.
+    // Skipping it keeps the initial index fast and keeps sniff/rule classes out of
+    // completion lists. The first ten entries are Intelephense's own defaults —
+    // setting this key replaces them wholesale, so they have to be repeated.
     "intelephense.files.exclude": [
         "**/.git/**",
         "**/.svn/**",
@@ -39,9 +55,12 @@
         "**/vendor/friendsofphp/**",
         "**/vendor/symfony/**",
         "**/vendor/wp-cli/**",
-        "**/vendor/enlightn/**",
         "**/vendor/php-parallel-lint/**",
-        "**/vendor/dealerdirect/**"
+        "**/vendor/dealerdirect/**",
+        "**/vendor/nikic/**",
+        "**/vendor/phar-io/**",
+        "**/vendor/sebastian/**",
+        "**/vendor/theseer/**"
     ],
 
     // VS Code's built-in PHP support only does word-based suggestions and would
@@ -54,8 +73,8 @@
     //
     // executablePath is deliberately unset: the extension then resolves phpcs
     // through composer.json to ./vendor/bin/phpcs, which stays correct on any
-    // machine. autoConfigSearch picks up phpcs.xml.dist from the theme root, so
-    // the editor reports exactly what `composer phpcs` reports in CI.
+    // machine. autoConfigSearch picks up phpcs.xml.dist from the repository root,
+    // so the editor reports exactly what `composer phpcs` reports in CI.
     "phpcs.enable": true,
     "phpcs.autoConfigSearch": true,
     "phpcs.showSources": true,
@@ -63,12 +82,13 @@
         "**/vendor/**",
         "**/node_modules/**",
         "**/assets/**",
+        "**/tests/**",
         "**/.stubs/**"
     ],
 
     // ─── PHP-CS-Fixer (junstyle.php-cs-fixer) ─────────────────────────────────
     //
-    // Use the project's pinned binary and config instead of the extension's
+    // Use the repository's pinned binary and config instead of the extension's
     // bundled phar and its @PSR12 default — the theme's config intentionally
     // disables the indentation rules that would otherwise flatten the mixed
     // PHP/HTML templates (see the comments in .php-cs-fixer.dist.php).
@@ -91,7 +111,9 @@
 
     // ─── Misc ─────────────────────────────────────────────────────────────────
     "files.exclude": {
-        "**/.DS_Store": true
+        "**/.DS_Store": true,
+        "**/.php-cs-fixer.cache": true,
+        "**/.phpunit.cache": true
     },
     "search.exclude": {
         "**/vendor": true,

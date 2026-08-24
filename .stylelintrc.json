@@ -1,0 +1,25 @@
+{
+    "extends": [
+        "stylelint-config-standard-scss"
+    ],
+    "ignoreFiles": [
+        "**/*.min.css",
+        "style.css",
+        "style-rtl.css",
+        "editor-style.css",
+        "sass/generic/_normalize.scss"
+    ],
+"rules": {
+        "alpha-value-notation": null,
+        "color-function-alias-notation": null,
+        "color-function-notation": null,
+        "color-hex-length": null,
+        "custom-property-pattern": null,
+        "declaration-block-single-line-max-declarations": null,
+        "keyframes-name-pattern": null,
+        "keyframe-selector-notation": null,
+        "media-feature-range-notation": null,
+        "rule-empty-line-before": null,
+        "selector-class-pattern": null
+    }
+}

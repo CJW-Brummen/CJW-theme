@@ -1,6 +1,13 @@
-<!-- Thanks for contributing to Underscores! Please provide as much information as possible with your Pull Request by filling out the following - this helps make reviewing much quicker! -->
+#### What does this change?
 
-#### Changes proposed in this Pull Request:
+<!-- What and why. Link any related issue. -->
 
+#### Checklist
 
-#### Related issue(s):
+- [ ] `composer check` passes
+- [ ] `npm run lint` passes
+- [ ] Touched `sass/`? Ran `npm run compile` and committed the CSS (theme only)
+- [ ] Touched translatable strings? Ran `composer make-pot`
+- [ ] Touched a shared config (`dependabot.yml`, `quality.yml`, `.editorconfig`,
+      `.php-cs-fixer.dist.php`, `.stylelintrc.json` rules)? Mirrored it in the
+      other repository

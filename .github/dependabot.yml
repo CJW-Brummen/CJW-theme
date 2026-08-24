@@ -1,15 +1,85 @@
-# To get started with Dependabot version updates, you'll need to specify which
-# package ecosystems to update and where the package manifests are located.
-# Please see the documentation for all configuration options:
+# Dependabot version updates.
+#
+# This file is shared verbatim by CJW-theme and CJW-plugin. Change one, change
+# the other -- the two repositories are kept on the same toolchain on purpose.
+#
+# Grouping policy:
+#   * minor + patch bumps are batched into one pull request per ecosystem per
+#     week, because they are routine tooling churn and reviewing them one by one
+#     produced a permanent backlog of near-identical pull requests;
+#   * major bumps stay on their own pull request, because they need reading;
+#   * security updates are never grouped, so a fix lands as its own small,
+#     obvious pull request.
+#
 # https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
 
 version: 2
+
 updates:
-  - package-ecosystem: "composer" # See documentation for possible values
-    directory: "/" # Location of package manifests
+  - package-ecosystem: "composer"
+    directory: "/"
     schedule:
       interval: "weekly"
-  - package-ecosystem: "npm" # See documentation for possible values
-    directory: "/" # Location of package manifests
+      day: "monday"
+      time: "05:00"
+      timezone: "Europe/Amsterdam"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "php"
+    commit-message:
+      prefix: "build(deps)"
+      prefix-development: "build(deps-dev)"
+      include: "scope"
+    groups:
+      php-tooling:
+        applies-to: version-updates
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+
+  - package-ecosystem: "npm"
+    directory: "/"
     schedule:
       interval: "weekly"
+      day: "monday"
+      time: "05:00"
+      timezone: "Europe/Amsterdam"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "javascript"
+    commit-message:
+      prefix: "build(deps)"
+      prefix-development: "build(deps-dev)"
+      include: "scope"
+    groups:
+      js-tooling:
+        applies-to: version-updates
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:00"
+      timezone: "Europe/Amsterdam"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "build(deps)"
+      include: "scope"
+    groups:
+      actions:
+        applies-to: version-updates
+        patterns:
+          - "*"

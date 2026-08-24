@@ -5,6 +5,8 @@ export default [
     {
         ignores: [
             "**/*.min.js",
+            ".stubs/**",
+            "vendor/**",
         ],
     },
     js.configs.recommended,

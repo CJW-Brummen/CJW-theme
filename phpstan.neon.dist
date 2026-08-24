@@ -5,13 +5,12 @@ parameters:
     excludePaths:
         analyse:
             - vendor
+            - .stubs
             - node_modules (?)
             - build (?)
             - dist (?)
-            - tests (?)
-            - .stubs
+            - tests
     scanFiles:
-        - vendor/php-stubs/woocommerce-stubs/woocommerce-stubs.php
         - .stubs/cjw-plugin-stubs.php
     bootstrapFiles:
         - phpstan-bootstrap.php

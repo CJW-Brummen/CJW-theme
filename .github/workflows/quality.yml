@@ -1,3 +1,9 @@
+# Pull request quality gate.
+#
+# This file is shared verbatim by CJW-theme and CJW-plugin. Change one, change
+# the other. Every check runs through a composer script, so `composer check`
+# locally and this workflow always execute the same commands.
+
 name: Pull Request Quality
 
 on:
@@ -18,6 +24,7 @@ concurrency:
 
 env:
   PHP_VERSION: "8.5"
+  NODE_VERSION: "22"
   COMPOSER_FLAGS: "--no-interaction --prefer-dist --no-progress"
 
 jobs:
@@ -27,7 +34,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -38,7 +45,7 @@ jobs:
           extensions: mbstring, intl, mysqli, dom, json, libxml, curl, zip
 
       - name: Cache Composer downloads
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ~/.composer/cache/files
           key: composer-${{ runner.os }}-php-${{ env.PHP_VERSION }}-${{ hashFiles('composer.lock', 'composer.json') }}
@@ -48,6 +55,12 @@ jobs:
         run: |
           composer validate --strict --no-check-lock
           composer install $COMPOSER_FLAGS
+
+      # Runs before the linters: an advisory against a pinned tool is a fact
+      # about the repository, not about the pull request under review, and
+      # finding it first makes an unrelated red build immediately legible.
+      - name: Security audit
+        run: composer security
 
       - name: Lint PHP
         run: composer lint
@@ -64,8 +77,8 @@ jobs:
       - name: PHPStan
         run: composer analyze:github
 
-      - name: Security audit
-        run: composer security
+      - name: PHPUnit
+        run: composer test
 
   frontend:
     name: Frontend assets
@@ -73,18 +86,19 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: "22"
+          node-version: ${{ env.NODE_VERSION }}
           cache: npm
 
-      - name: Check assets
-        run: |
-          npm ci
-          npm run lint
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint assets
+        run: npm run lint
 
   pr-review-gate:
     name: PR review gate
