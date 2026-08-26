@@ -31,6 +31,15 @@ while (have_posts()) :
 		</header>
 
 		<div class="page-layout">
+			<?php if (has_post_thumbnail()) : ?>
+				<aside class="page-layout__aside">
+					<div class="page-blob">
+						<div class="page-blob__frame" aria-hidden="true"></div>
+						<div class="page-blob__media"><?php the_post_thumbnail('large'); ?></div>
+					</div>
+				</aside>
+			<?php endif; ?>
+
 			<article id="post-<?php the_ID(); ?>" <?php post_class('page-layout__article'); ?>>
 				<div class="entry-content">
 					<?php
@@ -45,15 +54,6 @@ while (have_posts()) :
     ?>
 				</div>
 			</article>
-
-			<?php if (has_post_thumbnail()) : ?>
-				<aside class="page-layout__aside">
-					<div class="page-blob">
-						<div class="page-blob__frame" aria-hidden="true"></div>
-						<div class="page-blob__media"><?php the_post_thumbnail('large'); ?></div>
-					</div>
-				</aside>
-			<?php endif; ?>
 		</div>
 
 		<?php

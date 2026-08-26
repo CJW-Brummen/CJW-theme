@@ -38,12 +38,6 @@ while (have_posts()) :
 		</header>
 
 		<div class="page-layout">
-			<article id="post-<?php the_ID(); ?>" <?php post_class('page-layout__article'); ?>>
-				<div class="entry-content">
-					<?php the_content(); ?>
-				</div>
-			</article>
-
 			<aside class="page-layout__aside">
 				<?php if (has_post_thumbnail()) : ?>
 					<div class="page-blob">
@@ -75,6 +69,12 @@ while (have_posts()) :
 					<?php endif; ?>
 				</div>
 			</aside>
+
+			<article id="post-<?php the_ID(); ?>" <?php post_class('page-layout__article'); ?>>
+				<div class="entry-content">
+					<?php the_content(); ?>
+				</div>
+			</article>
 		</div>
 
 		<section class="page-cta">

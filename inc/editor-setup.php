@@ -172,6 +172,22 @@ function cjw_brummen_editor_blocks_init()
         ]
     );
 
+    register_block_style(
+        'core/image',
+        [
+            'name' => 'kiekje',
+            'label' => __('Kiekje', 'cjw-brummen'),
+        ]
+    );
+
+    register_block_style(
+        'core/gallery',
+        [
+            'name' => 'fotostrook',
+            'label' => __('Fotostrook', 'cjw-brummen'),
+        ]
+    );
+
     register_block_pattern_category(
         'cjw-brummen',
         [

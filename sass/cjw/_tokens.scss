@@ -4,6 +4,14 @@ $cjw-font-hand: "Amatic SC", cursive;
 $cjw-font-body: "Nunito", sans-serif;
 $cjw-nav-breakpoint: 920px;
 
+// Reading measure for body prose. The page layout puts the entry content
+// across the full 1100px row, which is far too wide for a 17px line, so
+// paragraphs, lists, quotes and details keep their own cap. Nunito's "0"
+// is a wide glyph, so 1ch is about 0.6em here and 66ch lands near 79
+// characters — the usual upper bound — not 66. Kept here because both
+// style.scss and editor-style.scss need the same number.
+$cjw-measure: 66ch;
+
 // Hand-drawn "sketchy" border radius, as used on buttons, cards and badges.
 // Interpolation keeps the slash out of Sass math.
 @mixin cjw-sketch-radius($horizontal: 255px 15px 225px 15px, $vertical: 15px 225px 15px 255px) {

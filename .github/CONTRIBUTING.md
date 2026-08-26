@@ -55,6 +55,35 @@ WordPress safety and compatibility. The formatting sniffs are silenced in
 the comments in `.php-cs-fixer.dist.php` first — the templates mix PHP with
 inline HTML and several PER-CS rules mangle them.
 
+## Building a release
+
+```bash
+npm run bundle
+```
+
+Writes an installable zip next to the repository — `../cjw.zip` in the plugin,
+`../cjw-theme.zip` in the theme — holding only the files that belong on a
+server: no `tests`, no `node_modules`, no `vendor`, no linter configs, no
+`.github`. WordPress requires the plugin or theme wrapped in a single top-level
+directory, which is what `--include-base-directory` gives you; without it the
+archive is flat and the WordPress installer rejects it.
+
+Two things to know about the `--exclude` list before adding to it:
+
+- An entry **without** a slash matches that name **at any depth**, not only at
+  the repository root. `vendor` therefore also swallowed
+  `assets/summer-camp/vendor/`, silently shipping a plugin whose date picker had
+  no flatpickr — which is why that build now lives in `assets/summer-camp/lib/`.
+  Never name a directory that has to ship after an entry on this list.
+- An entry **with** a slash matches that one exact relative path.
+
+So after adding any directory that has to ship, read the manifest instead of
+trusting it:
+
+```bash
+npm run bundle && unzip -Z1 ../cjw.zip
+```
+
 ## Theme-only: styles
 
 `style.css`, `style-rtl.css` and `editor-style.css` are **compiled output** and

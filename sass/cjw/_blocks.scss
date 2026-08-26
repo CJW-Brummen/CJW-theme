@@ -7,7 +7,7 @@
 
 .entry-content blockquote,
 .wp-block-quote {
-	max-width: 60ch;
+	max-width: $cjw-measure;
 	margin: 0 0 22px;
 	padding: 8px 18px 8px 22px;
 	border-left: 5px solid var(--apricot);
@@ -178,7 +178,7 @@ hr.wp-block-separator.wp-block-separator:not(.is-style-wide, .is-style-dots) {
 --------------------------------------------- */
 
 .wp-block-details {
-	max-width: 60ch;
+	max-width: $cjw-measure;
 	margin: 0 0 22px;
 	padding: 18px 22px;
 	background: #fffdf6;
@@ -237,6 +237,292 @@ hr.wp-block-separator.wp-block-separator:not(.is-style-wide, .is-style-dots) {
 
 		&::marker {
 			color: var(--sage-deep);
+		}
+	}
+}
+
+/* Media & text: the photo rows
+--------------------------------------------- */
+
+// The photo rows below size themselves against the column they sit in, not
+// against the viewport. page.php hands the article the full 1100px, while
+// the "Pagina met feitenkaart" template leaves it ~614px next to the facts
+// card — at the same viewport width. Only a container query can tell those
+// two apart, so the article body is declared as the container here.
+.entry-content {
+	container-type: inline-size;
+	container-name: cjw-content;
+}
+
+// The interior-page counterpart of the front page photo wall. The original
+// site paired every block of copy with a photo down the length of the page;
+// this is that rhythm in the CJW design language. Core owns the column
+// mechanics and the mobile stacking — what follows is the frame.
+
+// mediaWidth is deliberately left unset on the blocks, because core only
+// emits its inline grid-template-columns when it is set; leaving it off
+// keeps the proportion here in CSS where the design belongs.
+.entry-content .wp-block-media-text {
+	margin: 0 0 46px;
+	grid-template-columns: 45% auto;
+
+	&.has-media-on-the-right {
+		grid-template-columns: auto 45%;
+	}
+
+	// The gutter between photo and copy, on whichever side the photo sits.
+	.wp-block-media-text__content {
+		padding-inline: 7% 0;
+
+		> :last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	&.has-media-on-the-right .wp-block-media-text__content {
+		padding-inline: 0 7%;
+	}
+}
+
+.entry-content .wp-block-media-text__media {
+	position: relative;
+	align-self: start;
+	transform: rotate(-1.5deg);
+
+	// The dashed offset frame, echoing .page-blob__frame in the aside.
+	&::after {
+		content: "";
+		position: absolute;
+		z-index: 0;
+		inset: -13px -9px -9px -13px;
+		border: 3px dashed var(--apricot);
+		transform: rotate(3deg);
+		pointer-events: none;
+
+		@include cjw-sketch-radius(225px 18px 255px 18px, 18px 255px 18px 225px);
+	}
+
+	img {
+		position: relative;
+		z-index: 1;
+		display: block;
+		width: 100%;
+		box-shadow: 0 10px 26px rgba(38, 51, 45, 0.18);
+
+		// Overrides the blanket 18px on .entry-content img.
+		@include cjw-sketch-radius(225px 18px 255px 18px, 18px 255px 18px 225px);
+	}
+}
+
+// Alternate the tilt so a run of rows reads as a hand-pinned series
+// rather than a repeated template.
+.entry-content .wp-block-media-text:nth-of-type(even) .wp-block-media-text__media {
+	transform: rotate(2deg);
+
+	&::after {
+		transform: rotate(-3deg);
+
+		@include cjw-sketch-radius(255px 18px 225px 18px, 18px 225px 18px 255px);
+	}
+}
+
+// A narrow column — beside the facts card, say — cannot afford 45% to the
+// photo: the copy drops to about 35 characters a line. Give the text room
+// back and tighten the gutter instead of stacking straight away.
+@container cjw-content (max-width: 760px) {
+	.entry-content .wp-block-media-text {
+		grid-template-columns: 36% auto;
+
+		&.has-media-on-the-right {
+			grid-template-columns: auto 36%;
+		}
+
+		.wp-block-media-text__content {
+			padding-inline: 5% 0;
+		}
+
+		&.has-media-on-the-right .wp-block-media-text__content {
+			padding-inline: 0 5%;
+		}
+	}
+}
+
+// Too narrow for two columns at all. Core only stacks on a viewport query,
+// which misses a narrow column on a wide screen, so the grid placement is
+// repeated here — matching core's own stacked-on-mobile placement — and the
+// tilt is dropped, because a rotated frame collides with copy underneath.
+@container cjw-content (max-width: 460px) {
+	.entry-content .wp-block-media-text,
+	.entry-content .wp-block-media-text.has-media-on-the-right {
+		grid-template-columns: 100%;
+	}
+
+	// Both selectors are needed: the alternating tilt above is set through
+	// :nth-of-type(even), and a container query adds no specificity of its
+	// own, so a single-class reset would lose to it on every even row.
+	.entry-content .wp-block-media-text > .wp-block-media-text__media,
+	.entry-content .wp-block-media-text:nth-of-type(even) > .wp-block-media-text__media {
+		grid-column: 1;
+		grid-row: 1;
+		margin-bottom: 26px;
+		transform: none;
+
+		&::after {
+			inset: -10px;
+			transform: rotate(-2deg);
+		}
+	}
+
+	.entry-content .wp-block-media-text > .wp-block-media-text__content,
+	.entry-content .wp-block-media-text.has-media-on-the-right > .wp-block-media-text__content {
+		grid-column: 1;
+		grid-row: 2;
+		padding-inline: 0;
+	}
+}
+
+/* Image style: Kiekje (taped snapshot)
+--------------------------------------------- */
+
+// Opt-in on core/image. The front page pins its photos to the page with
+// tape (.fp-polaroid); this brings the same snapshot to page content, for
+// camp photos. Informational images — a map, a warning — are left in the
+// plain frame on purpose, so the playful tilt never lands on something
+// the reader has to take seriously.
+.entry-content .wp-block-image.is-style-kiekje {
+	position: relative;
+	width: fit-content;
+	margin-bottom: 34px;
+	padding: 12px 12px 8px;
+	background: #fff;
+	box-shadow: 0 8px 22px rgba(38, 51, 45, 0.18);
+	transform: rotate(-1.5deg);
+
+	&::before {
+		content: "";
+		position: absolute;
+		top: -11px;
+		left: 50%;
+		z-index: 2;
+		width: 76px;
+		height: 22px;
+		background: rgba(240, 174, 115, 0.75);
+		box-shadow: 0 1px 3px rgba(38, 51, 45, 0.15);
+		transform: translateX(-50%) rotate(-5deg);
+	}
+
+	img {
+		display: block;
+		border-radius: 0;
+	}
+
+	figcaption {
+		margin-top: 4px;
+		color: var(--ink);
+		font-family: $cjw-font-hand;
+		font-weight: 700;
+		font-size: 26px;
+		line-height: 1.1;
+	}
+
+	&:nth-of-type(even) {
+		transform: rotate(2deg);
+
+		&::before {
+			transform: translateX(-50%) rotate(6deg);
+		}
+	}
+}
+
+/* Gallery style: Fotostrook (a run of taped snapshots)
+--------------------------------------------- */
+
+// A band of camp photos at hand-pinned angles — the page-level echo of the
+// front page photo wall. Core's gallery grows every figure to a third of
+// the row and overlays the caption; both are undone so the snapshots keep
+// a snapshot's width and wear the caption underneath, as on the front page.
+
+// The :not(#individual-image) is not decoration: core ships its gallery
+// widths behind that same hack, which lends them an ID's specificity.
+// Without matching it here the width below silently loses to core's third-
+// of-a-row and the strip wraps after three photos.
+.entry-content .wp-block-gallery.is-style-fotostrook {
+	--wp--style--unstable-gallery-gap: 26px;
+
+	justify-content: center;
+	gap: 26px;
+	margin-bottom: 42px;
+	padding: 6px 0 10px;
+
+	&.has-nested-images figure.wp-block-image:not(#individual-image) {
+		position: relative;
+		flex: 0 0 auto;
+		width: min(238px, 78vw);
+		padding: 12px 12px 8px;
+		background: #fff;
+		box-shadow: 0 8px 22px rgba(38, 51, 45, 0.18);
+		transition: transform 0.25s;
+
+		&::before {
+			content: "";
+			position: absolute;
+			top: -11px;
+			left: 50%;
+			z-index: 2;
+			width: 72px;
+			height: 21px;
+			background: rgba(240, 174, 115, 0.75);
+			box-shadow: 0 1px 3px rgba(38, 51, 45, 0.15);
+			transform: translateX(-50%) rotate(-5deg);
+		}
+
+		img {
+			width: 100%;
+			height: auto;
+			border-radius: 0;
+			object-fit: cover;
+
+			@include cjw-aspect(4, 3);
+		}
+
+		// Core turns the caption into an absolutely positioned gradient
+		// overlay; the design wants it written under the photo instead.
+		figcaption {
+			position: static;
+			max-height: none;
+			padding: 6px 2px 0;
+			overflow: visible;
+			background: none;
+			color: var(--ink);
+			font-family: $cjw-font-hand;
+			font-weight: 700;
+			font-size: 24px;
+			line-height: 1.1;
+			text-align: center;
+			text-shadow: none;
+		}
+
+		// Four repeating angles, so any number of photos keeps the
+		// scattered look without a rotation repeating side by side.
+		&:nth-child(4n + 1) {
+			transform: rotate(-3deg);
+		}
+
+		&:nth-child(4n + 2) {
+			transform: rotate(2.5deg);
+		}
+
+		&:nth-child(4n + 3) {
+			transform: rotate(-1.5deg);
+		}
+
+		&:nth-child(4n + 4) {
+			transform: rotate(3.5deg);
+		}
+
+		&:hover,
+		&:focus-within {
+			transform: rotate(0deg) scale(1.03);
 		}
 	}
 }

@@ -69,7 +69,7 @@ header, footer and mobile drawer partials are intentionally left out.
 		display: flex;
 		flex-direction: column;
 		gap: 8px;
-		max-width: 60ch;
+		max-width: $cjw-measure;
 		margin: 0 0 22px;
 		padding: 0;
 		list-style: none;
@@ -91,7 +91,7 @@ header, footer and mobile drawer partials are intentionally left out.
 	}
 
 	ol.wp-block-list {
-		max-width: 60ch;
+		max-width: $cjw-measure;
 		margin: 0 0 22px;
 		padding-left: 24px;
 
