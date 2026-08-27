@@ -1,3 +1,5 @@
+@use "tokens";
+
 // Inner pages ("CJW Pagina Template" design): the sage page-header band,
 // entry content typography, the photo/facts aside and the signup CTA band.
 
@@ -32,7 +34,7 @@
 	text-transform: uppercase;
 	transform: rotate(-3deg);
 
-	@include cjw-sketch-radius(225px 15px 255px 15px, 15px 255px 15px 225px);
+	@include tokens.cjw-sketch-radius(225px 15px 255px 15px, 15px 255px 15px 225px);
 }
 
 .page-band__title {
@@ -151,7 +153,7 @@
 	}
 
 	p {
-		max-width: $cjw-measure;
+		max-width: tokens.$cjw-measure;
 		margin: 0 0 16px;
 		font-size: 17px;
 	}
@@ -160,7 +162,7 @@
 		display: flex;
 		flex-direction: column;
 		gap: 8px;
-		max-width: $cjw-measure;
+		max-width: tokens.$cjw-measure;
 		margin: 0 0 22px;
 		padding: 0;
 		list-style: none;
@@ -187,7 +189,7 @@
 	}
 
 	ol {
-		max-width: $cjw-measure;
+		max-width: tokens.$cjw-measure;
 		margin: 0 0 22px;
 		padding-left: 24px;
 		font-size: 17px;
@@ -225,7 +227,7 @@
 	border: 3px dashed var(--apricot);
 	transform: rotate(4deg);
 
-	@include cjw-sketch-radius(58% 42% 55% 45%, 48% 58% 42% 52%);
+	@include tokens.cjw-sketch-radius(58% 42% 55% 45%, 48% 58% 42% 52%);
 }
 
 .page-blob__media {
@@ -233,8 +235,8 @@
 	width: 100%;
 	overflow: hidden;
 
-	@include cjw-aspect(1, 0.9);
-	@include cjw-sketch-radius(58% 42% 55% 45%, 48% 58% 42% 52%);
+	@include tokens.cjw-aspect(1, 0.9);
+	@include tokens.cjw-sketch-radius(58% 42% 55% 45%, 48% 58% 42% 52%);
 
 	img {
 		display: block;
@@ -267,7 +269,7 @@
 	border: 3px solid var(--sage);
 	transform: rotate(-0.8deg);
 
-	@include cjw-sketch-radius(255px 20px 225px 20px, 20px 225px 20px 255px);
+	@include tokens.cjw-sketch-radius(255px 20px 225px 20px, 20px 225px 20px 255px);
 
 	p {
 		margin: 0;
@@ -301,7 +303,7 @@
 	background: var(--year-accent-tint);
 	border: 3px solid var(--year-accent);
 
-	@include cjw-sketch-radius(255px 25px 225px 25px, 25px 225px 25px 255px);
+	@include tokens.cjw-sketch-radius(255px 25px 225px 25px, 25px 225px 25px 255px);
 
 	@supports (background: color-mix(in oklab, red 10%, white)) {
 		background: color-mix(in oklab, var(--year-accent) 10%, var(--paper));

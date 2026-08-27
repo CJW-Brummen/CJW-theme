@@ -1,3 +1,5 @@
+@use "tokens";
+
 // Forest-green footer with the flickering campfire, quick links and contact.
 
 .site-footer-treeline {
@@ -55,14 +57,14 @@
 }
 
 .site-footer__brand {
-	font-family: $cjw-font-hand;
+	font-family: tokens.$cjw-font-hand;
 	font-weight: 700;
 	font-size: 40px;
 	line-height: 1;
 }
 
 .site-footer__heading {
-	font-family: $cjw-font-hand;
+	font-family: tokens.$cjw-font-hand;
 	font-weight: 700;
 	font-size: 28px;
 }
@@ -146,7 +148,7 @@
 		color: #f4ead8;
 		transition: transform 0.2s;
 
-		@include cjw-sketch-radius(225px 15px 255px 15px, 15px 255px 15px 225px);
+		@include tokens.cjw-sketch-radius(225px 15px 255px 15px, 15px 255px 15px 225px);
 
 		&:visited {
 			color: #f4ead8;
@@ -161,7 +163,7 @@
 	}
 
 	a:last-child {
-		@include cjw-sketch-radius;
+		@include tokens.cjw-sketch-radius;
 
 		&:hover,
 		&:focus-visible {

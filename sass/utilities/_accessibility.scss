@@ -1,3 +1,5 @@
+@use "../abstracts/variables/colors";
+
 /* Text meant only for screen readers. */
 .screen-reader-text {
 	border: 0;
@@ -13,13 +15,13 @@
 	overflow-wrap: normal !important; // Many screen reader and browser combinations announce broken words as they would appear visually.
 
 	&:focus {
-		background-color: $color-background-screen;
+		background-color: colors.$color-background-screen;
 		border-radius: 3px;
 		box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
 		/* stylelint-disable-next-line property-no-deprecated -- Deprecated "clip" is kept as a fallback for older browsers; removing it would change rendering there. */
 		clip: auto !important;
 		clip-path: none;
-		color: $color-text-screen;
+		color: colors.$color-text-screen;
 		display: block;
 		font-size: 0.875rem;
 		font-weight: 700;

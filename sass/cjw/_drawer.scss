@@ -1,3 +1,5 @@
+@use "tokens";
+
 // Off-canvas mobile menu. Opened by js/theme.js (.is-open + the inert
 // attribute keep it out of the tab order while closed).
 
@@ -33,7 +35,7 @@
 
 	// The drawer only exists below the navigation breakpoint; hide it on
 	// desktop so it can never linger next to the regular navigation.
-	@media (min-width: ($cjw-nav-breakpoint + 1)) {
+	@media (min-width: (tokens.$cjw-nav-breakpoint + 1)) {
 		display: none;
 	}
 }
@@ -48,7 +50,7 @@
 	background: var(--paper);
 	border: none;
 	color: var(--ink);
-	font-family: $cjw-font-hand;
+	font-family: tokens.$cjw-font-hand;
 	font-weight: 700;
 	font-size: 34px;
 	line-height: 1;
@@ -69,7 +71,7 @@
 
 	a {
 		color: var(--ink);
-		font-family: $cjw-font-hand;
+		font-family: tokens.$cjw-font-hand;
 		font-weight: 700;
 		font-size: 36px;
 		text-decoration: none;

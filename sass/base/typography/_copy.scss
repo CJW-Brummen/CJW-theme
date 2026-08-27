@@ -1,3 +1,6 @@
+@use "../../abstracts/variables/colors";
+@use "../../abstracts/variables/typography";
+
 p {
 	margin-bottom: 1.5em;
 }
@@ -18,9 +21,9 @@ address {
 }
 
 pre {
-	background: $color-background-pre;
-	font-family: $font-pre;
-	line-height: $font-line-height-pre;
+	background: colors.$color-background-pre;
+	font-family: typography.$font-pre;
+	line-height: typography.$font-line-height-pre;
 	margin-bottom: 1.6em;
 	max-width: 100%;
 	overflow: auto;
@@ -31,18 +34,18 @@ code,
 kbd,
 tt,
 var {
-	font-family: $font-code;
+	font-family: typography.$font-code;
 }
 
 abbr,
 acronym {
-	border-bottom: 1px dotted $color-border-abbr;
+	border-bottom: 1px dotted colors.$color-border-abbr;
 	cursor: help;
 }
 
 mark,
 ins {
-	background: $color-background-ins;
+	background: colors.$color-background-ins;
 	text-decoration: none;
 }
 
