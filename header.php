@@ -49,7 +49,7 @@ if ($cjw_brummen_description || is_customize_preview()) :
     wp_nav_menu(
         [
             'theme_location' => 'menu-1',
-            'container' => false,
+            'container' => '',
             'depth' => 1,
             'menu_class' => 'menu site-nav__menu',
             'fallback_cb' => 'cjw_brummen_menu_fallback',
@@ -77,7 +77,7 @@ $cjw_brummen_cta_label = $cjw_brummen_cta['open'] ? $cjw_brummen_cta['label'] : 
             wp_nav_menu(
                 [
                     'theme_location' => 'menu-1',
-                    'container' => false,
+                    'container' => '',
                     'depth' => 1,
                     'menu_class' => 'menu menu-drawer__menu',
                     'fallback_cb' => 'cjw_brummen_menu_fallback',

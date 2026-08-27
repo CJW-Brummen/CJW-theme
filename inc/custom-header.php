@@ -16,7 +16,7 @@
  *
  * @uses cjw_theme_header_style()
  */
-function cjw_theme_custom_header_setup()
+function cjw_theme_custom_header_setup(): void
 {
     add_theme_support(
         'custom-header',
@@ -41,7 +41,7 @@ if (! function_exists('cjw_theme_header_style')) :
      *
      * @see cjw_theme_custom_header_setup().
      */
-    function cjw_theme_header_style()
+    function cjw_theme_header_style(): void
     {
         $header_text_color = get_header_textcolor();
 

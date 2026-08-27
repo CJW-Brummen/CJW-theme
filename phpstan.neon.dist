@@ -1,5 +1,5 @@
 parameters:
-    level: 3
+    level: 6
     paths:
         - .
     excludePaths:
@@ -15,3 +15,21 @@ parameters:
     bootstrapFiles:
         - phpstan-bootstrap.php
     treatPhpDocTypesAsCertain: false
+    # The one suppressed error in either repository, and it is not ours.
+    #
+    # register_block_type()'s docblock in WordPress says `api_version` is a
+    # string, and php-stubs/wordpress-stubs follows it. WordPress itself
+    # disagrees with that docblock in two places: WP_Block_Type::$api_version
+    # defaults to the integer 1, and the block-types REST schema declares the
+    # field `integer`. Every core block reaches registration through block.json,
+    # where apiVersion is a JSON number. So the integer here is right and the
+    # stub is wrong, and changing it to '3' to satisfy the tool would make the
+    # code less correct than it is.
+    #
+    # PHPStan reports unmatched ignores as errors, so the day the stub is fixed
+    # this entry fails the build and asks to be deleted.
+    ignoreErrors:
+        -
+            identifier: argument.type
+            message: '#^Parameter \#2 \$args of function register_block_type expects array\{api_version\?: string#'
+            path: inc/blocks.php

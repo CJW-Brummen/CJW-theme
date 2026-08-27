@@ -9,8 +9,9 @@
 /**
  * Adds custom classes to the array of body classes.
  *
- * @param array $classes Classes for the body element.
- * @return array
+ * @param array<int, string> $classes Classes for the body element.
+ *
+ * @return array<int, string>
  */
 function cjw_theme_body_classes($classes)
 {
@@ -26,7 +27,7 @@ add_filter('body_class', 'cjw_theme_body_classes');
 /**
  * Add a pingback url auto-discovery header for single posts, pages, or attachments.
  */
-function cjw_theme_pingback_header()
+function cjw_theme_pingback_header(): void
 {
     if (is_singular() && pings_open()) {
         printf('<link rel="pingback" href="%s">', esc_url(get_bloginfo('pingback_url')));

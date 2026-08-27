@@ -20,7 +20,7 @@ if (! defined('CJW_BRUMMEN_VERSION')) {
  * runs before the init hook. The init hook is too late for some features, such
  * as indicating support for post thumbnails.
  */
-function cjw_brummen_setup()
+function cjw_brummen_setup(): void
 {
     /*
         * Make theme available for translation.
@@ -111,7 +111,7 @@ add_action('after_setup_theme', 'cjw_brummen_setup');
  *
  * @global int $content_width
  */
-function cjw_theme_content_width()
+function cjw_theme_content_width(): void
 {
     $GLOBALS['content_width'] = apply_filters('cjw_theme_content_width', 640);
 }
@@ -121,7 +121,7 @@ add_action('after_setup_theme', 'cjw_theme_content_width', 0);
  * Swap the html element's no-js class for js as early as possible, so the
  * stylesheet can fall back to the plain navigation when JavaScript is off.
  */
-function cjw_brummen_js_detection()
+function cjw_brummen_js_detection(): void
 {
     echo "<script>document.documentElement.classList.replace('no-js','js');</script>\n";
 }
@@ -130,7 +130,7 @@ add_action('wp_head', 'cjw_brummen_js_detection', 0);
 /**
  * Enqueue scripts and styles.
  */
-function cjw_brummen_scripts()
+function cjw_brummen_scripts(): void
 {
     wp_enqueue_style('cjw-theme-style', get_stylesheet_uri(), [], CJW_BRUMMEN_VERSION);
     wp_style_add_data('cjw-theme-style', 'rtl', 'replace');

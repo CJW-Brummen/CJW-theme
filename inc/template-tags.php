@@ -11,7 +11,7 @@ if (! function_exists('cjw_brummen_posted_on')) :
     /**
      * Prints HTML with meta information for the current post-date/time.
      */
-    function cjw_brummen_posted_on()
+    function cjw_brummen_posted_on(): void
     {
         $time_string = '<time class="entry-date published updated" datetime="%1$s">%2$s</time>';
         if (get_the_time('U') !== get_the_modified_time('U')) {
@@ -40,12 +40,12 @@ if (! function_exists('cjw_brummen_posted_by')) :
     /**
      * Prints HTML with meta information for the current author.
      */
-    function cjw_brummen_posted_by()
+    function cjw_brummen_posted_by(): void
     {
         $byline = sprintf(
             /* translators: %s: post author. */
             esc_html_x('by %s', 'post author', 'cjw-brummen'),
-            '<span class="author vcard"><a class="url fn n" href="' . esc_url(get_author_posts_url(get_the_author_meta('ID'))) . '">' . esc_html(get_the_author()) . '</a></span>'
+            '<span class="author vcard"><a class="url fn n" href="' . esc_url(get_author_posts_url((int) get_the_author_meta('ID'))) . '">' . esc_html(get_the_author()) . '</a></span>'
         );
 
         echo '<span class="byline"> ' . $byline . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -56,7 +56,7 @@ if (! function_exists('cjw_brummen_entry_footer')) :
     /**
      * Prints HTML with meta information for the categories, tags and comments.
      */
-    function cjw_brummen_entry_footer()
+    function cjw_brummen_entry_footer(): void
     {
         // Hide category and tag text for pages.
         if ('post' === get_post_type()) {
@@ -120,7 +120,7 @@ if (! function_exists('cjw_brummen_post_thumbnail')) :
      * Wraps the post thumbnail in an anchor element on index views, or a div
      * element when on single views.
      */
-    function cjw_brummen_post_thumbnail()
+    function cjw_brummen_post_thumbnail(): void
     {
         if (post_password_required() || is_attachment() || ! has_post_thumbnail()) {
             return;
@@ -161,7 +161,7 @@ if (! function_exists('wp_body_open')) :
      *
      * @link https://core.trac.wordpress.org/ticket/12563
      */
-    function wp_body_open() // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound -- Backfill for the WordPress core wp_body_open() function on sites older than 5.2.
+    function wp_body_open(): void // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound -- Backfill for the WordPress core wp_body_open() function on sites older than 5.2.
     {
         do_action('wp_body_open'); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Backfill fires the WordPress core wp_body_open hook.
     }
