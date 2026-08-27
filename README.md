@@ -1,70 +1,119 @@
-[![Build Status](https://travis-ci.org/Automattic/_s.svg?branch=master)](https://travis-ci.org/Automattic/_s)
+# CJW Brummen
 
-_s
-===
+The WordPress theme for [cjw-brummen.nl](https://www.cjw-brummen.nl) — the summer camps run by CJW Brummen.
 
-Hi. I'm a starter theme called `_s`, or `underscores`, if you like. I'm a theme meant for hacking so don't use me as a Parent Theme. Instead try turning me into the next, most awesome, WordPress theme out there. That's what I'm here for.
+It is a block theme in the practical sense rather than the technical one: a classic PHP theme that ships six dynamic blocks, three patterns and an editor stylesheet, so the front page is assembled in the block editor instead of in template files.
 
-My ultra-minimal CSS might make me look like theme tartare but that means less stuff to get in your way when you're designing your awesome theme. Here are some of the other more interesting things you'll find here:
+**The theme owns the design. The `cjw` plugin owns the camp.** Dates, the yearly theme, prices, the hero image, the signup call to action, sponsors and the registration form all live in the plugin, and the theme reads them through the bridge in `inc/summer-camp.php`. That split is deliberate: a camp year is data an organiser edits, not markup a developer deploys.
 
-* A modern workflow with a pre-made command-line interface to turn your project into a more pleasant experience.
-* A just right amount of lean, well-commented, modern, HTML5 templates.
-* A custom header implementation in `inc/custom-header.php`. Just add the code snippet found in the comments of `inc/custom-header.php` to your `header.php` template.
-* Custom template tags in `inc/template-tags.php` that keep your templates clean and neat and prevent code duplication.
-* Some small tweaks in `inc/template-functions.php` that can improve your theming experience.
-* A script at `js/navigation.js` that makes your menu a toggled dropdown on small screens (like your phone), ready for CSS artistry. It's enqueued in `functions.php`.
-* 2 sample layouts in `sass/layouts/` made using CSS Grid for a sidebar on either side of your content. Just uncomment the layout of your choice in `sass/style.scss`.
-Note: `.no-sidebar` styles are automatically loaded.
-* Smartly organized starter CSS in `style.css` that will help you to quickly get your design off the ground.
-* Full support for `WooCommerce plugin` integration with hooks in `inc/woocommerce.php`, styling override woocommerce.css with product gallery features (zoom, swipe, lightbox) enabled.
-* Licensed under GPLv2 or later. :) Use it to make something cool.
+---
 
-Installation
----------------
+## Requirements
 
-### Requirements
+| | |
+|---|---|
+| WordPress | 6.6 or newer (tested to 7.1) |
+| PHP | 8.1 or newer |
+| Node | 22, for the Sass build |
+| Composer | for the PHP toolchain |
 
-`_s` requires the following dependencies:
+The [`cjw` plugin](../../plugins/cjw) is not a hard requirement — every bridge helper falls back to a design default, and the theme never fatals without it. It is, however, where all the content comes from, so a site without it shows a well-styled page about nothing in particular.
 
-- [Node.js](https://nodejs.org/)
-- [Composer](https://getcomposer.org/)
-
-### Quick Start
-
-Clone or download this repository, change its name to something else (like, say, `megatherium-is-awesome`), and then you'll need to do a six-step find and replace on the name in all the templates.
-
-1. Search for `'cjw-brummen'` (inside single quotations) to capture the text domain and replace with: `'megatherium-is-awesome'`.
-2. Search for `cjw-brummen_` to capture all the functions names and replace with: `megatherium_is_awesome_`.
-3. Search for `Text Domain: cjw-brummen` in `style.css` and replace with: `Text Domain: megatherium-is-awesome`.
-4. Search for <code>&nbsp;_s</code> (with a space before it) to capture DocBlocks and replace with: <code>&nbsp;Megatherium_is_Awesome</code>.
-5. Search for `cjw-brummen-` to capture prefixed handles and replace with: `megatherium-is-awesome-`.
-6. Search for `cjw-brummen_` (in uppercase) to capture constants and replace with: `MEGATHERIUM_IS_AWESOME_`.
-
-Then, update the stylesheet header in `style.css`, the links in `footer.php` with your own information and rename `_s.pot` from `languages` folder to use the theme's slug. Next, update or delete this readme.
-
-### Setup
-
-To start using all the tools that come with `_s`  you need to install the necessary Node.js and Composer dependencies :
+## Getting started
 
 ```sh
-$ composer install
-$ npm install
+composer install
+npm install
+npm run compile     # sass -> style.css, style-rtl.css, editor-style.css
 ```
 
-### Available CLI commands
+`npm run watch` recompiles on save while you work.
 
-`_s` comes packed with CLI commands tailored for WordPress theme development :
+## The build
 
-- `composer lint:wpcs` : checks all PHP files against [PHP Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/php/).
-- `composer lint:php` : checks all PHP files for syntax errors.
-- `composer make-pot` : generates a .pot file in the `languages/` directory.
-- `npm run compile:css` : compiles SASS files to css.
-- `npm run compile:rtl` : generates an RTL stylesheet.
-- `npm run watch` : watches all SASS files and recompiles them to css when they change.
-- `npm run lint:scss` : checks all SASS files against [CSS Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/css/).
-- `npm run lint:js` : checks all JavaScript files against [JavaScript Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/javascript/).
-- `npm run bundle` : generates a .zip archive for distribution, excluding development and system files.
+Three stylesheets are **compiled from `sass/` and committed**, because WordPress reads `style.css` from disk and there is no build step on the server:
 
-Now you're ready to go! The next step is easy to say, but harder to do: make an awesome WordPress theme. :)
+| File | Built from | Loaded by |
+|---|---|---|
+| `style.css` | `sass/style.scss` | the front end |
+| `style-rtl.css` | `style.css`, via `rtlcss` | right-to-left locales |
+| `editor-style.css` | `sass/editor-style.scss` | the block editor |
 
-Good luck!
+Because they are build outputs under version control, they can drift from their source. CI compiles the Sass and fails on any difference, so **run `npm run compile` and commit the result** whenever you touch `sass/`.
+
+The Sass uses the module system (`@use`), not `@import`. Two things to know:
+
+- `@use` is hoisted to the top of a file, so a loud `/* comment */` written directly above one is re-emitted before every module that also depends on it. Section banners belong inside the partial they label.
+- A partial's CSS is emitted once, at the point of first use — so the order of `@use` rules is the order of the output.
+
+## Layout of the theme
+
+```
+sass/
+  abstracts/     variables and mixins, no output
+  generic/       normalize, box-sizing
+  base/          elements and typography
+  components/    navigation, media, pages
+  utilities/     accessibility, alignments
+  cjw/           the actual design: tokens, header, footer, drawer,
+                 front page, inner pages, blocks, buttons, fonts
+inc/
+  summer-camp.php     the plugin bridge — every helper degrades on its own
+  blocks.php          the six cjw/* blocks and their render callbacks
+  front-page.php      front page assembly
+  editor-setup.php    editor styles, block styles, the cjw category
+  template-tags.php   template helpers
+  template-functions.php
+  customizer.php      site identity only; camp content is the plugin's
+  custom-header.php
+patterns/        checklijst, cta-band, foto-met-tekst
+page-templates/  met-feitenkaart.php
+js/              theme.js (menu drawer), blocks.js (editor registration)
+assets/fonts/    self-hosted woff2 subsets
+```
+
+There is no blog. Underscores' comment, archive and classic-editor styling has been removed, and the site is pages only.
+
+## The blocks
+
+Six dynamic blocks, all registered in `inc/blocks.php` and rendered server-side so they always reflect current plugin data:
+
+| Block | What it is |
+|---|---|
+| `cjw/hero` | Opening section: camp photo, date badge, signup button |
+| `cjw/intro` | Welcome text with the key camp facts |
+| `cjw/jaarthema` | Yearly theme teaser with the countdown |
+| `cjw/cards` | The three navigation cards |
+| `cjw/photos` | The photo wall |
+| `cjw/sponsors` | The sponsor wall |
+
+Each is `multiple => false` and `reusable => false`: they are page furniture, not content blocks.
+
+## Fonts
+
+Nunito (variable, 400–900) and Amatic SC (400 and 700), self-hosted as subset woff2 with correct `unicode-range` and `font-display: swap`. The two faces above the fold — Nunito latin and Amatic SC 700 latin — are preloaded in `wp_head`; the rest are left to `unicode-range` to fetch only if a page needs them.
+
+## Tests
+
+```sh
+composer test       # fast, no database, no WordPress
+composer test:wp    # against a real WordPress
+composer check      # audit, lint, phpcs, formatting, PHPStan level 6, tests
+composer check:all  # the above plus the integration suite
+npm run lint        # eslint + stylelint
+```
+
+The fast suite runs against a hand-written stand-in for WordPress in `tests/bootstrap.php`, and deliberately runs **with the `cjw` plugin absent** — the plugin-missing path is the one worth pinning.
+
+The integration suite boots a real WordPress against a scratch database and asks the questions a stub cannot answer: did `add_theme_support()` take effect, does the menu location exist, do the stylesheets it points at resolve. It needs a database; `tests/integration/wp-tests-config.php` reads its settings from the environment and defaults to the Local by Flywheel install this theme lives in.
+
+## Conventions
+
+- WordPress coding standards, and PHPStan level 6 with no baseline. One error is suppressed, in `phpstan.neon.dist`, and the comment there explains why it is the stub that is wrong and not the code.
+- Two prefixes are in use: `cjw_brummen_` for anything about this site's content, `cjw_theme_` for the WordPress plumbing Underscores generated. New code should use `cjw_brummen_`.
+- Dutch in the interface, English in the code and comments.
+- Never read camp data directly: go through `inc/summer-camp.php`, so the fallback stays in one place.
+
+## Credits
+
+Built on [Underscores](https://underscores.me/) by Automattic, and licensed under the GPL v2 or later — see `LICENSE`. Very little of the starter theme is left; what remains is normalize, the accessibility helpers, and the menu scaffolding.
