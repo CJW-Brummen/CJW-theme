@@ -26,11 +26,32 @@ env:
   PHP_VERSION: "8.5"
   NODE_VERSION: "22"
   COMPOSER_FLAGS: "--no-interaction --prefer-dist --no-progress"
+  # Pinned to the wp-phpunit release the integration suite is written against.
+  # Bump both together, or WP_UnitTestCase and WordPress disagree about what
+  # exists.
+  WP_VERSION: "7.1"
 
 jobs:
   php:
     name: PHP quality
     runs-on: ubuntu-latest
+
+    # The integration suite installs WordPress into this database and drops
+    # every table it owns on each run. It is a throwaway container, which is
+    # the only kind of database that configuration is safe against.
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: wordpress_test
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -proot"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
 
     steps:
       - name: Checkout
@@ -80,6 +101,33 @@ jobs:
       - name: PHPUnit
         run: composer test
 
+      # A real WordPress, not the stand-in in tests/bootstrap.php. Four bugs
+      # have now reached main because a hand-written stub answered the way its
+      # author expected rather than the way WordPress does.
+      - name: Download WordPress
+        shell: bash
+        run: |
+          curl -sSL "https://wordpress.org/wordpress-${WP_VERSION}.tar.gz" -o /tmp/wordpress.tar.gz
+          tar -xzf /tmp/wordpress.tar.gz -C "$RUNNER_TEMP"
+
+          # Mounted where WordPress expects it, so plugin_dir_url() and the
+          # theme directory resolve the way they do on a real site.
+          if [ -f style.css ] && [ -d sass ]; then
+            ln -s "$GITHUB_WORKSPACE" "$RUNNER_TEMP/wordpress/wp-content/themes/cjw-theme"
+          else
+            ln -s "$GITHUB_WORKSPACE" "$RUNNER_TEMP/wordpress/wp-content/plugins/cjw"
+          fi
+
+      - name: Integration tests
+        shell: bash
+        env:
+          WP_ROOT_DIR: ${{ runner.temp }}/wordpress
+          WP_DB_HOST: 127.0.0.1:3306
+          WP_DB_NAME: wordpress_test
+          WP_DB_USER: root
+          WP_DB_PASSWORD: root
+        run: composer test:wp
+
   frontend:
     name: Frontend assets
     runs-on: ubuntu-latest
@@ -105,6 +153,26 @@ jobs:
 
       - name: Lint assets
         run: npm run lint
+
+      # style.css, style-rtl.css and editor-style.css are build outputs that
+      # are committed, and the linter only reads the Sass -- so one forgotten
+      # `npm run compile` ships a stale stylesheet behind a green build.
+      # Guarded by the file check rather than split into a theme-only workflow,
+      # because this file is shared verbatim with the plugin, which has no Sass.
+      - name: Committed CSS matches the Sass
+        shell: bash
+        run: |
+          if [ ! -f sass/style.scss ]; then
+            echo "No Sass in this repository - nothing to compare."
+            exit 0
+          fi
+
+          npm run compile
+
+          if ! git diff --exit-code -- style.css style-rtl.css editor-style.css; then
+            echo "::error::The committed CSS does not match the Sass. Run 'npm run compile' and commit the result."
+            exit 1
+          fi
 
   pr-review-gate:
     name: PR review gate

@@ -1,3 +1,5 @@
+@use "tokens";
+
 // Front page sections: hero, introduction, yearly theme teaser, cards,
 // polaroid photo wall and sponsors.
 
@@ -62,7 +64,7 @@
 	transition: transform 0.2s;
 	pointer-events: auto;
 
-	@include cjw-sketch-radius(225px 15px 255px 15px, 15px 255px 15px 225px);
+	@include tokens.cjw-sketch-radius(225px 15px 255px 15px, 15px 255px 15px 225px);
 
 	&:hover {
 		transform: rotate(-8deg) scale(1.06);
@@ -161,7 +163,7 @@
 	border: 3px dashed var(--apricot);
 	transform: rotate(4deg);
 
-	@include cjw-sketch-radius(58% 42% 55% 45%, 48% 58% 42% 52%);
+	@include tokens.cjw-sketch-radius(58% 42% 55% 45%, 48% 58% 42% 52%);
 }
 
 .fp-intro__blob {
@@ -169,8 +171,8 @@
 	width: min(420px, 100%);
 	overflow: hidden;
 
-	@include cjw-aspect(1, 0.92);
-	@include cjw-sketch-radius(58% 42% 55% 45%, 48% 58% 42% 52%);
+	@include tokens.cjw-aspect(1, 0.92);
+	@include tokens.cjw-sketch-radius(58% 42% 55% 45%, 48% 58% 42% 52%);
 }
 
 .fp-intro__img {
@@ -248,7 +250,7 @@
 	text-transform: uppercase;
 	transform: rotate(-3deg);
 
-	@include cjw-sketch-radius(225px 15px 255px 15px, 15px 255px 15px 225px);
+	@include tokens.cjw-sketch-radius(225px 15px 255px 15px, 15px 255px 15px 225px);
 }
 
 .fp-theme__title {
@@ -283,7 +285,7 @@
 	box-shadow: 0 6px 0 var(--year-accent-soft);
 	transition: transform 0.2s;
 
-	@include cjw-sketch-radius(255px 25px 225px 25px, 25px 225px 25px 255px);
+	@include tokens.cjw-sketch-radius(255px 25px 225px 25px, 25px 225px 25px 255px);
 
 	@supports (box-shadow: 0 0 0 color-mix(in oklab, red 40%, transparent)) {
 		box-shadow: 0 6px 0 color-mix(in oklab, var(--year-accent) 40%, transparent);
@@ -296,7 +298,7 @@
 
 .fp-countdown__value {
 	color: var(--year-accent);
-	font-family: $cjw-font-hand;
+	font-family: tokens.$cjw-font-hand;
 	font-weight: 700;
 	font-size: 78px;
 	line-height: 1;
@@ -336,7 +338,7 @@
 	transform: rotate(-0.6deg);
 	transition: transform 0.2s, box-shadow 0.2s;
 
-	@include cjw-sketch-radius(255px 20px 225px 20px, 20px 225px 20px 255px);
+	@include tokens.cjw-sketch-radius(255px 20px 225px 20px, 20px 225px 20px 255px);
 
 	&:visited {
 		color: var(--ink);
@@ -375,7 +377,7 @@
 	border-color: var(--apricot);
 	transform: rotate(0.8deg);
 
-	@include cjw-sketch-radius(20px 255px 20px 225px, 225px 20px 255px 20px);
+	@include tokens.cjw-sketch-radius(20px 255px 20px 225px, 225px 20px 255px 20px);
 
 	.fp-card__icon {
 		color: var(--apricot);
@@ -392,7 +394,7 @@
 	border-color: var(--year-accent);
 	transform: rotate(-0.8deg);
 
-	@include cjw-sketch-radius(225px 20px 255px 20px, 20px 255px 20px 225px);
+	@include tokens.cjw-sketch-radius(225px 20px 255px 20px, 20px 255px 20px 225px);
 
 	.fp-card__icon {
 		color: var(--year-accent);
@@ -469,7 +471,7 @@
 	width: 100%;
 	overflow: hidden;
 
-	@include cjw-aspect(4, 3);
+	@include tokens.cjw-aspect(4, 3);
 }
 
 .fp-polaroid__img {
@@ -481,7 +483,7 @@
 
 .fp-polaroid__caption {
 	padding-top: 6px;
-	font-family: $cjw-font-hand;
+	font-family: tokens.$cjw-font-hand;
 	font-weight: 700;
 	font-size: 26px;
 	text-align: center;
@@ -592,7 +594,7 @@
 	border: 2.5px dashed var(--sage);
 	transition: transform 0.2s;
 
-	@include cjw-sketch-radius(255px 18px 225px 18px, 18px 225px 18px 255px);
+	@include tokens.cjw-sketch-radius(255px 18px 225px 18px, 18px 225px 18px 255px);
 
 	&:hover,
 	&:focus-visible {

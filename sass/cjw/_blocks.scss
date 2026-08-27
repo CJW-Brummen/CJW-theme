@@ -1,3 +1,5 @@
+@use "tokens";
+
 // Core block styling for the CJW design: quotes, tables, separators,
 // buttons, captions, galleries, details and code blocks — used on the
 // front end and (via editor-style.scss) inside the block editor.
@@ -7,7 +9,7 @@
 
 .entry-content blockquote,
 .wp-block-quote {
-	max-width: $cjw-measure;
+	max-width: tokens.$cjw-measure;
 	margin: 0 0 22px;
 	padding: 8px 18px 8px 22px;
 	border-left: 5px solid var(--apricot);
@@ -25,7 +27,7 @@
 	cite {
 		display: block;
 		color: var(--sage-deep);
-		font-family: $cjw-font-hand;
+		font-family: tokens.$cjw-font-hand;
 		font-style: normal;
 		font-weight: 700;
 		font-size: 24px;
@@ -39,7 +41,7 @@
 	border: 3px dashed var(--apricot);
 	text-align: center;
 
-	@include cjw-sketch-radius(255px 20px 225px 20px, 20px 255px 20px 225px);
+	@include tokens.cjw-sketch-radius(255px 20px 225px 20px, 20px 255px 20px 225px);
 
 	blockquote {
 		max-width: none;
@@ -50,7 +52,7 @@
 
 		p {
 			margin: 0 0 10px;
-			font-family: $cjw-font-hand;
+			font-family: tokens.$cjw-font-hand;
 			font-weight: 700;
 			font-size: clamp(28px, 3vw, 36px);
 			line-height: 1.1;
@@ -59,7 +61,7 @@
 		cite {
 			display: block;
 			color: var(--sage-deep);
-			font-family: $cjw-font-body;
+			font-family: tokens.$cjw-font-body;
 			font-style: normal;
 			font-weight: 800;
 			font-size: 15px;
@@ -91,7 +93,7 @@
 
 	th {
 		background: rgba(88, 140, 126, 0.12);
-		font-family: $cjw-font-hand;
+		font-family: tokens.$cjw-font-hand;
 		font-weight: 700;
 		font-size: 24px;
 		line-height: 1.1;
@@ -126,7 +128,7 @@ hr.wp-block-separator.wp-block-separator:not(.is-style-wide, .is-style-dots) {
 	background: var(--year-accent);
 	color: #fff;
 	border: 0;
-	font-family: $cjw-font-body;
+	font-family: tokens.$cjw-font-body;
 	font-weight: 900;
 	font-size: 16px;
 	line-height: 1.4;
@@ -135,7 +137,7 @@ hr.wp-block-separator.wp-block-separator:not(.is-style-wide, .is-style-dots) {
 	box-shadow: 0 3px 0 rgba(38, 51, 45, 0.25);
 	transition: transform 0.15s;
 
-	@include cjw-sketch-radius;
+	@include tokens.cjw-sketch-radius;
 
 	&:visited,
 	&:hover,
@@ -178,14 +180,14 @@ hr.wp-block-separator.wp-block-separator:not(.is-style-wide, .is-style-dots) {
 --------------------------------------------- */
 
 .wp-block-details {
-	max-width: $cjw-measure;
+	max-width: tokens.$cjw-measure;
 	margin: 0 0 22px;
 	padding: 18px 22px;
 	background: #fffdf6;
 	border: 2px solid var(--sage);
 	font-size: 17px;
 
-	@include cjw-sketch-radius(255px 15px 225px 15px, 15px 225px 15px 255px);
+	@include tokens.cjw-sketch-radius(255px 15px 225px 15px, 15px 225px 15px 255px);
 
 	summary {
 		font-weight: 900;
@@ -299,7 +301,7 @@ hr.wp-block-separator.wp-block-separator:not(.is-style-wide, .is-style-dots) {
 		transform: rotate(3deg);
 		pointer-events: none;
 
-		@include cjw-sketch-radius(225px 18px 255px 18px, 18px 255px 18px 225px);
+		@include tokens.cjw-sketch-radius(225px 18px 255px 18px, 18px 255px 18px 225px);
 	}
 
 	img {
@@ -310,7 +312,7 @@ hr.wp-block-separator.wp-block-separator:not(.is-style-wide, .is-style-dots) {
 		box-shadow: 0 10px 26px rgba(38, 51, 45, 0.18);
 
 		// Overrides the blanket 18px on .entry-content img.
-		@include cjw-sketch-radius(225px 18px 255px 18px, 18px 255px 18px 225px);
+		@include tokens.cjw-sketch-radius(225px 18px 255px 18px, 18px 255px 18px 225px);
 	}
 }
 
@@ -322,7 +324,7 @@ hr.wp-block-separator.wp-block-separator:not(.is-style-wide, .is-style-dots) {
 	&::after {
 		transform: rotate(-3deg);
 
-		@include cjw-sketch-radius(255px 18px 225px 18px, 18px 225px 18px 255px);
+		@include tokens.cjw-sketch-radius(255px 18px 225px 18px, 18px 225px 18px 255px);
 	}
 }
 
@@ -419,7 +421,7 @@ hr.wp-block-separator.wp-block-separator:not(.is-style-wide, .is-style-dots) {
 	figcaption {
 		margin-top: 4px;
 		color: var(--ink);
-		font-family: $cjw-font-hand;
+		font-family: tokens.$cjw-font-hand;
 		font-weight: 700;
 		font-size: 26px;
 		line-height: 1.1;
@@ -482,7 +484,7 @@ hr.wp-block-separator.wp-block-separator:not(.is-style-wide, .is-style-dots) {
 			border-radius: 0;
 			object-fit: cover;
 
-			@include cjw-aspect(4, 3);
+			@include tokens.cjw-aspect(4, 3);
 		}
 
 		// Core turns the caption into an absolutely positioned gradient
@@ -494,7 +496,7 @@ hr.wp-block-separator.wp-block-separator:not(.is-style-wide, .is-style-dots) {
 			overflow: visible;
 			background: none;
 			color: var(--ink);
-			font-family: $cjw-font-hand;
+			font-family: tokens.$cjw-font-hand;
 			font-weight: 700;
 			font-size: 24px;
 			line-height: 1.1;

@@ -1,3 +1,5 @@
+@use "tokens";
+
 // The "Schrijf je in!" button family: accent background with a sketchy
 // hand-drawn outline shape.
 
@@ -7,7 +9,7 @@
 	background: var(--year-accent);
 	color: #fff;
 	border: 0;
-	font-family: $cjw-font-body;
+	font-family: tokens.$cjw-font-body;
 	font-weight: 900;
 	font-size: 16px;
 	line-height: 1.4;
@@ -16,7 +18,7 @@
 	box-shadow: 0 3px 0 rgba(38, 51, 45, 0.25);
 	transition: transform 0.15s;
 
-	@include cjw-sketch-radius;
+	@include tokens.cjw-sketch-radius;
 
 	&:visited,
 	&:hover,

@@ -1,5 +1,6 @@
 @use "sass:map";
 @use "sass:math";
+@use "../variables/columns";
 
 // Center block
 @mixin center-block {
@@ -10,5 +11,5 @@
 
 // Column width with margin
 @mixin column-width($numberColumns: 3) {
-	width: map.get($columns, $numberColumns) - math.div($columns-margin * ( $numberColumns - 1 ), $numberColumns);
+	width: map.get(columns.$columns, $numberColumns) - math.div(columns.$columns-margin * ( $numberColumns - 1 ), $numberColumns);
 }

@@ -57,7 +57,7 @@ function cjw_brummen_front_page_defaults()
  *
  * @param array<string, mixed> $args wp_nav_menu() arguments.
  */
-function cjw_brummen_menu_fallback($args = [])
+function cjw_brummen_menu_fallback($args = []): void
 {
     $items = [
         [

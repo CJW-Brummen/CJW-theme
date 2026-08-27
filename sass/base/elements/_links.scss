@@ -1,14 +1,16 @@
+@use "../../abstracts/variables/colors";
+
 a {
-	color: $color-link;
+	color: colors.$color-link;
 
 	&:visited {
-		color: $color-link-visited;
+		color: colors.$color-link-visited;
 	}
 
 	&:hover,
 	&:focus,
 	&:active {
-		color: $color-link-hover;
+		color: colors.$color-link-hover;
 	}
 
 	&:focus {

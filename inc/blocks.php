@@ -148,7 +148,7 @@ function cjw_brummen_is_editor_request()
 /**
  * Registers the editor script and the six cjw/* dynamic blocks.
  */
-function cjw_brummen_register_blocks()
+function cjw_brummen_register_blocks(): void
 {
     wp_register_script(
         'cjw-brummen-blocks',

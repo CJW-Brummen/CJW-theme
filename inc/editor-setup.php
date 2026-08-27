@@ -14,7 +14,7 @@
 /**
  * Theme supports for the block editor.
  */
-function cjw_brummen_editor_setup()
+function cjw_brummen_editor_setup(): void
 {
     add_theme_support('editor-styles');
     add_editor_style('editor-style.css');
@@ -162,7 +162,7 @@ function cjw_brummen_editor_settings($settings)
  * Hooked before init 10 so the category exists when WordPress registers
  * the patterns/ directory.
  */
-function cjw_brummen_editor_blocks_init()
+function cjw_brummen_editor_blocks_init(): void
 {
     register_block_style(
         'core/list',

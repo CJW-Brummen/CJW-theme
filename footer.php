@@ -36,7 +36,7 @@ $cjw_brummen_footer_copy = cjw_brummen_footer_copy();
                 wp_nav_menu(
                     [
                         'theme_location' => 'menu-1',
-                        'container' => false,
+                        'container' => '',
                         'depth' => 1,
                         'menu_class' => 'menu site-footer__menu',
                         'fallback_cb' => 'cjw_brummen_menu_fallback',

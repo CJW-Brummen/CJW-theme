@@ -1,23 +1,23 @@
 /* Navigation
 --------------------------------------------- */
-@import "navigation/navigation";
+@use "navigation/navigation";
 
 /* Posts and pages
 --------------------------------------------- */
-@import "content/posts-and-pages";
+@use "content/posts-and-pages";
 
 /* Comments
 --------------------------------------------- */
-@import "comments/comments";
+@use "comments/comments";
 
 /* Media
 --------------------------------------------- */
-@import "media/media";
+@use "media/media";
 
 /* Captions
 --------------------------------------------- */
-@import "media/captions";
+@use "media/captions";
 
 /* Galleries
 --------------------------------------------- */
-@import "media/galleries";
+@use "media/galleries";

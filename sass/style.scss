@@ -48,7 +48,7 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 -------------------------------------------------------------- */
 
 // Import variables and mixins.
-@import "abstracts/abstracts";
+@use "abstracts/abstracts";
 
 /* --------------------------------------------------------------
 # Generic
@@ -56,27 +56,27 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 
 /* Normalize
 --------------------------------------------- */
-@import "generic/normalize";
+@use "generic/normalize";
 
 /* Box sizing
 --------------------------------------------- */
-@import "generic/box-sizing";
+@use "generic/box-sizing";
 
 /* --------------------------------------------------------------
 # Base
 -------------------------------------------------------------- */
-@import "base/base";
+@use "base/base";
 
 /* --------------------------------------------------------------
 # Layouts
 -------------------------------------------------------------- */
-// @import "layouts/content-sidebar"; // Uncomment this line for a sidebar on right side of your content.
-// @import "layouts/sidebar-content"; // Uncomment this line for a sidebar on left side of your content.
+// @use "layouts/content-sidebar"; // Uncomment this line for a sidebar on right side of your content.
+// @use "layouts/sidebar-content"; // Uncomment this line for a sidebar on left side of your content.
 
 /* --------------------------------------------------------------
 # Components
 -------------------------------------------------------------- */
-@import "components/components";
+@use "components/components";
 
 /* --------------------------------------------------------------
 # Utilities
@@ -84,11 +84,11 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 
 /* Accessibility
 --------------------------------------------- */
-@import "utilities/accessibility";
+@use "utilities/accessibility";
 
 /* Alignments
 --------------------------------------------- */
-@import "utilities/alignments";
+@use "utilities/alignments";
 
 /* --------------------------------------------------------------
 # CJW design
@@ -96,40 +96,41 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 
 /* Webfonts
 --------------------------------------------- */
-@import "cjw/fonts";
+@use "cjw/fonts";
 
-/* Tokens
---------------------------------------------- */
-@import "cjw/tokens";
+// Tokens. Its section banner lives in the partial itself: a loud comment
+// written directly above a `@use` is re-emitted before every module that also
+// depends on it, so keeping it here printed "/* Tokens */" nine times.
+@use "cjw/tokens";
 
 /* Base overrides
 --------------------------------------------- */
-@import "cjw/base";
+@use "cjw/base" as base2;
 
 /* Buttons
 --------------------------------------------- */
-@import "cjw/buttons";
+@use "cjw/buttons";
 
 /* Header
 --------------------------------------------- */
-@import "cjw/header";
+@use "cjw/header";
 
 /* Footer
 --------------------------------------------- */
-@import "cjw/footer";
+@use "cjw/footer";
 
 /* Front page
 --------------------------------------------- */
-@import "cjw/front-page";
+@use "cjw/front-page";
 
 /* Inner pages
 --------------------------------------------- */
-@import "cjw/page";
+@use "cjw/page";
 
 /* Core blocks
 --------------------------------------------- */
-@import "cjw/blocks";
+@use "cjw/blocks";
 
 /* Mobile menu drawer
 --------------------------------------------- */
-@import "cjw/drawer";
+@use "cjw/drawer";

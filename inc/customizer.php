@@ -11,13 +11,13 @@
  *
  * @param WP_Customize_Manager $wp_customize Theme Customizer object.
  */
-function cjw_theme_customize_register($wp_customize)
+function cjw_theme_customize_register($wp_customize): void
 {
     $wp_customize->get_setting('blogname')->transport = 'postMessage';
     $wp_customize->get_setting('blogdescription')->transport = 'postMessage';
     $wp_customize->get_setting('header_textcolor')->transport = 'postMessage';
 
-    if (isset($wp_customize->selective_refresh)) {
+    if ($wp_customize->selective_refresh instanceof WP_Customize_Selective_Refresh) {
         $wp_customize->selective_refresh->add_partial(
             'blogname',
             [
@@ -59,7 +59,7 @@ function cjw_theme_customize_partial_blogdescription()
 /**
  * Binds JS handlers to make Theme Customizer preview reload changes asynchronously.
  */
-function cjw_theme_customize_preview_js()
+function cjw_theme_customize_preview_js(): void
 {
     wp_enqueue_script('cjw-brummen-customizer', get_template_directory_uri() . '/js/customizer.js', [ 'customize-preview' ], CJW_BRUMMEN_VERSION, true);
 }

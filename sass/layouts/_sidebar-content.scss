@@ -1,28 +1,7 @@
-.site {
-	display: grid;
-	grid-template-columns: ($size-site-sidebar) auto;
-	grid-template-areas:
-		"header header"
-		"sidebar main"
-		"footer footer";
-}
-
-.site-header {
-	grid-area: header;
-}
-
-.site-main {
-	grid-area: main;
-	overflow: hidden; /* Resolves issue with <pre> elements forcing full width. */
-}
-
-.widget-area {
-	grid-area: sidebar;
-}
-
-.site-footer {
-	grid-area: footer;
-}
-
-/* stylelint-disable-next-line no-invalid-position-at-import-rule -- Sass resolves this at compile time; moving it would change the cascade order. */
-@import "no-sidebar";
+// This layout's own grid, then the no-sidebar fallback it falls back to.
+// Split across two partials on purpose. `@use` is hoisted to the top of a
+// file, so writing it after the rules -- which is what `@import` allowed, and
+// what the cascade here depends on -- is not possible. Listing the two in
+// order is the only way to keep the fallback emitting last.
+@use "sidebar-content-grid";
+@use "no-sidebar";

@@ -7,31 +7,32 @@ header, footer and mobile drawer partials are intentionally left out.
 
 /* Webfonts
 --------------------------------------------- */
-@import "cjw/fonts";
+@use "cjw/fonts";
 
-/* Tokens
---------------------------------------------- */
-@import "cjw/tokens";
+// Tokens. Its section banner lives in the partial itself: a loud comment
+// written directly above a `@use` is re-emitted before every module that also
+// depends on it, so keeping it here printed "/* Tokens */" nine times.
+@use "cjw/tokens";
 
 /* Base overrides
 --------------------------------------------- */
-@import "cjw/base";
+@use "cjw/base";
 
 /* Buttons
 --------------------------------------------- */
-@import "cjw/buttons";
+@use "cjw/buttons";
 
 /* Front page
 --------------------------------------------- */
-@import "cjw/front-page";
+@use "cjw/front-page";
 
 /* Inner pages
 --------------------------------------------- */
-@import "cjw/page";
+@use "cjw/page";
 
 /* Core blocks
 --------------------------------------------- */
-@import "cjw/blocks";
+@use "cjw/blocks";
 
 /* Editor-only defaults
 --------------------------------------------- */
@@ -39,7 +40,7 @@ header, footer and mobile drawer partials are intentionally left out.
 .editor-styles-wrapper {
 	background: var(--paper);
 	color: var(--ink);
-	font-family: $cjw-font-body;
+	font-family: tokens.$cjw-font-body;
 	font-size: 17px;
 	line-height: 1.6;
 
@@ -49,7 +50,7 @@ header, footer and mobile drawer partials are intentionally left out.
 	h4,
 	h5,
 	h6 {
-		font-family: $cjw-font-hand;
+		font-family: tokens.$cjw-font-hand;
 		font-weight: 700;
 	}
 
@@ -69,7 +70,7 @@ header, footer and mobile drawer partials are intentionally left out.
 		display: flex;
 		flex-direction: column;
 		gap: 8px;
-		max-width: $cjw-measure;
+		max-width: tokens.$cjw-measure;
 		margin: 0 0 22px;
 		padding: 0;
 		list-style: none;
@@ -91,7 +92,7 @@ header, footer and mobile drawer partials are intentionally left out.
 	}
 
 	ol.wp-block-list {
-		max-width: $cjw-measure;
+		max-width: tokens.$cjw-measure;
 		margin: 0 0 22px;
 		padding-left: 24px;
 
@@ -132,12 +133,12 @@ header, footer and mobile drawer partials are intentionally left out.
 	border: 2px dashed rgba(88, 140, 126, 0.55);
 	background: rgba(88, 140, 126, 0.07);
 	color: var(--ink);
-	font-family: $cjw-font-body;
+	font-family: tokens.$cjw-font-body;
 
-	@include cjw-sketch-radius;
+	@include tokens.cjw-sketch-radius;
 
 	strong {
-		font-family: $cjw-font-hand;
+		font-family: tokens.$cjw-font-hand;
 		font-size: 30px;
 		line-height: 1.1;
 		color: var(--sage-deep);

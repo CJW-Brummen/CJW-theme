@@ -8,6 +8,8 @@
     <testsuites>
         <testsuite name="CJW Brummen">
             <directory>tests</directory>
+            <!-- Needs a database and a real WordPress: `composer test:wp`. -->
+            <exclude>tests/integration</exclude>
         </testsuite>
     </testsuites>
 </phpunit>

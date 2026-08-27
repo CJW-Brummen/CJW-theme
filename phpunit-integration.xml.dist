@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+    bootstrap="tests/integration/bootstrap.php"
+    cacheDirectory=".phpunit.cache"
+    colors="true"
+    executionOrder="default"
+    beStrictAboutOutputDuringTests="false"
+>
+    <testsuites>
+        <testsuite name="CJW Brummen integration">
+            <directory suffix="Test.php">tests/integration</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>
