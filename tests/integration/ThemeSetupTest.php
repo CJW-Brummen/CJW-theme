@@ -14,7 +14,13 @@ final class ThemeSetupTest extends CJW_IntegrationTestCase
 {
     public function testTheThemeIsTheActiveOne(): void
     {
-        $this->assertSame('CJW-theme', get_stylesheet());
+        // Compared by directory, not by name: which folder WordPress is
+        // rendering from is the fact under test, and it survives the theme
+        // being renamed.
+        $this->assertSame(
+            realpath(dirname(__DIR__, 2)),
+            realpath(get_stylesheet_directory())
+        );
         $this->assertFalse(is_child_theme());
     }
 
