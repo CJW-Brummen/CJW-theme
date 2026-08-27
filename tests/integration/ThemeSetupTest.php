@@ -14,7 +14,7 @@ final class ThemeSetupTest extends CJW_IntegrationTestCase
 {
     public function testTheThemeIsTheActiveOne(): void
     {
-        $this->assertSame('cjw-theme', get_stylesheet());
+        $this->assertSame('CJW-theme', get_stylesheet());
         $this->assertFalse(is_child_theme());
     }
 
