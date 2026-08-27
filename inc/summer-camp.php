@@ -12,6 +12,13 @@
  */
 
 /**
+ * Where the assembled sponsor wall is cached.
+ */
+if (! defined('CJW_BRUMMEN_SPONSORS_TRANSIENT')) {
+    define('CJW_BRUMMEN_SPONSORS_TRANSIENT', 'cjw_brummen_sponsors');
+}
+
+/**
  * Returns the shared summer camp service, or null when the plugins are
  * not active.
  *
@@ -568,10 +575,15 @@ function cjw_brummen_social_links()
 }
 
 /**
- * Published sponsors from the ACF "Sponsor" post type (source of truth).
+ * Published sponsors, ready to render.
  *
- * Only sponsors with a logo (featured image) are returned; the link comes
- * from the ACF sponsor_link field.
+ * Only sponsors with a logo are returned; the link comes from the
+ * `sponsor_link` post meta the plugin's meta box writes. It used to be read
+ * through ACF, which was never storing it -- the value has always been
+ * ordinary post meta.
+ *
+ * Cached, because this runs on every front page render for data that changes a
+ * few times a year: a query, plus a thumbnail and a meta lookup per sponsor.
  *
  * @return array<int, array{id: int, title: string, url: string, logo_id: int}>
  */
@@ -579,6 +591,12 @@ function cjw_brummen_sponsors()
 {
     if (! post_type_exists('sponsor')) {
         return [];
+    }
+
+    $cached = get_transient(CJW_BRUMMEN_SPONSORS_TRANSIENT);
+
+    if (is_array($cached)) {
+        return $cached;
     }
 
     $query = new WP_Query(
@@ -604,19 +622,33 @@ function cjw_brummen_sponsors()
             continue;
         }
 
-        $url = function_exists('get_field')
-            ? get_field('sponsor_link', $cjw_brummen_sponsor_post->ID)
-            : get_post_meta($cjw_brummen_sponsor_post->ID, 'sponsor_link', true);
+        $url = get_post_meta($cjw_brummen_sponsor_post->ID, 'sponsor_link', true);
 
         $sponsors[] = [
-            'id' => $cjw_brummen_sponsor_post->ID,
+            'id' => (int) $cjw_brummen_sponsor_post->ID,
             'title' => get_the_title($cjw_brummen_sponsor_post),
             'url' => is_string($url) ? esc_url_raw($url) : '',
             'logo_id' => $logo_id,
         ];
     }
 
+    // A day is a backstop, not the mechanism: the cache is cleared the moment a
+    // sponsor is saved, trashed or reordered. The expiry only covers a change
+    // that happens without any of those firing -- a direct database edit, or a
+    // logo swapped on the media screen.
+    set_transient(CJW_BRUMMEN_SPONSORS_TRANSIENT, $sponsors, DAY_IN_SECONDS);
+
     return $sponsors;
+}
+
+/**
+ * Forgets the cached sponsor wall.
+ *
+ * @return void
+ */
+function cjw_brummen_flush_sponsors_cache()
+{
+    delete_transient(CJW_BRUMMEN_SPONSORS_TRANSIENT);
 }
 
 /**

@@ -145,6 +145,33 @@ function cjw_brummen_scripts(): void
 add_action('wp_enqueue_scripts', 'cjw_brummen_scripts');
 
 /**
+ * Preloads the two faces the top of the page is drawn with.
+ *
+ * A woff2 referenced from a stylesheet is only discovered once that stylesheet
+ * has been fetched and parsed, which puts the fetch a full round trip behind
+ * where it could be -- and both of these are used by the first thing a visitor
+ * sees, so the delay lands squarely on the largest contentful paint.
+ *
+ * Only the latin subsets, and only the weights above the fold: Nunito is a
+ * variable font covering 400-900 in one file, and Amatic SC is only ever bold
+ * up there. The 400-weight Amatic and both latin-ext files are deliberately
+ * left to unicode-range, which is doing its job -- preloading a file the
+ * browser then decides it does not need is worse than not preloading at all.
+ *
+ * @return void
+ */
+function cjw_brummen_preload_fonts(): void
+{
+    foreach ([ 'nunito-var-latin.woff2', 'amatic-sc-700-latin.woff2' ] as $font) {
+        printf(
+            '<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin>' . "\n",
+            esc_url(get_theme_file_uri('assets/fonts/' . $font))
+        );
+    }
+}
+add_action('wp_head', 'cjw_brummen_preload_fonts', 1);
+
+/**
  * Implement the Custom Header feature.
  */
 require get_template_directory() . '/inc/custom-header.php';
@@ -173,6 +200,22 @@ require get_template_directory() . '/inc/front-page.php';
  * Bridge to the cjw-* plugins (source of truth for all camp data).
  */
 require get_template_directory() . '/inc/summer-camp.php';
+
+/*
+ * Clears the cached sponsor wall whenever a sponsor changes.
+ *
+ * Saving covers editing, publishing, unpublishing and reordering. Trashing,
+ * untrashing and deleting each need their own hook, because save_post fires
+ * for none of them -- and a sponsor pulled from the wall has to leave it
+ * straight away, not in up to a day's time.
+ *
+ * Registered here rather than in the bridge, which is a file of pure helpers:
+ * that is what lets the fast test suite load it with no WordPress underneath.
+ */
+add_action('save_post_sponsor', 'cjw_brummen_flush_sponsors_cache');
+add_action('deleted_post', 'cjw_brummen_flush_sponsors_cache');
+add_action('trashed_post', 'cjw_brummen_flush_sponsors_cache');
+add_action('untrashed_post', 'cjw_brummen_flush_sponsors_cache');
 
 /**
  * Block editor integration: theme.json palette sync, editor styles and
