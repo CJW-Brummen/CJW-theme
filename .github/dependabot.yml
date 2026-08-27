@@ -11,6 +11,8 @@
 #   * security updates are never grouped, so a fix lands as its own small,
 #     obvious pull request.
 #
+# One pin, explained where it is enforced below: PHPUnit is held at 12.
+#
 # https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
 
 version: 2
@@ -31,6 +33,21 @@ updates:
       prefix: "build"
       prefix-development: "build"
       include: "scope"
+    ignore:
+      # PHPUnit stays on 12.
+      #
+      # The integration suite runs on WordPress's own test suite, which reaches
+      # it through yoast/phpunit-polyfills. Those polyfills support PHPUnit
+      # ^7.5 || ^8 || ^9 || ^11 || ^12 -- not 13, and not on their dev branch
+      # either. A major bump here does not fail as a red build on the tooling:
+      # it fails as WP_UnitTestCase refusing to load, which reads like the
+      # WordPress install is broken.
+      #
+      # Revisit when the polyfills declare support for the next major. Until
+      # then a bump is a decision, taken by hand, together with that check.
+      - dependency-name: "phpunit/phpunit"
+        update-types:
+          - "version-update:semver-major"
     groups:
       php-tooling:
         applies-to: version-updates
