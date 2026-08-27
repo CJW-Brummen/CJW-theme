@@ -68,12 +68,6 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 @use "base/base";
 
 /* --------------------------------------------------------------
-# Layouts
--------------------------------------------------------------- */
-// @use "layouts/content-sidebar"; // Uncomment this line for a sidebar on right side of your content.
-// @use "layouts/sidebar-content"; // Uncomment this line for a sidebar on left side of your content.
-
-/* --------------------------------------------------------------
 # Components
 -------------------------------------------------------------- */
 @use "components/components";

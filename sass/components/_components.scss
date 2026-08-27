@@ -2,22 +2,10 @@
 --------------------------------------------- */
 @use "navigation/navigation";
 
-/* Posts and pages
+/* Pages
 --------------------------------------------- */
-@use "content/posts-and-pages";
-
-/* Comments
---------------------------------------------- */
-@use "comments/comments";
+@use "content/pages";
 
 /* Media
 --------------------------------------------- */
 @use "media/media";
-
-/* Captions
---------------------------------------------- */
-@use "media/captions";
-
-/* Galleries
---------------------------------------------- */
-@use "media/galleries";

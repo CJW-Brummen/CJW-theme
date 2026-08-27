@@ -1,0 +1,9 @@
+// All that survived the Underscores posts-and-pages partial.
+// The rule was `.post, .page { margin: 0 0 1.5em; }`. There are no posts on
+// this site and never will be, but `.page` is on the article element of every
+// page, so half of it was still doing something.
+// Kept here rather than in cjw/_page.scss because editor-style.scss uses that
+// partial as well, and the editor canvas has no article to put a margin on.
+.page {
+	margin: 0 0 1.5em;
+}

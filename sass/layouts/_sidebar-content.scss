@@ -1,7 +1,0 @@
-// This layout's own grid, then the no-sidebar fallback it falls back to.
-// Split across two partials on purpose. `@use` is hoisted to the top of a
-// file, so writing it after the rules -- which is what `@import` allowed, and
-// what the cascade here depends on -- is not possible. Listing the two in
-// order is the only way to keep the fallback emitting last.
-@use "sidebar-content-grid";
-@use "no-sidebar";
