@@ -14,7 +14,7 @@
     "compile:css": "sass sass:. --style=expanded --no-source-map",
     "compile:rtl": "rtlcss style.css style-rtl.css",
     "compile": "npm run compile:css && npm run compile:rtl",
-    "bundle": "dir-archiver --src . --dest ../cjw-theme.zip --include-base-directory --exclude .DS_Store .editorconfig .git .gitattributes .github .gitignore .idea .php-cs-fixer.cache .php-cs-fixer.dist.php .phpunit.cache .phpunit.result.cache .stubs .stylelintrc.json .vscode README.md composer.json composer.lock docs eslint.config.js node_modules package-lock.json package.json phpcs.xml.dist phpstan-bootstrap.php phpstan.neon.dist phpunit.xml.dist sass style.css.map tests vendor yarn.lock"
+    "bundle": "dir-archiver write --source . --output ../cjw-theme.zip --include-base-directory --exclude .DS_Store --exclude .editorconfig --exclude .git --exclude .gitattributes --exclude .github --exclude .gitignore --exclude .idea --exclude .php-cs-fixer.cache --exclude .php-cs-fixer.dist.php --exclude .phpunit.cache --exclude .phpunit.result.cache --exclude .stubs --exclude .stylelintrc.json --exclude .vscode --exclude README.md --exclude composer.json --exclude composer.lock --exclude docs --exclude eslint.config.js --exclude node_modules --exclude package-lock.json --exclude package.json --exclude phpcs.xml.dist --exclude phpstan-bootstrap.php --exclude phpstan.neon.dist --exclude phpunit.xml.dist --exclude sass --exclude style.css.map --exclude tests --exclude vendor --exclude yarn.lock"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

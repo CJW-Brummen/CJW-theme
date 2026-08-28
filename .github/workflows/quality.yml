@@ -24,7 +24,9 @@ concurrency:
 
 env:
   PHP_VERSION: "8.5"
-  NODE_VERSION: "22"
+  # dir-archiver 4 declares engines.node >= 24, and the release bundle is
+  # built with it.
+  NODE_VERSION: "24"
   COMPOSER_FLAGS: "--no-interaction --prefer-dist --no-progress"
   # Pinned to the wp-phpunit release the integration suite is written against.
   # Bump both together, or WP_UnitTestCase and WordPress disagree about what
