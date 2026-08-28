@@ -21,14 +21,14 @@ function cjw_theme_customize_register($wp_customize): void
         $wp_customize->selective_refresh->add_partial(
             'blogname',
             [
-                'selector' => '.site-title a',
+                'selector' => '.site-brand__title',
                 'render_callback' => 'cjw_theme_customize_partial_blogname',
             ]
         );
         $wp_customize->selective_refresh->add_partial(
             'blogdescription',
             [
-                'selector' => '.site-description',
+                'selector' => '.site-brand__tagline',
                 'render_callback' => 'cjw_theme_customize_partial_blogdescription',
             ]
         );

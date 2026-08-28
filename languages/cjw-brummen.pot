@@ -9,23 +9,23 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-07-28T06:53:03+00:00\n"
+"POT-Creation-Date: 2026-08-28T18:31:25+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: cjw-brummen\n"
 
 #. Theme Name of the theme
-#: style.css
+#: style.css:3
 msgid "CJW Brummen"
 msgstr ""
 
 #. Description of the theme
-#: style.css
+#: style.css:5
 msgid "Het speelse CJW Zomerkampen-ontwerp: papier, salie en abrikoos met handgetekende accenten, volledig geïntegreerd met de blok-editor."
 msgstr ""
 
 #. Author of the theme
-#: style.css
+#: style.css:4
 msgid "Imre Boersma"
 msgstr ""
 
@@ -92,7 +92,7 @@ msgstr ""
 msgid "© %1$s %2$s · gemaakt met modder aan onze schoenen"
 msgstr ""
 
-#: functions.php:54
+#: functions.php:63
 #: header.php:47
 msgid "Hoofdmenu"
 msgstr ""
@@ -260,8 +260,8 @@ msgstr ""
 msgid "Vul deze sectie met inhoud via Zomerkamp → Website."
 msgstr ""
 
-#: inc/blocks.php:195
-#: inc/editor-setup.php:178
+#: inc/blocks.php:201
+#: inc/editor-setup.php:194
 #: page-templates/met-feitenkaart.php:31
 msgid "CJW Zomerkamp"
 msgstr ""
@@ -298,6 +298,14 @@ msgstr ""
 msgid "Zonder vinkjes"
 msgstr ""
 
+#: inc/editor-setup.php:179
+msgid "Kiekje"
+msgstr ""
+
+#: inc/editor-setup.php:187
+msgid "Fotostrook"
+msgstr ""
+
 #: inc/front-page.php:64
 msgid "Home"
 msgstr ""
@@ -322,30 +330,30 @@ msgstr ""
 msgid "Sponsoren"
 msgstr ""
 
-#: inc/summer-camp.php:286
+#: inc/summer-camp.php:411
 #: patterns/cta-band.php:28
 msgid "Schrijf je in!"
 msgstr ""
 
-#: inc/summer-camp.php:688
-#: template-parts/front-page/jaarthema.php:36
+#: inc/summer-camp.php:866
+#: template-parts/front-page/jaarthema.php:37
 msgid "nachtje slapen tot kamp!"
 msgid_plural "nachtjes slapen tot kamp!"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/summer-camp.php:690
-#: template-parts/front-page/jaarthema.php:38
+#: inc/summer-camp.php:868
+#: template-parts/front-page/jaarthema.php:39
 msgid "NU"
 msgstr ""
 
-#: inc/summer-camp.php:691
-#: template-parts/front-page/jaarthema.php:39
+#: inc/summer-camp.php:869
+#: template-parts/front-page/jaarthema.php:40
 msgid "We zitten nú op kamp in het bos!"
 msgstr ""
 
-#: inc/summer-camp.php:694
-#: template-parts/front-page/jaarthema.php:41
+#: inc/summer-camp.php:872
+#: template-parts/front-page/jaarthema.php:42
 msgid "Dat was ’m weer — tot volgend jaar!"
 msgstr ""
 
@@ -398,60 +406,48 @@ msgstr ""
 msgid "Edit <span class=\"screen-reader-text\">%s</span>"
 msgstr ""
 
-#: inc/woocommerce.php:192
-msgid "View your shopping cart"
-msgstr ""
-
-#. translators: number of items in the mini cart.
-#: inc/woocommerce.php:196
-#, php-format
-msgid "%d item"
-msgid_plural "%d items"
-msgstr[0] ""
-msgstr[1] ""
-
 #. Template Name of the theme
+#: page-templates/met-feitenkaart.php:3
 msgid "Pagina met feitenkaart"
 msgstr ""
 
-#: page-templates/met-feitenkaart.php:56
+#: page-templates/met-feitenkaart.php:50
 msgid "Goed om te weten"
 msgstr ""
 
-#: page-templates/met-feitenkaart.php:57
+#: page-templates/met-feitenkaart.php:51
 msgid "Data:"
 msgstr ""
 
-#: page-templates/met-feitenkaart.php:59
+#: page-templates/met-feitenkaart.php:53
 msgid "Leeftijd:"
 msgstr ""
 
-#: page-templates/met-feitenkaart.php:62
+#: page-templates/met-feitenkaart.php:56
 msgid "Locatie:"
 msgstr ""
 
-#: page-templates/met-feitenkaart.php:65
+#: page-templates/met-feitenkaart.php:59
 msgid "Kosten:"
 msgstr ""
 
 #. translators: 1: week price, 2: weekend price.
-#: page-templates/met-feitenkaart.php:69
+#: page-templates/met-feitenkaart.php:63
 #, php-format
 msgid "€ %1$s (week) · € %2$s (weekend)"
 msgstr ""
 
-#: page.php:41
-#: template-parts/content-page.php:25
+#: page.php:50
 #: template-parts/content.php:53
 msgid "Pagina&rsquo;s:"
 msgstr ""
 
-#: patterns/checklijst.php
+#: patterns/checklijst.php:4
 msgctxt "Pattern title"
 msgid "Checklijst"
 msgstr ""
 
-#: patterns/checklijst.php
+#: patterns/checklijst.php:7
 msgctxt "Pattern description"
 msgid "Kop, korte intro en een lijst met vinkjes — een startpunt voor bijvoorbeeld de paklijst."
 msgstr ""
@@ -484,12 +480,12 @@ msgstr ""
 msgid "Verkleedkleren voor het jaarthema"
 msgstr ""
 
-#: patterns/cta-band.php
+#: patterns/cta-band.php:4
 msgctxt "Pattern title"
 msgid "Oproep-banner"
 msgstr ""
 
-#: patterns/cta-band.php
+#: patterns/cta-band.php:7
 msgctxt "Pattern description"
 msgid "Inschrijf-oproep in een omkaderd vlak met titel, tekst en knop, zoals onderaan elke pagina."
 msgstr ""
@@ -502,12 +498,12 @@ msgstr ""
 msgid "Vol = vol, dus wacht niet te lang."
 msgstr ""
 
-#: patterns/foto-met-tekst.php
+#: patterns/foto-met-tekst.php:4
 msgctxt "Pattern title"
 msgid "Foto met tekst"
 msgstr ""
 
-#: patterns/foto-met-tekst.php
+#: patterns/foto-met-tekst.php:7
 msgctxt "Pattern description"
 msgid "Foto naast een kop met onderstreping, een alinea en een lijst met vinkjes."
 msgstr ""
@@ -565,12 +561,6 @@ msgid "We kunnen niet vinden wat je zoekt. Misschien helpt zoeken."
 msgstr ""
 
 #. translators: %s: Name of current post. Only visible to screen readers
-#: template-parts/content-page.php:39
-#, php-format
-msgid "Bewerk <span class=\"screen-reader-text\">%s</span>"
-msgstr ""
-
-#. translators: %s: Name of current post. Only visible to screen readers
 #: template-parts/content.php:40
 #, php-format
 msgid "Lees verder<span class=\"screen-reader-text\"> \"%s\"</span>"
@@ -595,7 +585,7 @@ msgstr ""
 msgid "Thema %s:"
 msgstr ""
 
-#: template-parts/front-page/jaarthema.php:37
+#: template-parts/front-page/jaarthema.php:38
 msgid "nachtjes slapen tot kamp!"
 msgstr ""
 
