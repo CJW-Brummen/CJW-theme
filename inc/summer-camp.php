@@ -163,10 +163,13 @@ function cjw_brummen_hero_badge_text()
     $camp = cjw_brummen_camp();
 
     if ($camp) {
-        $range = $camp->getDateRangeText();
-        if ('' !== $range) {
-            return $range;
-        }
+        // With the plugin installed its answer is the only true one, empty
+        // included. Falling through to the design default here printed
+        // "18 t/m 25 juli" -- dates nobody entered -- on any site whose camp
+        // dates were blank, which is exactly the state the plugin's "Nieuw
+        // kampjaar starten" action leaves behind. Parents read that sticker as
+        // the camp dates.
+        return $camp->getDateRangeText();
     }
 
     return cjw_brummen_front_page_defaults()['hero_badge'];
@@ -642,13 +645,31 @@ function cjw_brummen_card_link($card)
  * The photo-wall polaroids (slot => image_id + caption) from the plugin
  * settings. Only slots with an image are returned.
  *
+ * Slots pointing at an attachment that no longer exists are dropped too. The
+ * plugin only knows it stored an id; deleting the photo from the media library
+ * leaves that id behind, and wp_get_attachment_image() then returns an empty
+ * string -- which rendered a taped, tilted, entirely empty polaroid frame on
+ * the front page. Emptying the media library is an ordinary thing to do
+ * between summers, so this has to survive it.
+ *
  * @return array<int, array{image_id: int, caption: string}>
  */
 function cjw_brummen_polaroids()
 {
     $camp = cjw_brummen_camp();
 
-    return ($camp && method_exists($camp, 'getPolaroids')) ? $camp->getPolaroids() : [];
+    if (! $camp || ! method_exists($camp, 'getPolaroids')) {
+        return [];
+    }
+
+    return array_filter(
+        $camp->getPolaroids(),
+        static function ($polaroid) {
+            $id = (int) ($polaroid['image_id'] ?? 0);
+
+            return $id > 0 && wp_get_attachment_image_src($id, 'cjw-polaroid') !== false;
+        }
+    );
 }
 
 /**
@@ -795,7 +816,9 @@ function cjw_brummen_camp_prices()
  * Before camp: nights until the first day (09:00). During camp (through
  * the end date): "NU". Afterwards: next year's number.
  *
- * @return array{value: string, label: string, timestamp: int, now_until: int, done_value: string}
+ * @return array{value: string, label: string, timestamp: int, now_until: int, done_value: string}|null
+ *     Null when the plugin is active but no start date is set -- there is
+ *     nothing to count down to, and the caller renders no clock at all.
  */
 function cjw_brummen_countdown()
 {
@@ -808,11 +831,19 @@ function cjw_brummen_countdown()
 
     if ($camp) {
         $start = $camp->getStartDate();
-        if ($start) {
-            $start_date = $start->format('Y-m-d');
+        $end = $camp->getEndDate();
+
+        // No start date and the plugin is running: there is nothing to count
+        // down to. The design default is a fixed date in 2026, so keeping it
+        // meant a site with blank dates told visitors the camp was over and
+        // wished them a good next year -- and blank dates is precisely how the
+        // plugin's "Nieuw kampjaar starten" action leaves the site.
+        if (! $start) {
+            return null;
         }
 
-        $end = $camp->getEndDate();
+        $start_date = $start->format('Y-m-d');
+
         if ($end) {
             $end_date = $end->format('Y-m-d');
         }

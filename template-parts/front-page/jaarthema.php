@@ -28,6 +28,7 @@ $cjw_brummen_theme_year = cjw_brummen_theme_year();
 			<div class="fp-theme__text"><?php echo wp_kses_post(wpautop(cjw_brummen_theme_description())); ?></div>
 			<svg class="fp-theme__pixels" width="120" height="30" viewBox="0 0 120 30" aria-hidden="true" focusable="false"><path d="M6 8h8v8h8V8h8v8h-8v8h-8v-8H6z" fill="currentColor" opacity="0.9"></path><path d="M66 8h8v8h8V8h8v8h-8v8h-8v-8h-8z" fill="currentColor" opacity="0.45"></path></svg>
 		</div>
+		<?php if (null !== $cjw_brummen_countdown) : ?>
 		<div class="fp-theme__aside">
 			<div class="fp-countdown"
 				data-countdown
@@ -43,5 +44,6 @@ $cjw_brummen_theme_year = cjw_brummen_theme_year();
 				<div class="fp-countdown__label"><?php echo esc_html($cjw_brummen_countdown['label']); ?></div>
 			</div>
 		</div>
+		<?php endif; ?>
 	</div>
 </section>
