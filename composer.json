@@ -38,7 +38,7 @@
     "test": "phpunit --configuration phpunit.xml.dist",
     "test:wp": "phpunit --configuration phpunit-integration.xml.dist",
     "security": "@composer audit --locked",
-    "make-pot": "wp i18n make-pot . languages/cjw-brummen.pot --domain=cjw-brummen --exclude=.stubs,node_modules,tests,vendor",
+    "make-pot": "wp i18n make-pot . languages/cjw-brummen.pot --domain=cjw-brummen --exclude=.stubs,node_modules,tests,vendor --headers='{\"Report-Msgid-Bugs-To\":\"https://github.com/CJW-Brummen/CJW-theme/issues\"}'",
     "check": [
       "@security",
       "@lint",
