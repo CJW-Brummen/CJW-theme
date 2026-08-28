@@ -25,17 +25,23 @@ $cjw_brummen_secondary = cjw_brummen_hero_secondary_cta();
          * The hero is full-bleed, so WordPress's own sizes -- 100vw up to the
          * original's 2560px -- is honest about width and expensive because of
          * it: a retina desktop fetches the 2560px original at 868 KB, which is
-         * over 90% of the page. Capping the advertised width at 2048 trades a
-         * little density on very large high-DPI screens for a third of the
-         * weight, and changes nothing on phones or ordinary laptops, which
-         * already pick a smaller candidate. The scrim below covers the rest.
+         * over 90% of the page.
+         *
+         * A plain width cap cannot fix that. `sizes` is a CSS-pixel width and
+         * the browser still multiplies by device pixel ratio, so on a 1440px
+         * retina screen "100vw" already means 2880 device pixels and any
+         * (min-width: N) branch simply never matches. The only honest lever is
+         * to cap on density: on a display of 1.5dppx or more the hero is
+         * advertised at 1024 CSS px, which resolves to the 2048w file (583 KB)
+         * instead of the 2560w original. Every 1x display and every phone
+         * fetches exactly the same file as before.
          *
          * The alt text is passed rather than left to the attachment, so the
          * organiser's own wording on the settings screen is what gets read out.
          */
         $cjw_brummen_hero_attr = [
             'class' => 'fp-hero__img',
-            'sizes' => '(min-width: 2048px) 2048px, 100vw',
+            'sizes' => '(min-width: 1024px) and (min-resolution: 1.5dppx) 1024px, 100vw',
         ];
 
 if ('' !== $cjw_brummen_hero_alt) {
