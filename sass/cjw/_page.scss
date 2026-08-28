@@ -3,6 +3,57 @@
 // Inner pages ("CJW Pagina Template" design): the sage page-header band,
 // entry content typography, the photo/facts aside and the signup CTA band.
 
+// Search results, the sponsor single, archives and the 404 page render plain
+// WordPress content straight into <main>. They had no layout container at all,
+// so their text ran the full width of the window while every designed page sits
+// in a 1100px column. This is the same measure, minus the band and the aside.
+.site-main--plain {
+	max-width: 1100px;
+	margin: 0 auto;
+	padding: 56px 24px 96px;
+}
+
+// The search form was raw Underscores: an unstyled input and a grey submit
+// button, on a page a visitor only reaches after a search has already failed.
+.search-form {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	align-items: stretch;
+	max-width: 34rem;
+
+	.search-field {
+		flex: 1 1 12rem;
+		min-width: 0;
+		padding: 11px 16px;
+		background: var(--paper);
+		border: 2px solid var(--sage);
+		color: var(--ink);
+		font-family: tokens.$cjw-font-body;
+		font-size: 16px;
+
+		@include tokens.cjw-sketch-radius(225px 15px 255px 15px, 15px 255px 15px 225px);
+
+		&:focus-visible {
+			outline: 3px solid var(--year-accent);
+			outline-offset: 2px;
+		}
+	}
+
+	.search-submit {
+		padding: 11px 22px;
+		background: var(--year-accent);
+		color: #fff;
+		border: 0;
+		font-family: tokens.$cjw-font-body;
+		font-weight: 900;
+		font-size: 16px;
+		cursor: pointer;
+
+		@include tokens.cjw-sketch-radius;
+	}
+}
+
 .page-band {
 	position: relative;
 	padding: 64px 24px 120px;

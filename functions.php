@@ -48,6 +48,15 @@ function cjw_brummen_setup(): void
         */
     add_theme_support('post-thumbnails');
 
+    /*
+     * Without a size, 'post-thumbnail' resolves to the full-size original, so
+     * a search result rendered the uploaded photograph at its native
+     * dimensions -- 1707x2560 and 570 KB for one result -- with
+     * fetchpriority="high" on top. Registering the size makes the featured
+     * image a thumbnail again.
+     */
+    set_post_thumbnail_size(400, 300, true);
+
     // This theme uses wp_nav_menu() in one location.
     register_nav_menus(
         [
