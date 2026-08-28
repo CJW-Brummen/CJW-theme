@@ -125,8 +125,21 @@ function cjw_brummen_accent_inline_css()
         (int) round($blue * 0.09 + 238 * 0.91)
     );
 
+    // The two hero tokens travel with the palette because they come from the
+    // same settings screen and are wanted on the same element. Both were
+    // previously collected from the organiser and then dropped on the floor.
+    $hero_text = cjw_brummen_hero_text_color();
+    $hero = sprintf(
+        '--fp-hero-scrim:%1$s;',
+        number_format(cjw_brummen_hero_overlay_alpha(), 2, '.', '')
+    );
+
+    if ('' !== $hero_text) {
+        $hero .= sprintf('--fp-hero-text:%1$s;', $hero_text);
+    }
+
     return sprintf(
-        ':root{--sage:%1$s;--sage-deep:%2$s;--forest:%3$s;--apricot:%4$s;--year-accent:%5$s;--year-accent-soft:rgba(%6$d,%7$d,%8$d,0.4);--year-accent-softer:rgba(%6$d,%7$d,%8$d,0.3);--year-accent-tint:%9$s;}',
+        ':root{--sage:%1$s;--sage-deep:%2$s;--forest:%3$s;--apricot:%4$s;--year-accent:%5$s;--year-accent-soft:rgba(%6$d,%7$d,%8$d,0.4);--year-accent-softer:rgba(%6$d,%7$d,%8$d,0.3);--year-accent-tint:%9$s;%10$s}',
         $colors['sage'],
         $colors['sage_deep'],
         $colors['forest'],
@@ -135,7 +148,8 @@ function cjw_brummen_accent_inline_css()
         $red,
         $green,
         $blue,
-        $tint
+        $tint,
+        $hero
     );
 }
 
@@ -206,6 +220,107 @@ function cjw_brummen_hero_image_id()
     $camp = cjw_brummen_camp();
 
     return $camp ? $camp->getHeroImageId() : 0;
+}
+
+/**
+ * Alternative text for the hero photo.
+ *
+ * The plugin already resolves this properly -- the organiser's own wording
+ * first, then the attachment's alt text, then the hero title -- and the theme
+ * used to bypass all three by letting wp_get_attachment_image() read the
+ * attachment. An organiser filling in the field on the settings screen
+ * therefore changed nothing, which is a poor thing for a field whose label
+ * promises it is read to blind visitors.
+ *
+ * @return string Empty when the plugin is absent, so the caller can fall back.
+ */
+function cjw_brummen_hero_image_alt()
+{
+    $camp = cjw_brummen_camp();
+
+    return $camp ? $camp->getHeroImageAlt() : '';
+}
+
+/**
+ * How strongly to darken the hero photo, as a 0-1 alpha.
+ *
+ * The plugin stores a percentage and describes it to the organiser as the
+ * "donkere waas" that makes the hero text readable. It is the designed remedy
+ * for hero text sitting on an unpredictable photograph, so the theme applies a
+ * floor: even at 0 the scrim keeps enough contrast for the title to be legible
+ * on a bright photo. The organiser can only ever make it darker.
+ *
+ * @return float
+ */
+function cjw_brummen_hero_overlay_alpha()
+{
+    $camp = cjw_brummen_camp();
+    $percent = $camp ? $camp->getHeroOverlayOpacity() : 25;
+
+    // Clamped rather than trusted: the setting is an int from a text field.
+    $percent = max(0, min(100, $percent));
+
+    return max(0.45, $percent / 100);
+}
+
+/**
+ * The colour the organiser chose for the hero text.
+ *
+ * @return string Hex colour, or an empty string when the plugin is absent.
+ */
+function cjw_brummen_hero_text_color()
+{
+    $camp = cjw_brummen_camp();
+
+    if (! $camp) {
+        return '';
+    }
+
+    $colors = $camp->getThemeColors();
+    $hero_text = isset($colors['hero_text']) ? (string) $colors['hero_text'] : '';
+
+    return preg_match('/^#[0-9a-f]{3}(?:[0-9a-f]{3})?$/i', $hero_text) ? $hero_text : '';
+}
+
+/**
+ * The optional second hero button.
+ *
+ * Both halves have to be filled in: a label with no destination is a button
+ * that goes nowhere, and a destination with no label is invisible.
+ *
+ * Emptiness cannot be read off the getter, which substitutes the plugin's
+ * shipped placeholder for a blank field -- so an untouched install reports
+ * "Lees meer" pointing at "#meer", an anchor this theme has never contained.
+ * Rendering that would give every visitor a button that scrolls nowhere, so
+ * the placeholder pair is treated as "not configured". An organiser who wants
+ * that wording only has to give it a destination that exists.
+ *
+ * @return array{label: string, url: string}|null
+ */
+function cjw_brummen_hero_secondary_cta()
+{
+    $camp = cjw_brummen_camp();
+
+    if (! $camp) {
+        return null;
+    }
+
+    $cta = $camp->getSecondaryHeroCta();
+    $label = trim((string) ($cta['label'] ?? ''));
+    $url = trim((string) ($cta['url'] ?? ''));
+
+    if ('' === $label || '' === $url) {
+        return null;
+    }
+
+    if ('#meer' === $url) {
+        return null;
+    }
+
+    return [
+        'label' => $label,
+        'url' => $url,
+    ];
 }
 
 /**

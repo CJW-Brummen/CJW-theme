@@ -52,14 +52,41 @@
 	}
 }
 
+// Outlined variant for the hero's optional second button, so two calls to
+// action can sit side by side without competing. It lives on the photograph,
+// so it carries its own solid backing rather than trusting the image beneath.
+.btn--ghost {
+	background: rgba(250, 246, 238, 0.16);
+	color: #fff;
+	border: 2px solid rgba(250, 246, 238, 0.85);
+	box-shadow: none;
+
+	&:visited,
+	&:hover,
+	&:focus,
+	&:active {
+		color: #fff;
+	}
+
+	&:hover,
+	&:focus-visible {
+		background: rgba(250, 246, 238, 0.28);
+	}
+}
+
 // Muted variant while the registration is closed: a quiet sage chip in ink
 // at reduced emphasis, without the playful lift. It stays a link, so the
 // pointer cursor is kept.
 .btn--muted {
-	background: rgba(88, 140, 126, 0.18);
+	// Opaque, and without the opacity it used to carry. Translucency made this
+	// chip unreadable in two places at once: over the hero photograph the ink
+	// showed through onto the picture, and on the signup card the opacity faded
+	// whatever colour won the cascade, landing the text at 3.19:1. A solid tint
+	// keeps ink at 10:1 wherever the chip is dropped.
+	background: #dde3da;
+	background: color-mix(in srgb, var(--sage) 18%, var(--paper));
 	color: var(--ink);
 	box-shadow: none;
-	opacity: 0.85;
 
 	&:visited,
 	&:hover,

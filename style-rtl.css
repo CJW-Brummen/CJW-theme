@@ -978,11 +978,24 @@ a:focus-visible {
   transform: scale(0.94, 0.9);
 }
 
+.btn--ghost {
+  background: rgba(250, 246, 238, 0.16);
+  color: #fff;
+  border: 2px solid rgba(250, 246, 238, 0.85);
+  box-shadow: none;
+}
+.btn--ghost:visited, .btn--ghost:hover, .btn--ghost:focus, .btn--ghost:active {
+  color: #fff;
+}
+.btn--ghost:hover, .btn--ghost:focus-visible {
+  background: rgba(250, 246, 238, 0.28);
+}
+
 .btn--muted {
-  background: rgba(88, 140, 126, 0.18);
+  background: #dde3da;
+  background: color-mix(in srgb, var(--sage) 18%, var(--paper));
   color: var(--ink);
   box-shadow: none;
-  opacity: 0.85;
 }
 .btn--muted:visited, .btn--muted:hover, .btn--muted:focus, .btn--muted:active {
   color: var(--ink);
@@ -1318,8 +1331,15 @@ a:focus-visible {
   align-items: center;
   pointer-events: none;
 }
+.fp-hero__overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(-100deg, rgba(20, 28, 24, var(--fp-hero-scrim, 0.55)) 0%, rgba(20, 28, 24, calc(var(--fp-hero-scrim, 0.55) * 0.82)) 46%, rgba(20, 28, 24, 0) 88%);
+}
 
 .fp-hero__container {
+  position: relative;
   box-sizing: border-box;
   width: 100%;
   max-width: 1200px;
@@ -1336,6 +1356,13 @@ a:focus-visible {
 }
 .fp-hero__content .btn {
   pointer-events: auto;
+}
+
+.fp-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
 }
 
 .fp-hero__badge {
@@ -1357,7 +1384,7 @@ a:focus-visible {
 
 .fp-hero__title {
   margin: 0;
-  color: #fff;
+  color: var(--fp-hero-text, #fff);
   font-size: clamp(58px, 9vw, 118px);
   line-height: 0.95;
   text-shadow: 0 3px 0 rgba(38, 51, 45, 0.45), 0 12px 30px rgba(0, 0, 0, 0.35);
@@ -1365,7 +1392,7 @@ a:focus-visible {
 
 .fp-hero__lead {
   margin: 0;
-  color: #fff;
+  color: var(--fp-hero-text, #fff);
   font-weight: 700;
   font-size: clamp(16px, 2vw, 20px);
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
@@ -1667,6 +1694,9 @@ a:focus-visible {
 }
 .fp-card--signup .fp-card__more {
   color: var(--year-accent);
+}
+.fp-card--signup .fp-card__more.btn--muted {
+  color: var(--ink);
 }
 .fp-card--signup:hover, .fp-card--signup:focus-visible {
   transform: rotate(-1deg) translateY(-4px);

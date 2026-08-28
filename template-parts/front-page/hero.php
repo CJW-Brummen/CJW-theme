@@ -14,12 +14,35 @@ $cjw_brummen_badge = cjw_brummen_hero_badge_text();
 $cjw_brummen_cta = cjw_brummen_signup_cta();
 $cjw_brummen_cta_class = $cjw_brummen_cta['open'] ? 'btn btn--hero' : 'btn btn--hero btn--muted';
 $cjw_brummen_cta_label = $cjw_brummen_cta['open'] ? $cjw_brummen_cta['label'] : __('Inschrijving gesloten', 'cjw-brummen');
+$cjw_brummen_hero_alt = cjw_brummen_hero_image_alt();
+$cjw_brummen_secondary = cjw_brummen_hero_secondary_cta();
 ?>
 
 <section class="fp-hero">
 	<div class="fp-hero__media">
 		<?php
-        $cjw_brummen_hero_img = $cjw_brummen_hero_id ? wp_get_attachment_image($cjw_brummen_hero_id, 'full', false, [ 'class' => 'fp-hero__img' ]) : '';
+        /*
+         * The hero is full-bleed, so WordPress's own sizes -- 100vw up to the
+         * original's 2560px -- is honest about width and expensive because of
+         * it: a retina desktop fetches the 2560px original at 868 KB, which is
+         * over 90% of the page. Capping the advertised width at 2048 trades a
+         * little density on very large high-DPI screens for a third of the
+         * weight, and changes nothing on phones or ordinary laptops, which
+         * already pick a smaller candidate. The scrim below covers the rest.
+         *
+         * The alt text is passed rather than left to the attachment, so the
+         * organiser's own wording on the settings screen is what gets read out.
+         */
+        $cjw_brummen_hero_attr = [
+            'class' => 'fp-hero__img',
+            'sizes' => '(min-width: 2048px) 2048px, 100vw',
+        ];
+
+if ('' !== $cjw_brummen_hero_alt) {
+    $cjw_brummen_hero_attr['alt'] = $cjw_brummen_hero_alt;
+}
+
+        $cjw_brummen_hero_img = $cjw_brummen_hero_id ? wp_get_attachment_image($cjw_brummen_hero_id, 'full', false, $cjw_brummen_hero_attr) : '';
 
 if ($cjw_brummen_hero_img) {
     echo $cjw_brummen_hero_img; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- wp_get_attachment_image() returns safe markup.
@@ -40,7 +63,12 @@ if ($cjw_brummen_hero_img) {
 				<?php endif; ?>
 				<h1 class="fp-hero__title"><?php echo esc_html(cjw_brummen_hero_title()); ?></h1>
 				<p class="fp-hero__lead"><?php echo esc_html(cjw_brummen_hero_subtitle()); ?></p>
-				<a class="<?php echo esc_attr($cjw_brummen_cta_class); ?>" href="<?php echo esc_url($cjw_brummen_cta['url']); ?>"><?php echo esc_html($cjw_brummen_cta_label); ?></a>
+				<div class="fp-hero__actions">
+					<a class="<?php echo esc_attr($cjw_brummen_cta_class); ?>" href="<?php echo esc_url($cjw_brummen_cta['url']); ?>"><?php echo esc_html($cjw_brummen_cta_label); ?></a>
+					<?php if (null !== $cjw_brummen_secondary) : ?>
+						<a class="btn btn--hero btn--ghost" href="<?php echo esc_url($cjw_brummen_secondary['url']); ?>"><?php echo esc_html($cjw_brummen_secondary['label']); ?></a>
+					<?php endif; ?>
+				</div>
 			</div>
 		</div>
 	</div>
