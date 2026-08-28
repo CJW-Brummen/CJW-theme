@@ -61,6 +61,11 @@ final class ThemeSetupTest extends CJW_IntegrationTestCase
         $this->assertArrayHasKey('menu-1', get_registered_nav_menus());
     }
 
+    /**
+     * These numbers are quoted back at the organiser: the plugin's photo-wall
+     * media picker recommends 900 by 675 because that is what this crop asks
+     * for. Change one and the advice on the settings screen becomes wrong.
+     */
     public function testThePolaroidCropIsRegistered(): void
     {
         $sizes = wp_get_additional_image_sizes();
