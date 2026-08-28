@@ -2,7 +2,10 @@
 
 $cjw-font-hand: "Amatic SC", cursive;
 $cjw-font-body: "Nunito", sans-serif;
-$cjw-nav-breakpoint: 920px;
+// The desktop header needs about 1000px before the logo, five menu items and
+// the call to action stop colliding; switching at 920 left an 80px band where
+// the desktop layout was on but did not fit, and the header wrapped.
+$cjw-nav-breakpoint: 1000px;
 
 // Reading measure for body prose. The page layout puts the entry content
 // across the full 1100px row, which is far too wide for a 17px line, so

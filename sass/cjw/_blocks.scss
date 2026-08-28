@@ -383,6 +383,41 @@ hr.wp-block-separator.wp-block-separator:not(.is-style-wide, .is-style-dots) {
 	}
 }
 
+// Core stacks the media-text block on a viewport query, not a container one,
+// so between roughly 509px and 600px core had stacked it while this reset had
+// not fired -- the dashed frame overlapped the next heading on three of the
+// five real pages. Mirrored here on core's own breakpoint; the container query
+// above still handles a narrow column inside a wide window.
+@media (max-width: 600px) {
+	.entry-content .wp-block-media-text,
+	.entry-content .wp-block-media-text.has-media-on-the-right {
+		grid-template-columns: 100%;
+	}
+
+	// Both selectors are needed: the alternating tilt above is set through
+	// :nth-of-type(even), and a container query adds no specificity of its
+	// own, so a single-class reset would lose to it on every even row.
+	.entry-content .wp-block-media-text > .wp-block-media-text__media,
+	.entry-content .wp-block-media-text:nth-of-type(even) > .wp-block-media-text__media {
+		grid-column: 1;
+		grid-row: 1;
+		margin-bottom: 26px;
+		transform: none;
+
+		&::after {
+			inset: -10px;
+			transform: rotate(-2deg);
+		}
+	}
+
+	.entry-content .wp-block-media-text > .wp-block-media-text__content,
+	.entry-content .wp-block-media-text.has-media-on-the-right > .wp-block-media-text__content {
+		grid-column: 1;
+		grid-row: 2;
+		padding-inline: 0;
+	}
+}
+
 /* Image style: Kiekje (taped snapshot)
 --------------------------------------------- */
 

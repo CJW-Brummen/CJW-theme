@@ -1078,7 +1078,7 @@ a:focus-visible {
   align-items: center;
   gap: 22px;
 }
-@media (max-width: 920px) {
+@media (max-width: 1000px) {
   .site-nav {
     display: none;
   }
@@ -1135,7 +1135,7 @@ a:focus-visible {
   border-color: var(--sage);
   color: var(--ink);
 }
-@media (max-width: 920px) {
+@media (max-width: 1000px) {
   .menu-toggle {
     display: inline-block;
   }
@@ -1923,7 +1923,7 @@ a:focus-visible {
   position: relative;
   padding: 64px 24px 120px;
   overflow: hidden;
-  background: var(--sage);
+  background: var(--sage-deep);
 }
 
 .page-band__doodle {
@@ -1962,7 +1962,7 @@ a:focus-visible {
 .page-band__lead {
   max-width: 56ch;
   margin: 0;
-  color: rgba(250, 246, 238, 0.95);
+  color: var(--paper);
   font-weight: 700;
   font-size: clamp(16px, 2vw, 19px);
 }
@@ -2029,6 +2029,9 @@ a:focus-visible {
 
 /* Entry content typography
 --------------------------------------------- */
+.entry-content {
+  overflow-wrap: anywhere;
+}
 .entry-content h2 {
   margin: 26px 0 12px;
   font-size: clamp(38px, 4.5vw, 54px);
@@ -2508,6 +2511,30 @@ hr.wp-block-separator.wp-block-separator:not(.is-style-wide, .is-style-dots) {
     padding-inline: 0;
   }
 }
+@media (max-width: 600px) {
+  .entry-content .wp-block-media-text,
+  .entry-content .wp-block-media-text.has-media-on-the-right {
+    grid-template-columns: 100%;
+  }
+  .entry-content .wp-block-media-text > .wp-block-media-text__media,
+  .entry-content .wp-block-media-text:nth-of-type(even) > .wp-block-media-text__media {
+    grid-column: 1;
+    grid-row: 1;
+    margin-bottom: 26px;
+    transform: none;
+  }
+  .entry-content .wp-block-media-text > .wp-block-media-text__media::after,
+  .entry-content .wp-block-media-text:nth-of-type(even) > .wp-block-media-text__media::after {
+    inset: -10px;
+    transform: rotate(-2deg);
+  }
+  .entry-content .wp-block-media-text > .wp-block-media-text__content,
+  .entry-content .wp-block-media-text.has-media-on-the-right > .wp-block-media-text__content {
+    grid-column: 1;
+    grid-row: 2;
+    padding-inline: 0;
+  }
+}
 /* Image style: Kiekje (taped snapshot)
 --------------------------------------------- */
 .entry-content .wp-block-image.is-style-kiekje {
@@ -2644,7 +2671,7 @@ hr.wp-block-separator.wp-block-separator:not(.is-style-wide, .is-style-dots) {
   transform: translateX(0);
   transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.1), visibility 0s;
 }
-@media (min-width: 921px) {
+@media (min-width: 1001px) {
   .menu-drawer {
     display: none;
   }
