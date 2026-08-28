@@ -6,7 +6,6 @@
 // all. Naming only the first meant this whole file was dead in the editor --
 // picking "Kiekje" or "Fotostrook" changed nothing on the canvas while the
 // published page rendered a tilted polaroid frame or a photo strip.
-//
 // :is() is used rather than a second copy of each rule so the two can never
 // drift, and because both arguments are a single class it leaves specificity
 // exactly where it was.

@@ -36,7 +36,6 @@
 	// current image the lead ran at 2.8:1. The gradient guarantees a floor
 	// behind the copy column and fades out over the right of the frame so the
 	// photo still reads as a photo.
-	//
 	// --fp-hero-scrim comes from the plugin's "donkere waas" setting and is
 	// floored in PHP, so the organiser can only ever darken it further.
 	&::before {
