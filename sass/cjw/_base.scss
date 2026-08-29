@@ -78,6 +78,18 @@ a {
 }
 
 // Hand-drawn underline for accented words in headings.
+// --
+// The underline is painted at the bottom of the span's padding box, which
+// sits below the line box a heading with line-height: 1 reserves -- measured
+// on /zomerkamp/, "Wat is CJW |Zomerkamp?" drew 13.5px past the bottom of its
+// own <h2> and finished 1.5px inside the first line of the paragraph under it.
+// The heading has to carry the decoration it is wearing, so it reserves the
+// room; every gap in _flow.scss is then measured from below the underline
+// rather than from a box the underline has already left.
+:is(h1, h2, h3, h4, h5, h6):has(.squiggle) {
+	padding-bottom: 0.26em;
+}
+
 .squiggle {
 	white-space: nowrap;
 	background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 12" preserveAspectRatio="none"><path d="M2 9 Q20 3 40 8 T80 6 T118 8" fill="none" stroke="%23f0ae73" stroke-width="5" stroke-linecap="round"/></svg>') no-repeat bottom left / 100% 0.22em;

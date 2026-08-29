@@ -34,6 +34,11 @@ header, footer and mobile drawer partials are intentionally left out.
 --------------------------------------------- */
 @use "cjw/blocks";
 
+/* Vertical rhythm for editor content. Loaded after page and blocks: it owns
+   every margin between two blocks, and settles ties on source order.
+--------------------------------------------- */
+@use "cjw/flow";
+
 /* Editor-only defaults
 --------------------------------------------- */
 
@@ -71,7 +76,6 @@ header, footer and mobile drawer partials are intentionally left out.
 		flex-direction: column;
 		gap: 8px;
 		max-width: tokens.$cjw-measure;
-		margin: 0 0 22px;
 		padding: 0;
 		list-style: none;
 
@@ -93,7 +97,6 @@ header, footer and mobile drawer partials are intentionally left out.
 
 	ol.wp-block-list {
 		max-width: tokens.$cjw-measure;
-		margin: 0 0 22px;
 		padding-left: 24px;
 
 		li::marker {
