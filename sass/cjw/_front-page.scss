@@ -30,9 +30,29 @@
 	display: flex;
 	align-items: center;
 	pointer-events: none;
+
+	// The scrim the organiser controls. Hero text sits on whatever photograph
+	// was uploaded, so white-on-photo cannot be relied on: measured against the
+	// current image the lead ran at 2.8:1. The gradient guarantees a floor
+	// behind the copy column and fades out over the right of the frame so the
+	// photo still reads as a photo.
+	// --fp-hero-scrim comes from the plugin's "donkere waas" setting and is
+	// floored in PHP, so the organiser can only ever darken it further.
+	&::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(
+			100deg,
+			rgba(20, 28, 24, var(--fp-hero-scrim, 0.55)) 0%,
+			rgba(20, 28, 24, calc(var(--fp-hero-scrim, 0.55) * 0.82)) 46%,
+			rgba(20, 28, 24, 0) 88%
+		);
+	}
 }
 
 .fp-hero__container {
+	position: relative;
 	box-sizing: border-box;
 	width: 100%;
 	max-width: 1200px;
@@ -50,6 +70,13 @@
 	.btn {
 		pointer-events: auto;
 	}
+}
+
+.fp-hero__actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px;
+	align-items: center;
 }
 
 .fp-hero__badge {
@@ -73,7 +100,7 @@
 
 .fp-hero__title {
 	margin: 0;
-	color: #fff;
+	color: var(--fp-hero-text, #fff);
 	font-size: clamp(58px, 9vw, 118px);
 	line-height: 0.95;
 	text-shadow: 0 3px 0 rgba(38, 51, 45, 0.45), 0 12px 30px rgba(0, 0, 0, 0.35);
@@ -81,7 +108,7 @@
 
 .fp-hero__lead {
 	margin: 0;
-	color: #fff;
+	color: var(--fp-hero-text, #fff);
 	font-weight: 700;
 	font-size: clamp(16px, 2vw, 20px);
 	text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
@@ -402,6 +429,13 @@
 
 	.fp-card__more {
 		color: var(--year-accent);
+	}
+
+	// When registration is closed this element is also a .btn--muted chip, and
+	// the accent above beat the chip's own ink on specificity -- 3.19:1 on the
+	// tint. The chip's colour wins back here.
+	.fp-card__more.btn--muted {
+		color: var(--ink);
 	}
 
 	&:hover,

@@ -3,11 +3,69 @@
 // Inner pages ("CJW Pagina Template" design): the sage page-header band,
 // entry content typography, the photo/facts aside and the signup CTA band.
 
+// Search results, the sponsor single, archives and the 404 page render plain
+// WordPress content straight into <main>. They had no layout container at all,
+// so their text ran the full width of the window while every designed page sits
+// in a 1100px column. This is the same measure, minus the band and the aside.
+.site-main--plain {
+	max-width: 1100px;
+	margin: 0 auto;
+	padding: 56px 24px 96px;
+}
+
+// The search form was raw Underscores: an unstyled input and a grey submit
+// button, on a page a visitor only reaches after a search has already failed.
+.search-form {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	align-items: stretch;
+	max-width: 34rem;
+
+	.search-field {
+		flex: 1 1 12rem;
+		min-width: 0;
+		padding: 11px 16px;
+		background: var(--paper);
+		border: 2px solid var(--sage);
+		color: var(--ink);
+		font-family: tokens.$cjw-font-body;
+		font-size: 16px;
+
+		@include tokens.cjw-sketch-radius(225px 15px 255px 15px, 15px 255px 15px 225px);
+
+		&:focus-visible {
+			outline: 3px solid var(--year-accent);
+			outline-offset: 2px;
+		}
+	}
+
+	.search-submit {
+		padding: 11px 22px;
+		background: var(--year-accent);
+		color: #fff;
+		border: 0;
+		font-family: tokens.$cjw-font-body;
+		font-weight: 900;
+		font-size: 16px;
+		cursor: pointer;
+
+		@include tokens.cjw-sketch-radius;
+	}
+}
+
 .page-band {
 	position: relative;
 	padding: 64px 24px 120px;
 	overflow: hidden;
-	background: var(--sage);
+
+	// --sage-deep rather than --sage. The lead below is the explanatory line
+	// under every page title, and on --sage it measured 3.39:1 -- normal-size
+	// text at every width below 933px, where 1.4.3 wants 4.5:1. No amount of
+	// lightening the text reaches that on --sage (solid paper is 3.56:1), so
+	// the band itself moves. Both tokens are derived from the organiser's own
+	// primary colour, so the band still follows their palette.
+	background: var(--sage-deep);
 }
 
 .page-band__doodle {
@@ -47,7 +105,9 @@
 .page-band__lead {
 	max-width: 56ch;
 	margin: 0;
-	color: rgba(250, 246, 238, 0.95);
+
+	// Solid: the 5% transparency bought nothing and cost contrast.
+	color: var(--paper);
 	font-weight: 700;
 	font-size: clamp(16px, 2vw, 19px);
 }
@@ -136,6 +196,14 @@
 --------------------------------------------- */
 
 .entry-content {
+	// Long unbreakable strings -- a pasted Google Maps link, an e-mail address,
+	// a coordinate -- used to run past the column and get swallowed by the
+	// body's overflow-x: hidden. Measured at 320px the Praktische info page
+	// overflowed by 102px with no scrollbar and no ellipsis: the URL was simply
+	// cut off, unreadable and uncopyable, on the page parents open on the
+	// morning of drop-off.
+	overflow-wrap: anywhere;
+
 	h2 {
 		margin: 26px 0 12px;
 		font-size: clamp(38px, 4.5vw, 54px);

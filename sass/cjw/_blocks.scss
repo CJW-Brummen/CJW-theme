@@ -1,5 +1,15 @@
 @use "tokens";
 
+// Every rule below is scoped to the content area. That scope names two roots:
+// the front end wraps post content in .entry-content, and the block editor
+// wraps its canvas in .editor-styles-wrapper and emits no .entry-content at
+// all. Naming only the first meant this whole file was dead in the editor --
+// picking "Kiekje" or "Fotostrook" changed nothing on the canvas while the
+// published page rendered a tilted polaroid frame or a photo strip.
+// :is() is used rather than a second copy of each rule so the two can never
+// drift, and because both arguments are a single class it leaves specificity
+// exactly where it was.
+
 // Core block styling for the CJW design: quotes, tables, separators,
 // buttons, captions, galleries, details and code blocks — used on the
 // front end and (via editor-style.scss) inside the block editor.
@@ -7,7 +17,7 @@
 /* Quotes
 --------------------------------------------- */
 
-.entry-content blockquote,
+:is(.entry-content, .editor-styles-wrapper) blockquote,
 .wp-block-quote {
 	max-width: tokens.$cjw-measure;
 	margin: 0 0 22px;
@@ -223,8 +233,8 @@ hr.wp-block-separator.wp-block-separator:not(.is-style-wide, .is-style-dots) {
 
 // Opt-out of the entry-content checkmark bullets (see _page.scss):
 // restores regular discs for lists with the "geen-vinkjes" block style.
-.entry-content ul.is-style-geen-vinkjes,
-.entry-content ul.is-style-geen-vinkjes ul {
+:is(.entry-content, .editor-styles-wrapper) ul.is-style-geen-vinkjes,
+:is(.entry-content, .editor-styles-wrapper) ul.is-style-geen-vinkjes ul {
 	display: block;
 	padding-left: 24px;
 	list-style: disc;
@@ -251,7 +261,7 @@ hr.wp-block-separator.wp-block-separator:not(.is-style-wide, .is-style-dots) {
 // the "Pagina met feitenkaart" template leaves it ~614px next to the facts
 // card — at the same viewport width. Only a container query can tell those
 // two apart, so the article body is declared as the container here.
-.entry-content {
+:is(.entry-content, .editor-styles-wrapper) {
 	container-type: inline-size;
 	container-name: cjw-content;
 }
@@ -264,7 +274,7 @@ hr.wp-block-separator.wp-block-separator:not(.is-style-wide, .is-style-dots) {
 // mediaWidth is deliberately left unset on the blocks, because core only
 // emits its inline grid-template-columns when it is set; leaving it off
 // keeps the proportion here in CSS where the design belongs.
-.entry-content .wp-block-media-text {
+:is(.entry-content, .editor-styles-wrapper) .wp-block-media-text {
 	margin: 0 0 46px;
 	grid-template-columns: 45% auto;
 
@@ -286,7 +296,7 @@ hr.wp-block-separator.wp-block-separator:not(.is-style-wide, .is-style-dots) {
 	}
 }
 
-.entry-content .wp-block-media-text__media {
+:is(.entry-content, .editor-styles-wrapper) .wp-block-media-text__media {
 	position: relative;
 	align-self: start;
 	transform: rotate(-1.5deg);
@@ -311,14 +321,14 @@ hr.wp-block-separator.wp-block-separator:not(.is-style-wide, .is-style-dots) {
 		width: 100%;
 		box-shadow: 0 10px 26px rgba(38, 51, 45, 0.18);
 
-		// Overrides the blanket 18px on .entry-content img.
+		// Overrides the blanket 18px on :is(.entry-content, .editor-styles-wrapper) img.
 		@include tokens.cjw-sketch-radius(225px 18px 255px 18px, 18px 255px 18px 225px);
 	}
 }
 
 // Alternate the tilt so a run of rows reads as a hand-pinned series
 // rather than a repeated template.
-.entry-content .wp-block-media-text:nth-of-type(even) .wp-block-media-text__media {
+:is(.entry-content, .editor-styles-wrapper) .wp-block-media-text:nth-of-type(even) .wp-block-media-text__media {
 	transform: rotate(2deg);
 
 	&::after {
@@ -332,7 +342,7 @@ hr.wp-block-separator.wp-block-separator:not(.is-style-wide, .is-style-dots) {
 // photo: the copy drops to about 35 characters a line. Give the text room
 // back and tighten the gutter instead of stacking straight away.
 @container cjw-content (max-width: 760px) {
-	.entry-content .wp-block-media-text {
+	:is(.entry-content, .editor-styles-wrapper) .wp-block-media-text {
 		grid-template-columns: 36% auto;
 
 		&.has-media-on-the-right {
@@ -354,16 +364,16 @@ hr.wp-block-separator.wp-block-separator:not(.is-style-wide, .is-style-dots) {
 // repeated here — matching core's own stacked-on-mobile placement — and the
 // tilt is dropped, because a rotated frame collides with copy underneath.
 @container cjw-content (max-width: 460px) {
-	.entry-content .wp-block-media-text,
-	.entry-content .wp-block-media-text.has-media-on-the-right {
+	:is(.entry-content, .editor-styles-wrapper) .wp-block-media-text,
+	:is(.entry-content, .editor-styles-wrapper) .wp-block-media-text.has-media-on-the-right {
 		grid-template-columns: 100%;
 	}
 
 	// Both selectors are needed: the alternating tilt above is set through
 	// :nth-of-type(even), and a container query adds no specificity of its
 	// own, so a single-class reset would lose to it on every even row.
-	.entry-content .wp-block-media-text > .wp-block-media-text__media,
-	.entry-content .wp-block-media-text:nth-of-type(even) > .wp-block-media-text__media {
+	:is(.entry-content, .editor-styles-wrapper) .wp-block-media-text > .wp-block-media-text__media,
+	:is(.entry-content, .editor-styles-wrapper) .wp-block-media-text:nth-of-type(even) > .wp-block-media-text__media {
 		grid-column: 1;
 		grid-row: 1;
 		margin-bottom: 26px;
@@ -375,8 +385,43 @@ hr.wp-block-separator.wp-block-separator:not(.is-style-wide, .is-style-dots) {
 		}
 	}
 
-	.entry-content .wp-block-media-text > .wp-block-media-text__content,
-	.entry-content .wp-block-media-text.has-media-on-the-right > .wp-block-media-text__content {
+	:is(.entry-content, .editor-styles-wrapper) .wp-block-media-text > .wp-block-media-text__content,
+	:is(.entry-content, .editor-styles-wrapper) .wp-block-media-text.has-media-on-the-right > .wp-block-media-text__content {
+		grid-column: 1;
+		grid-row: 2;
+		padding-inline: 0;
+	}
+}
+
+// Core stacks the media-text block on a viewport query, not a container one,
+// so between roughly 509px and 600px core had stacked it while this reset had
+// not fired -- the dashed frame overlapped the next heading on three of the
+// five real pages. Mirrored here on core's own breakpoint; the container query
+// above still handles a narrow column inside a wide window.
+@media (max-width: 600px) {
+	:is(.entry-content, .editor-styles-wrapper) .wp-block-media-text,
+	:is(.entry-content, .editor-styles-wrapper) .wp-block-media-text.has-media-on-the-right {
+		grid-template-columns: 100%;
+	}
+
+	// Both selectors are needed: the alternating tilt above is set through
+	// :nth-of-type(even), and a container query adds no specificity of its
+	// own, so a single-class reset would lose to it on every even row.
+	:is(.entry-content, .editor-styles-wrapper) .wp-block-media-text > .wp-block-media-text__media,
+	:is(.entry-content, .editor-styles-wrapper) .wp-block-media-text:nth-of-type(even) > .wp-block-media-text__media {
+		grid-column: 1;
+		grid-row: 1;
+		margin-bottom: 26px;
+		transform: none;
+
+		&::after {
+			inset: -10px;
+			transform: rotate(-2deg);
+		}
+	}
+
+	:is(.entry-content, .editor-styles-wrapper) .wp-block-media-text > .wp-block-media-text__content,
+	:is(.entry-content, .editor-styles-wrapper) .wp-block-media-text.has-media-on-the-right > .wp-block-media-text__content {
 		grid-column: 1;
 		grid-row: 2;
 		padding-inline: 0;
@@ -391,7 +436,7 @@ hr.wp-block-separator.wp-block-separator:not(.is-style-wide, .is-style-dots) {
 // camp photos. Informational images — a map, a warning — are left in the
 // plain frame on purpose, so the playful tilt never lands on something
 // the reader has to take seriously.
-.entry-content .wp-block-image.is-style-kiekje {
+:is(.entry-content, .editor-styles-wrapper) .wp-block-image.is-style-kiekje {
 	position: relative;
 	width: fit-content;
 	margin-bottom: 34px;
@@ -448,7 +493,7 @@ hr.wp-block-separator.wp-block-separator:not(.is-style-wide, .is-style-dots) {
 // widths behind that same hack, which lends them an ID's specificity.
 // Without matching it here the width below silently loses to core's third-
 // of-a-row and the strip wraps after three photos.
-.entry-content .wp-block-gallery.is-style-fotostrook {
+:is(.entry-content, .editor-styles-wrapper) .wp-block-gallery.is-style-fotostrook {
 	--wp--style--unstable-gallery-gap: 26px;
 
 	justify-content: center;

@@ -130,6 +130,28 @@ jobs:
           WP_DB_PASSWORD: root
         run: composer test:wp
 
+      # The .pot is a committed build output like the CSS, and it rotted the
+      # same way: it still carried strings from a file deleted long ago and was
+      # missing two that had since been added. The theme advertises
+      # translation-ready, and this is the artifact that claim rests on. It
+      # lives in this job because make-pot needs composer and wp-cli.
+      - name: Committed .pot matches the source
+        shell: bash
+        run: |
+          if [ ! -f languages/cjw-brummen.pot ]; then
+            echo "No translation template in this repository - nothing to compare."
+            exit 0
+          fi
+
+          composer make-pot
+
+          # The header carries a generation date, which changes on every run and
+          # says nothing about drift. Everything else must match.
+          if ! git diff --exit-code --ignore-matching-lines='POT-Creation-Date' -- languages/cjw-brummen.pot; then
+            echo "::error::The committed .pot does not match the source strings. Run 'composer make-pot' and commit the result."
+            exit 1
+          fi
+
   frontend:
     name: Frontend assets
     runs-on: ubuntu-latest
@@ -175,6 +197,7 @@ jobs:
             echo "::error::The committed CSS does not match the Sass. Run 'npm run compile' and commit the result."
             exit 1
           fi
+
 
   pr-review-gate:
     name: PR review gate

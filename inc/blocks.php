@@ -142,7 +142,11 @@ function cjw_brummen_block_renderer($slug)
  */
 function cjw_brummen_is_editor_request()
 {
-    return defined('REST_REQUEST') && REST_REQUEST;
+    // A REST request is not by itself the editor -- the REST API is public, and
+    // any unauthenticated caller hitting the block-renderer route counted as
+    // "in the editor" and got the back-office instruction text back. Editing
+    // rights are what actually distinguish the two.
+    return defined('REST_REQUEST') && REST_REQUEST && current_user_can('edit_posts');
 }
 
 /**
@@ -173,7 +177,9 @@ function cjw_brummen_register_blocks(): void
                     'multiple' => false,
                     'reusable' => false,
                 ],
-                'editor_script' => 'cjw-brummen-blocks',
+                // editor_script (singular) has been deprecated since
+                // WordPress 6.1 in favour of the *_handles array form.
+                'editor_script_handles' => [ 'cjw-brummen-blocks' ],
                 'render_callback' => cjw_brummen_block_renderer($slug),
             ]
         );

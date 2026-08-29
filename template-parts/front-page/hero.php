@@ -14,12 +14,41 @@ $cjw_brummen_badge = cjw_brummen_hero_badge_text();
 $cjw_brummen_cta = cjw_brummen_signup_cta();
 $cjw_brummen_cta_class = $cjw_brummen_cta['open'] ? 'btn btn--hero' : 'btn btn--hero btn--muted';
 $cjw_brummen_cta_label = $cjw_brummen_cta['open'] ? $cjw_brummen_cta['label'] : __('Inschrijving gesloten', 'cjw-brummen');
+$cjw_brummen_hero_alt = cjw_brummen_hero_image_alt();
+$cjw_brummen_secondary = cjw_brummen_hero_secondary_cta();
 ?>
 
 <section class="fp-hero">
 	<div class="fp-hero__media">
 		<?php
-        $cjw_brummen_hero_img = $cjw_brummen_hero_id ? wp_get_attachment_image($cjw_brummen_hero_id, 'full', false, [ 'class' => 'fp-hero__img' ]) : '';
+        /*
+         * The hero is full-bleed, so WordPress's own sizes -- 100vw up to the
+         * original's 2560px -- is honest about width and expensive because of
+         * it: a retina desktop fetches the 2560px original at 868 KB, which is
+         * over 90% of the page.
+         *
+         * A plain width cap cannot fix that. `sizes` is a CSS-pixel width and
+         * the browser still multiplies by device pixel ratio, so on a 1440px
+         * retina screen "100vw" already means 2880 device pixels and any
+         * (min-width: N) branch simply never matches. The only honest lever is
+         * to cap on density: on a display of 1.5dppx or more the hero is
+         * advertised at 1024 CSS px, which resolves to the 2048w file (583 KB)
+         * instead of the 2560w original. Every 1x display and every phone
+         * fetches exactly the same file as before.
+         *
+         * The alt text is passed rather than left to the attachment, so the
+         * organiser's own wording on the settings screen is what gets read out.
+         */
+        $cjw_brummen_hero_attr = [
+            'class' => 'fp-hero__img',
+            'sizes' => '(min-width: 1024px) and (min-resolution: 1.5dppx) 1024px, 100vw',
+        ];
+
+if ('' !== $cjw_brummen_hero_alt) {
+    $cjw_brummen_hero_attr['alt'] = $cjw_brummen_hero_alt;
+}
+
+        $cjw_brummen_hero_img = $cjw_brummen_hero_id ? wp_get_attachment_image($cjw_brummen_hero_id, 'full', false, $cjw_brummen_hero_attr) : '';
 
 if ($cjw_brummen_hero_img) {
     echo $cjw_brummen_hero_img; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- wp_get_attachment_image() returns safe markup.
@@ -40,7 +69,12 @@ if ($cjw_brummen_hero_img) {
 				<?php endif; ?>
 				<h1 class="fp-hero__title"><?php echo esc_html(cjw_brummen_hero_title()); ?></h1>
 				<p class="fp-hero__lead"><?php echo esc_html(cjw_brummen_hero_subtitle()); ?></p>
-				<a class="<?php echo esc_attr($cjw_brummen_cta_class); ?>" href="<?php echo esc_url($cjw_brummen_cta['url']); ?>"><?php echo esc_html($cjw_brummen_cta_label); ?></a>
+				<div class="fp-hero__actions">
+					<a class="<?php echo esc_attr($cjw_brummen_cta_class); ?>" href="<?php echo esc_url($cjw_brummen_cta['url']); ?>"><?php echo esc_html($cjw_brummen_cta_label); ?></a>
+					<?php if (null !== $cjw_brummen_secondary) : ?>
+						<a class="btn btn--hero btn--ghost" href="<?php echo esc_url($cjw_brummen_secondary['url']); ?>"><?php echo esc_html($cjw_brummen_secondary['label']); ?></a>
+					<?php endif; ?>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -5,9 +5,18 @@
  *
  * Mirrors the plugin's tests/bootstrap.php: no database and no WordPress core
  * test installation, just enough of WordPress for the pure helpers in inc/ to
- * load and run. The theme's contract is that every helper degrades to a design
- * default when the cjw plugin is absent, so the shim deliberately does *not*
- * define cjw_summer_camp() -- the plugin-absent path is the path under test.
+ * load and run.
+ *
+ * The theme's contract is that every helper degrades to a design default when
+ * the cjw plugin is absent, and that stays the default here: cjw_summer_camp()
+ * answers null unless a test installs a double. That is indistinguishable from
+ * the function not existing, because cjw_brummen_camp() only asks whether the
+ * call returns something.
+ *
+ * A test that needs the other half of the contract -- what the theme does with
+ * a plugin that is present but has fields left blank -- installs a FakeCamp.
+ * That path had never been covered, and it was where the theme printed camp
+ * dates nobody had entered.
  */
 
 declare(strict_types=1);
@@ -69,6 +78,42 @@ if (! function_exists('home_url')) {
     }
 }
 
+if (! defined('DAY_IN_SECONDS')) {
+    define('DAY_IN_SECONDS', 86400);
+}
+
+if (! function_exists('wp_timezone')) {
+    function wp_timezone(): DateTimeZone
+    {
+        return new DateTimeZone('Europe/Amsterdam');
+    }
+}
+
+if (! function_exists('cjw_summer_camp')) {
+    /**
+     * The camp service a test installed, or null for the plugin-absent path.
+     */
+    function cjw_summer_camp(): ?object
+    {
+        return $GLOBALS['cjw_brummen_test_camp'] ?? null;
+    }
+}
+
+if (! function_exists('wp_get_attachment_image_src')) {
+    /**
+     * Attachment ids a test has declared to exist; everything else is gone.
+     *
+     * @return array{0: string, 1: int, 2: int}|false
+     */
+    function wp_get_attachment_image_src(int $id, string $size = 'thumbnail')
+    {
+        $known = $GLOBALS['cjw_brummen_test_attachments'] ?? [];
+
+        return in_array($id, $known, true) ? [ 'https://example.test/x.jpg', 900, 675 ] : false;
+    }
+}
+
 require_once __DIR__ . '/support/TestCase.php';
+require_once __DIR__ . '/support/FakeCamp.php';
 require_once __DIR__ . '/../inc/front-page.php';
 require_once __DIR__ . '/../inc/summer-camp.php';
