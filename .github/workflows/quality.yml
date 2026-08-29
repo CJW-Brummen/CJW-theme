@@ -145,9 +145,15 @@ jobs:
 
           composer make-pot
 
-          # The header carries a generation date, which changes on every run and
-          # says nothing about drift. Everything else must match.
-          if ! git diff --exit-code --ignore-matching-lines='POT-Creation-Date' -- languages/cjw-brummen.pot; then
+          # Two header fields are generated from the clock rather than from the
+          # source: the creation timestamp, which changes on every single run,
+          # and the copyright year, which would silently start failing this
+          # guard on 1 January. Neither says anything about whether the
+          # translatable strings drifted, which is the only thing being checked.
+          if ! git diff --exit-code \
+               --ignore-matching-lines='POT-Creation-Date' \
+               --ignore-matching-lines='^# Copyright' \
+               -- languages/cjw-brummen.pot; then
             echo "::error::The committed .pot does not match the source strings. Run 'composer make-pot' and commit the result."
             exit 1
           fi
