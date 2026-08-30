@@ -129,6 +129,10 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 --------------------------------------------- */
 @use "cjw/drawer";
 
+/* Verhuurpagina
+--------------------------------------------- */
+@use "cjw/verhuur";
+
 /* Vertical rhythm for editor content. Loaded after page and blocks: it owns
    every margin between two blocks, and settles ties on source order.
 --------------------------------------------- */

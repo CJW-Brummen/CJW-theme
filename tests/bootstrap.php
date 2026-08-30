@@ -113,7 +113,18 @@ if (! function_exists('wp_get_attachment_image_src')) {
     }
 }
 
+if (! function_exists('number_format_i18n')) {
+    /**
+     * The Dutch decimal comma the site is written in.
+     */
+    function number_format_i18n(float $number, int $decimals = 0): string
+    {
+        return number_format($number, $decimals, ',', '.');
+    }
+}
+
 require_once __DIR__ . '/support/TestCase.php';
 require_once __DIR__ . '/support/FakeCamp.php';
 require_once __DIR__ . '/../inc/front-page.php';
 require_once __DIR__ . '/../inc/summer-camp.php';
+require_once __DIR__ . '/../inc/verhuur.php';

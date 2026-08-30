@@ -9,23 +9,23 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-28T18:41:10+00:00\n"
+"POT-Creation-Date: 2026-08-30T19:29:08+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: cjw-brummen\n"
 
 #. Theme Name of the theme
-#: style.css:3
+#: style.css
 msgid "CJW Brummen"
 msgstr ""
 
 #. Description of the theme
-#: style.css:5
+#: style.css
 msgid "Het speelse CJW Zomerkampen-ontwerp: papier, salie en abrikoos met handgetekende accenten, volledig geïntegreerd met de blok-editor."
 msgstr ""
 
 #. Author of the theme
-#: style.css:4
+#: style.css
 msgid "Imre Boersma"
 msgstr ""
 
@@ -323,6 +323,7 @@ msgid "Historie"
 msgstr ""
 
 #: inc/front-page.php:80
+#: page-templates/verhuur.php:30
 msgid "Verhuur"
 msgstr ""
 
@@ -406,8 +407,76 @@ msgstr ""
 msgid "Edit <span class=\"screen-reader-text\">%s</span>"
 msgstr ""
 
+#. translators: 1: lower bound, 2: upper bound.
+#: inc/verhuur.php:284
+#, php-format
+msgid "%1$d tot %2$d persoon"
+msgid_plural "%1$d tot %2$d personen"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: number of people.
+#: inc/verhuur.php:292
+#: inc/verhuur.php:355
+#, php-format
+msgid "%d persoon"
+msgid_plural "%d personen"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: total square metres of cover.
+#: inc/verhuur.php:333
+#, php-format
+msgid "%s m²"
+msgstr ""
+
+#. translators: 1: lower bound, 2: upper bound.
+#: inc/verhuur.php:347
+#, php-format
+msgid "%1$d–%2$d personen"
+msgstr ""
+
+#: inc/verhuur.php:664
+msgid "plaatsen in totaal"
+msgstr ""
+
+#: inc/verhuur.php:665
+#: template-parts/verhuur/fit.php:82
+msgid "plaatsen in totaal, precies genoeg"
+msgstr ""
+
+#. translators: %d: number of unused places.
+#: inc/verhuur.php:667
+#: template-parts/verhuur/fit.php:78
+#, php-format
+msgid "plaatsen in totaal, %d over"
+msgstr ""
+
+#. translators: 1: tent name, 2: number of places those tents hold.
+#: inc/verhuur.php:669
+#: template-parts/verhuur/fit.php:63
+#, php-format
+msgid "%1$s — %2$d plaatsen"
+msgstr ""
+
+#: inc/verhuur.php:670
+#: template-parts/verhuur/fit.php:91
+msgid "plaatsen is alles wat er in de groepstenten past. Vraag naar de mogelijkheden voor grotere groepen."
+msgstr ""
+
+#. translators: 1: number of mattresses, 2: group size, 3: how many short.
+#: inc/verhuur.php:672
+#: template-parts/verhuur/fit.php:111
+#, php-format
+msgid "Let op: we hebben %1$d matrassen. Voor %2$d personen neem je er zelf %3$d mee."
+msgstr ""
+
+#: inc/verhuur.php:673
+#: template-parts/verhuur/fit.php:97
+msgid "Vul een aantal personen in."
+msgstr ""
+
 #. Template Name of the theme
-#: page-templates/met-feitenkaart.php:3
 msgid "Pagina met feitenkaart"
 msgstr ""
 
@@ -437,17 +506,21 @@ msgstr ""
 msgid "€ %1$s (week) · € %2$s (weekend)"
 msgstr ""
 
+#. Template Name of the theme
+msgid "Verhuurpagina"
+msgstr ""
+
 #: page.php:50
 #: template-parts/content.php:53
 msgid "Pagina&rsquo;s:"
 msgstr ""
 
-#: patterns/checklijst.php:4
+#: patterns/checklijst.php
 msgctxt "Pattern title"
 msgid "Checklijst"
 msgstr ""
 
-#: patterns/checklijst.php:7
+#: patterns/checklijst.php
 msgctxt "Pattern description"
 msgid "Kop, korte intro en een lijst met vinkjes — een startpunt voor bijvoorbeeld de paklijst."
 msgstr ""
@@ -480,12 +553,12 @@ msgstr ""
 msgid "Verkleedkleren voor het jaarthema"
 msgstr ""
 
-#: patterns/cta-band.php:4
+#: patterns/cta-band.php
 msgctxt "Pattern title"
 msgid "Oproep-banner"
 msgstr ""
 
-#: patterns/cta-band.php:7
+#: patterns/cta-band.php
 msgctxt "Pattern description"
 msgid "Inschrijf-oproep in een omkaderd vlak met titel, tekst en knop, zoals onderaan elke pagina."
 msgstr ""
@@ -498,12 +571,12 @@ msgstr ""
 msgid "Vol = vol, dus wacht niet te lang."
 msgstr ""
 
-#: patterns/foto-met-tekst.php:4
+#: patterns/foto-met-tekst.php
 msgctxt "Pattern title"
 msgid "Foto met tekst"
 msgstr ""
 
-#: patterns/foto-met-tekst.php:7
+#: patterns/foto-met-tekst.php
 msgctxt "Pattern description"
 msgid "Foto naast een kop met onderstreping, een alinea en een lijst met vinkjes."
 msgstr ""
@@ -593,6 +666,113 @@ msgstr ""
 #: template-parts/front-page/sponsors.php:31
 #, php-format
 msgid "%s (opent in nieuw tabblad)"
+msgstr ""
+
+#: template-parts/verhuur/cards.php:43
+msgid "Wat verhuren we zoal?"
+msgstr ""
+
+#. translators: %d: how many of this item CJW owns.
+#: template-parts/verhuur/cards.php:68
+#, php-format
+msgid "%d× beschikbaar"
+msgstr ""
+
+#: template-parts/verhuur/cards.php:75
+#: template-parts/verhuur/table.php:50
+msgid "op aanvraag"
+msgstr ""
+
+#: template-parts/verhuur/cards.php:94
+msgid "personen"
+msgstr ""
+
+#: template-parts/verhuur/cards.php:99
+msgid "m² overkapping"
+msgstr ""
+
+#. translators: 1: item name, 2: length in cm, 3: width in cm.
+#: template-parts/verhuur/cards.php:112
+#, php-format
+msgid "Plattegrond van %1$s, %2$d bij %3$d centimeter"
+msgstr ""
+
+#. translators: 1: length in metres, 2: width in metres.
+#: template-parts/verhuur/cards.php:139
+#, php-format
+msgid "%1$s × %2$s m"
+msgstr ""
+
+#. translators: %s: the width of the plan grid, in metres.
+#: template-parts/verhuur/cards.php:161
+#, php-format
+msgid "%s meter"
+msgstr ""
+
+#: template-parts/verhuur/cards.php:181
+msgid "Elk vakje in de plattegrond is 1 × 1 meter."
+msgstr ""
+
+#: template-parts/verhuur/fit.php:38
+msgid "Past het?"
+msgstr ""
+
+#: template-parts/verhuur/fit.php:41
+msgid "Voor hoeveel personen zoek je onderdak?"
+msgstr ""
+
+#: template-parts/verhuur/fit.php:51
+msgid "Reken uit"
+msgstr ""
+
+#: template-parts/verhuur/table.php:24
+msgid "Alles op een rij"
+msgstr ""
+
+#: template-parts/verhuur/table.php:30
+msgid "Materiaal"
+msgstr ""
+
+#: template-parts/verhuur/table.php:31
+msgid "Aantal"
+msgstr ""
+
+#: template-parts/verhuur/table.php:32
+msgid "Voor"
+msgstr ""
+
+#: template-parts/verhuur/table.php:33
+msgid "Totaal"
+msgstr ""
+
+#: template-parts/verhuur/table.php:34
+msgid "Afmetingen"
+msgstr ""
+
+#: template-parts/verhuur/table.php:35
+msgid "Bijzonderheden"
+msgstr ""
+
+#. translators: %d: number of group tents.
+#: template-parts/verhuur/table.php:71
+#, php-format
+msgid "slaapplaats in %d groepstent"
+msgid_plural "slaapplaatsen in %d groepstenten"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: how many sleepers must bring their own mattress.
+#: template-parts/verhuur/table.php:87
+#, php-format
+msgid "matrassen — %d slapers minder dan er tentplaats is"
+msgstr ""
+
+#: template-parts/verhuur/table.php:91
+msgid "matrassen"
+msgstr ""
+
+#: template-parts/verhuur/table.php:101
+msgid "m² overkapping in partytenten"
 msgstr ""
 
 #: theme.json
