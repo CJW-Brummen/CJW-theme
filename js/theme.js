@@ -15,7 +15,11 @@
 	if (toggle && drawer) {
 		const closeButton = drawer.querySelector(".menu-drawer__close");
 		const toggleLabel = toggle.querySelector(".menu-toggle__label");
-		const mobileNav = window.matchMedia("(max-width: 920px)");
+		// Must match $cjw-nav-breakpoint in sass/cjw/_tokens.scss. When these
+		// two disagree there is a band of widths where the CSS has switched
+		// to the desktop header while this script still believes the drawer
+		// is in play, and the drawer stops closing itself on resize.
+		const mobileNav = window.matchMedia("(max-width: 1000px)");
 		const pageRegions = Array.from(
 			document.querySelectorAll("#page > *"),
 		).filter((element) => element !== drawer);
