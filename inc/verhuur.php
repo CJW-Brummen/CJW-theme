@@ -621,7 +621,7 @@ function cjw_brummen_flush_rental_cache()
 }
 
 /**
- * Loads the "Past het?" script, on the verhuurpagina only.
+ * Loads the "Past het?" script, on any page that has the helper block on it.
  *
  * The form works without it: it is a GET form that the template answers
  * server-side. The script only saves the round trip.
@@ -634,7 +634,11 @@ function cjw_brummen_flush_rental_cache()
  */
 function cjw_brummen_rental_scripts()
 {
-    if (! is_page_template('page-templates/verhuur.php')) {
+    // Keyed off the block, not the page template: the helper is a block now,
+    // so it can sit on any page, and the verhuurpagina can be composed without
+    // it. Loading the answer table on a page that has no form to answer would
+    // be a few kilobytes for nothing.
+    if (! is_singular() || ! has_block('cjw/verhuur-past-het')) {
         return;
     }
 

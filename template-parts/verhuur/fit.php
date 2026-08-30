@@ -10,8 +10,14 @@
  * same answers back out of a lookup table as you type, so the page never has an
  * input that does nothing when a script fails to load.
  *
+ * Rendered by the cjw/verhuur-past-het block, which passes its heading in as
+ * $args['titel']. An empty heading renders no heading at all, for an editor who
+ * would rather write their own above the block.
+ *
  * @package cjw-brummen
  */
+
+$cjw_brummen_fit_title = isset($args['titel']) ? (string) $args['titel'] : 'Past het?';
 
 $cjw_brummen_fit_items = cjw_brummen_rental_items();
 $cjw_brummen_fit_stock = cjw_brummen_rental_fit_stock($cjw_brummen_fit_items);
@@ -35,7 +41,9 @@ $cjw_brummen_fit_answer = $cjw_brummen_fit_people > 0
 ?>
 
 <section class="verhuur-fit">
-	<h2 class="verhuur-fit__title"><?php esc_html_e('Past het?', 'cjw-brummen'); ?></h2>
+	<?php if ('' !== $cjw_brummen_fit_title) : ?>
+		<h2 class="verhuur-fit__title"><?php echo esc_html($cjw_brummen_fit_title); ?></h2>
+	<?php endif; ?>
 
 	<form class="verhuur-fit__form" method="get" action="<?php echo esc_url(get_permalink()); ?>">
 		<label for="verhuur-personen"><?php esc_html_e('Voor hoeveel personen zoek je onderdak?', 'cjw-brummen'); ?></label>

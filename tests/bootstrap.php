@@ -123,8 +123,37 @@ if (! function_exists('number_format_i18n')) {
     }
 }
 
+if (! function_exists('add_action')) {
+    /**
+     * The hook API, reduced to what loading a file of helpers needs: nothing.
+     * inc/blocks.php registers its hooks at file scope, and the tests below
+     * call its functions directly rather than firing them.
+     *
+     * @param mixed ...$args Ignored.
+     */
+    function add_action(...$args): bool
+    {
+        unset($args);
+
+        return true;
+    }
+}
+
+if (! function_exists('add_filter')) {
+    /**
+     * @param mixed ...$args Ignored.
+     */
+    function add_filter(...$args): bool
+    {
+        unset($args);
+
+        return true;
+    }
+}
+
 require_once __DIR__ . '/support/TestCase.php';
 require_once __DIR__ . '/support/FakeCamp.php';
 require_once __DIR__ . '/../inc/front-page.php';
 require_once __DIR__ . '/../inc/summer-camp.php';
 require_once __DIR__ . '/../inc/verhuur.php';
+require_once __DIR__ . '/../inc/blocks.php';

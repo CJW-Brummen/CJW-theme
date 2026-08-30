@@ -12,8 +12,13 @@
  * Every plan uses the same scale (see cjw_brummen_rental_plan_span()), so a 3x3
  * party tent really does render as a ninth of the big one.
  *
+ * Rendered by the cjw/verhuur-kaarten block, which passes its heading in as
+ * $args['titel'].
+ *
  * @package cjw-brummen
  */
+
+$cjw_brummen_cards_title = isset($args['titel']) ? (string) $args['titel'] : 'Wat verhuren we zoal?';
 
 $cjw_brummen_cards = [];
 
@@ -40,7 +45,9 @@ $cjw_brummen_ruler_size = max(18, (int) round($cjw_brummen_span['x'] / 24));
 ?>
 
 <section class="verhuur-rek">
-	<h2 class="verhuur-rek__title"><?php esc_html_e('Wat verhuren we zoal?', 'cjw-brummen'); ?></h2>
+	<?php if ('' !== $cjw_brummen_cards_title) : ?>
+		<h2 class="verhuur-rek__title"><?php echo esc_html($cjw_brummen_cards_title); ?></h2>
+	<?php endif; ?>
 
 	<?php if ($cjw_brummen_has_plans) : ?>
 		<svg width="0" height="0" aria-hidden="true" focusable="false" class="verhuur-plan-defs">

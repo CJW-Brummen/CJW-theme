@@ -2789,17 +2789,88 @@ hr.wp-block-separator.wp-block-separator:not(.is-style-wide, .is-style-dots) {
   opacity: 1;
 }
 
-/* Verhuurpagina
+/* Vertical rhythm for editor content. Loaded after page and blocks: it owns
+   every margin between two blocks, and settles ties on source order.
 --------------------------------------------- */
-.verhuur {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(48px, 6vw, 84px);
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 8px 24px 90px;
+/* The scale
+--------------------------------------------- */
+:is(.entry-content, .editor-styles-wrapper) {
+  --flow-tight: 16px;
+  --flow-block: 30px;
+  --flow-sub: clamp(34px, 3.5vw, 44px);
+  --flow-section: clamp(50px, 5.5vw, 74px);
+  --flow-media: clamp(38px, 4vw, 54px);
+  --flow-media-tight: 24px;
+  --flow-after-h2: 12px;
+  --flow-after-h3: 8px;
 }
 
+/* Paragraphs
+--------------------------------------------- */
+:is(.entry-content, .editor-styles-wrapper) p {
+  margin-block: 0 var(--flow-tight);
+}
+
+/* Headings: the section breaks
+--------------------------------------------- */
+:is(.entry-content, .editor-styles-wrapper) h2 {
+  margin-block: var(--flow-section) var(--flow-after-h2);
+}
+
+:is(.entry-content, .editor-styles-wrapper) :is(h3, h4, h5, h6) {
+  margin-block: var(--flow-sub) var(--flow-after-h3);
+}
+
+/* Self-contained blocks
+--------------------------------------------- */
+:is(.entry-content, .editor-styles-wrapper) :is(ul, ol, blockquote, .wp-block-image, .wp-block-table, .wp-block-details, .wp-block-code, .wp-block-preformatted, .wp-block-pullquote, .wp-block-quote, .wp-block-gallery, .wp-block-buttons, .wp-block-embed, .wp-block-video, .wp-block-columns, .wp-block-group) {
+  margin-block: var(--flow-block);
+}
+
+:is(.entry-content, .editor-styles-wrapper) :is(ul, ol, .wp-block-list) :is(ul, ol, .wp-block-list) {
+  margin-block: 8px 0;
+}
+
+:is(.entry-content, .editor-styles-wrapper) .wp-block-gallery figure.wp-block-image {
+  margin-block: 0;
+}
+
+:is(.entry-content, .editor-styles-wrapper) hr.wp-block-separator {
+  margin-block: var(--flow-sub);
+}
+
+/* Framed photography
+--------------------------------------------- */
+:is(.entry-content, .editor-styles-wrapper) .wp-block-media-text,
+:is(.entry-content, .editor-styles-wrapper) .wp-block-image.is-style-kiekje,
+:is(.entry-content, .editor-styles-wrapper) .wp-block-gallery.is-style-fotostrook {
+  margin-block: var(--flow-media);
+}
+
+/* Headings and what they introduce
+--------------------------------------------- */
+:is(.entry-content, .editor-styles-wrapper) :is(h2, h3, h4, h5, h6, .wp-block-heading) + * {
+  margin-top: 0;
+}
+
+:is(.entry-content, .editor-styles-wrapper) :is(h2, h3, h4, h5, h6, .wp-block-heading) + :is(.wp-block-media-text, .wp-block-image, .wp-block-gallery) {
+  margin-top: var(--flow-media-tight);
+}
+
+/* The ends of the flow
+--------------------------------------------- */
+:is(.entry-content, .editor-styles-wrapper) > :first-child:first-child,
+:is(.entry-content, .editor-styles-wrapper) :is(.wp-block-media-text__content, .wp-block-group, .wp-block-column, .wp-block-details, .wp-block-cover__inner-container, blockquote, li) > :first-child {
+  margin-top: 0;
+}
+
+:is(.entry-content, .editor-styles-wrapper) > :last-child:last-child,
+:is(.entry-content, .editor-styles-wrapper) :is(.wp-block-media-text__content, .wp-block-group, .wp-block-column, .wp-block-details, .wp-block-cover__inner-container, blockquote, li) > :last-child {
+  margin-bottom: 0;
+}
+
+/* Verhuurpagina
+--------------------------------------------- */
 /* Past het?
 --------------------------------------------- */
 .verhuur-fit {
@@ -3124,82 +3195,43 @@ hr.wp-block-separator.wp-block-separator:not(.is-style-wide, .is-style-dots) {
     width: 6rem;
   }
 }
-/* Vertical rhythm for editor content. Loaded after page and blocks: it owns
-   every margin between two blocks, and settles ties on source order.
+/* Inside the content flow
 --------------------------------------------- */
-/* The scale
---------------------------------------------- */
-:is(.entry-content, .editor-styles-wrapper) {
-  --flow-tight: 16px;
-  --flow-block: 30px;
-  --flow-sub: clamp(34px, 3.5vw, 44px);
-  --flow-section: clamp(50px, 5.5vw, 74px);
-  --flow-media: clamp(38px, 4vw, 54px);
-  --flow-media-tight: 24px;
-  --flow-after-h2: 12px;
-  --flow-after-h3: 8px;
+:is(.entry-content, .editor-styles-wrapper) :is(.verhuur-fit, .verhuur-rek, .verhuur-tabel) {
+  margin-block: var(--flow-media, 54px);
 }
 
-/* Paragraphs
---------------------------------------------- */
-:is(.entry-content, .editor-styles-wrapper) p {
-  margin-block: 0 var(--flow-tight);
-}
-
-/* Headings: the section breaks
---------------------------------------------- */
-:is(.entry-content, .editor-styles-wrapper) h2 {
-  margin-block: var(--flow-section) var(--flow-after-h2);
-}
-
-:is(.entry-content, .editor-styles-wrapper) :is(h3, h4, h5, h6) {
-  margin-block: var(--flow-sub) var(--flow-after-h3);
-}
-
-/* Self-contained blocks
---------------------------------------------- */
-:is(.entry-content, .editor-styles-wrapper) :is(ul, ol, blockquote, .wp-block-image, .wp-block-table, .wp-block-details, .wp-block-code, .wp-block-preformatted, .wp-block-pullquote, .wp-block-quote, .wp-block-gallery, .wp-block-buttons, .wp-block-embed, .wp-block-video, .wp-block-columns, .wp-block-group) {
-  margin-block: var(--flow-block);
-}
-
-:is(.entry-content, .editor-styles-wrapper) :is(ul, ol, .wp-block-list) :is(ul, ol, .wp-block-list) {
-  margin-block: 8px 0;
-}
-
-:is(.entry-content, .editor-styles-wrapper) .wp-block-gallery figure.wp-block-image {
+:is(.entry-content, .editor-styles-wrapper) :is(.verhuur-fit__title, .verhuur-rek__title, .verhuur-tabel__title) {
   margin-block: 0;
 }
 
-:is(.entry-content, .editor-styles-wrapper) hr.wp-block-separator {
-  margin-block: var(--flow-sub);
+:is(.entry-content, .editor-styles-wrapper) .verhuur-tabel__totalen {
+  display: grid;
+  gap: 18px 26px;
+  max-width: none;
+  padding: 0;
+}
+:is(.entry-content, .editor-styles-wrapper) .verhuur-tabel__totalen li {
+  padding-right: 0;
+}
+:is(.entry-content, .editor-styles-wrapper) .verhuur-tabel__totalen li::before {
+  content: none;
 }
 
-/* Framed photography
---------------------------------------------- */
-:is(.entry-content, .editor-styles-wrapper) .wp-block-media-text,
-:is(.entry-content, .editor-styles-wrapper) .wp-block-image.is-style-kiekje,
-:is(.entry-content, .editor-styles-wrapper) .wp-block-gallery.is-style-fotostrook {
-  margin-block: var(--flow-media);
+:is(.entry-content, .editor-styles-wrapper) .verhuur-kaart__naam {
+  font-size: 30px;
+  line-height: 1;
 }
 
-/* Headings and what they introduce
---------------------------------------------- */
-:is(.entry-content, .editor-styles-wrapper) :is(h2, h3, h4, h5, h6, .wp-block-heading) + * {
-  margin-top: 0;
+:is(.entry-content, .editor-styles-wrapper) .verhuur-fit__title {
+  font-size: clamp(30px, 3.4vw, 40px);
 }
 
-:is(.entry-content, .editor-styles-wrapper) :is(h2, h3, h4, h5, h6, .wp-block-heading) + :is(.wp-block-media-text, .wp-block-image, .wp-block-gallery) {
-  margin-top: var(--flow-media-tight);
+:is(.entry-content, .editor-styles-wrapper) :is(.verhuur-fit, .verhuur-rek, .verhuur-tabel) {
+  overflow-wrap: break-word;
 }
 
-/* The ends of the flow
---------------------------------------------- */
-:is(.entry-content, .editor-styles-wrapper) > :first-child:first-child,
-:is(.entry-content, .editor-styles-wrapper) :is(.wp-block-media-text__content, .wp-block-group, .wp-block-column, .wp-block-details, .wp-block-cover__inner-container, blockquote, li) > :first-child {
-  margin-top: 0;
-}
-
-:is(.entry-content, .editor-styles-wrapper) > :last-child:last-child,
-:is(.entry-content, .editor-styles-wrapper) :is(.wp-block-media-text__content, .wp-block-group, .wp-block-column, .wp-block-details, .wp-block-cover__inner-container, blockquote, li) > :last-child {
-  margin-bottom: 0;
+:is(.entry-content, .editor-styles-wrapper) :is(.verhuur-fit__notice, .verhuur-kaart__op, .verhuur-kaart__maat, .verhuur-kaart__voor, .verhuur-rek__legenda) {
+  margin-block: 0;
+  max-width: none;
 }

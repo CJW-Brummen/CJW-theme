@@ -8,8 +8,13 @@
  * lets two items be compared: a row each, a column per fact, and the "Totaal"
  * column doing the multiplication the live page leaves to the reader.
  *
+ * Rendered by the cjw/verhuur-tabel block, which passes its heading in as
+ * $args['titel'].
+ *
  * @package cjw-brummen
  */
+
+$cjw_brummen_table_title = isset($args['titel']) ? (string) $args['titel'] : 'Alles op een rij';
 
 $cjw_brummen_table_items = cjw_brummen_rental_items();
 
@@ -21,7 +26,9 @@ $cjw_brummen_table_totals = cjw_brummen_rental_totals($cjw_brummen_table_items);
 ?>
 
 <section class="verhuur-tabel">
-	<h2 class="verhuur-tabel__title"><?php esc_html_e('Alles op een rij', 'cjw-brummen'); ?></h2>
+	<?php if ('' !== $cjw_brummen_table_title) : ?>
+		<h2 class="verhuur-tabel__title"><?php echo esc_html($cjw_brummen_table_title); ?></h2>
+	<?php endif; ?>
 
 	<div class="verhuur-tabel__scroll">
 		<table>

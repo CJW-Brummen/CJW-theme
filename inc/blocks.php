@@ -1,27 +1,35 @@
 <?php
 
 /**
- * Dynamic blocks for the front page sections.
+ * Dynamic blocks for the front page and verhuur sections.
  *
- * The front page is a static page composed of six cjw/* blocks. Each block
- * is a thin server-rendered wrapper around the matching template part in
- * template-parts/front-page/, so the homepage markup stays identical to the
- * classic template while becoming editable (reorder/remove) in the editor.
- * The editor preview lives in js/blocks.js (ServerSideRender).
+ * Each block is a thin server-rendered wrapper around a template part, so the
+ * markup stays identical to the classic template while the section becomes
+ * something an editor can insert, reorder and remove. The editor preview lives
+ * in js/blocks.js (ServerSideRender).
+ *
+ * The verhuur blocks exist because the verhuurpagina was a template that
+ * decided everything: the three sections always appeared, always in the same
+ * order, always under the same headings, and the page's own copy could only go
+ * above all of them. As blocks they are inserted with "/", moved, left out, and
+ * written between -- and each carries its heading as an attribute, so the
+ * section title is the editor's too.
  *
  * @package cjw-brummen
  */
 
 /**
- * The six front page blocks: slug => editor metadata.
+ * Every cjw/* block: slug => editor metadata.
  *
- * The slug doubles as the template part name in template-parts/front-page/.
+ * `part` is the template part the block renders, and `attributes` is the block
+ * attribute schema WordPress validates against and hands to the render
+ * callback. A block with no attributes declares none.
  *
- * @return array<string, array{title: string, description: string, icon: string, keywords: array<int, string>}>
+ * @return array<string, array{title: string, description: string, icon: string, keywords: array<int, string>, part: string, attributes: array<string, array<string, mixed>>}>
  */
 function cjw_brummen_block_definitions()
 {
-    return [
+    $blocks = [
         'hero' => [
             'title' => __('CJW Hero', 'cjw-brummen'),
             'description' => __('De openingssectie met kampfoto, datumbadge en aanmeldknop.', 'cjw-brummen'),
@@ -82,7 +90,73 @@ function cjw_brummen_block_definitions()
                 __('partners', 'cjw-brummen'),
             ],
         ],
+        'verhuur-past-het' => [
+            'title' => __('CJW Past het?', 'cjw-brummen'),
+            'description' => __('De rekenhulp die een groepsgrootte omzet in een combinatie van groepstenten.', 'cjw-brummen'),
+            'icon' => 'calculator',
+            'keywords' => [
+                __('verhuur', 'cjw-brummen'),
+                __('tenten', 'cjw-brummen'),
+                __('personen', 'cjw-brummen'),
+            ],
+            'part' => 'verhuur/fit',
+            'attributes' => [
+                'titel' => [
+                    'type' => 'string',
+                    'default' => 'Past het?',
+                ],
+            ],
+        ],
+        'verhuur-kaarten' => [
+            'title' => __('CJW Verhuurkaarten', 'cjw-brummen'),
+            'description' => __('Een kaart per tent, met de plattegrond op schaal.', 'cjw-brummen'),
+            'icon' => 'grid-view',
+            'keywords' => [
+                __('verhuur', 'cjw-brummen'),
+                __('tenten', 'cjw-brummen'),
+                __('plattegrond', 'cjw-brummen'),
+            ],
+            'part' => 'verhuur/cards',
+            'attributes' => [
+                'titel' => [
+                    'type' => 'string',
+                    'default' => 'Wat verhuren we zoal?',
+                ],
+            ],
+        ],
+        'verhuur-tabel' => [
+            'title' => __('CJW Verhuurtabel', 'cjw-brummen'),
+            'description' => __('Het hele verhuuraanbod in één tabel, met de totalen eronder.', 'cjw-brummen'),
+            'icon' => 'editor-table',
+            'keywords' => [
+                __('verhuur', 'cjw-brummen'),
+                __('tabel', 'cjw-brummen'),
+                __('materiaal', 'cjw-brummen'),
+            ],
+            'part' => 'verhuur/table',
+            'attributes' => [
+                'titel' => [
+                    'type' => 'string',
+                    'default' => 'Alles op een rij',
+                ],
+            ],
+        ],
     ];
+
+    // The front page blocks predate `part`: their slug has always doubled as
+    // the template part name, and spelling that out nine times would only
+    // invite one of them to drift from its file.
+    foreach ($blocks as $slug => $definition) {
+        if (! isset($definition['part'])) {
+            $blocks[$slug]['part'] = 'front-page/' . $slug;
+        }
+
+        if (! isset($definition['attributes'])) {
+            $blocks[$slug]['attributes'] = [];
+        }
+    }
+
+    return $blocks;
 }
 
 /**
@@ -102,6 +176,9 @@ function cjw_brummen_block_placeholder($slug)
     $hints = [
         'photos' => __('Kies foto\'s bij Zomerkamp → Website → Kampplakboek. Zonder foto\'s blijft deze sectie verborgen op de site.', 'cjw-brummen'),
         'sponsors' => __('Voeg sponsoren toe via Sponsoren in het menu. Een sponsor heeft een logo (uitgelichte afbeelding) nodig.', 'cjw-brummen'),
+        'verhuur-past-het' => __('Voeg groepstenten toe via Verhuurmateriaal in het menu. Een tent telt hier mee zodra hij een aantal én een capaciteit heeft.', 'cjw-brummen'),
+        'verhuur-kaarten' => __('Voeg tenten toe via Verhuurmateriaal in het menu. Vul lengte en breedte in om de plattegrond te laten tekenen.', 'cjw-brummen'),
+        'verhuur-tabel' => __('Voeg materiaal toe via Verhuurmateriaal in het menu.', 'cjw-brummen'),
     ];
     $hint = $hints[$slug] ?? __('Vul deze sectie met inhoud via Zomerkamp → Website.', 'cjw-brummen');
 
@@ -110,18 +187,22 @@ function cjw_brummen_block_placeholder($slug)
 }
 
 /**
- * Creates the render callback for a front page block: it renders the
- * matching template part, so the markup stays identical to the classic
- * front page template.
+ * Creates the render callback for a block: it renders the matching template
+ * part, so the markup stays identical to the classic template.
  *
- * @param string $slug Block slug, also the template part name.
- * @return callable(): string
+ * The block's attributes are passed through to the part as $args. The parts
+ * default every value they read, so a part still renders correctly when it is
+ * included directly by a template with no block around it.
+ *
+ * @param string $slug Block slug.
+ * @param string $part Template part under template-parts/.
+ * @return callable(array<string, mixed>): string
  */
-function cjw_brummen_block_renderer($slug)
+function cjw_brummen_block_renderer($slug, $part)
 {
-    return function () use ($slug) {
+    return function ($attributes = []) use ($slug, $part) {
         ob_start();
-        get_template_part('template-parts/front-page/' . $slug);
+        get_template_part('template-parts/' . $part, null, is_array($attributes) ? $attributes : []);
         $output = ob_get_clean();
 
         // In the editor an empty section would be an invisible block; show
@@ -150,14 +231,16 @@ function cjw_brummen_is_editor_request()
 }
 
 /**
- * Registers the editor script and the six cjw/* dynamic blocks.
+ * Registers the editor script and the cjw/* dynamic blocks.
  */
 function cjw_brummen_register_blocks(): void
 {
     wp_register_script(
         'cjw-brummen-blocks',
         get_template_directory_uri() . '/js/blocks.js',
-        ['wp-blocks', 'wp-element', 'wp-block-editor', 'wp-server-side-render'],
+        // wp-components and wp-i18n are for the verhuur blocks' heading field
+        // in the block sidebar; the front page blocks have no settings.
+        ['wp-blocks', 'wp-element', 'wp-block-editor', 'wp-server-side-render', 'wp-components', 'wp-i18n'],
         CJW_BRUMMEN_VERSION,
         false
     );
@@ -172,6 +255,7 @@ function cjw_brummen_register_blocks(): void
                 'category' => 'cjw',
                 'icon' => $definition['icon'],
                 'keywords' => $definition['keywords'],
+                'attributes' => $definition['attributes'],
                 'supports' => [
                     'html' => false,
                     'multiple' => false,
@@ -180,7 +264,7 @@ function cjw_brummen_register_blocks(): void
                 // editor_script (singular) has been deprecated since
                 // WordPress 6.1 in favour of the *_handles array form.
                 'editor_script_handles' => [ 'cjw-brummen-blocks' ],
-                'render_callback' => cjw_brummen_block_renderer($slug),
+                'render_callback' => cjw_brummen_block_renderer($slug, $definition['part']),
             ]
         );
     }

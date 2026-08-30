@@ -3,15 +3,18 @@
 /**
  * Template Name: Verhuurpagina
  *
- * The page-header band and the editor's own copy, then the inventory: the
- * "Past het?" helper, the tents as cards with a to-scale footprint, and one
- * table with everything on it.
+ * The page-header band and the editor's own content, and nothing else.
  *
- * The three sections are rendered from the cjw plugin's verhuurmateriaal
- * records, so a kampbeheerder changing "20" to "18" changes all three at once.
- * Prices are deliberately not among those records -- CJW quotes them per
- * enquiry -- so the contact address belongs in the page copy above, where the
- * editor owns it.
+ * This template used to render the three inventory sections itself, always in
+ * the same order, always under the same headings, with the page's own copy
+ * stuck above all of them. They are blocks now -- CJW Past het?, CJW
+ * Verhuurkaarten and CJW Verhuurtabel -- so the editor decides what appears,
+ * in what order, and what is written between them.
+ *
+ * What is left is the one thing a template still has to decide: this page does
+ * not end in the signup call to action that page.php appends, because the
+ * action here is an e-mail about hiring a tent, not registering a child for
+ * camp.
  *
  * @package cjw-brummen
  */
@@ -42,14 +45,6 @@ while (have_posts()) :
 					<?php the_content(); ?>
 				</div>
 			</article>
-		</div>
-
-		<div class="verhuur">
-			<?php
-            get_template_part('template-parts/verhuur/fit');
-    get_template_part('template-parts/verhuur/cards');
-    get_template_part('template-parts/verhuur/table');
-    ?>
 		</div>
 
 	</main><!-- #primary -->
