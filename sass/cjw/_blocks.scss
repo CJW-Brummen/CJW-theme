@@ -20,7 +20,6 @@
 :is(.entry-content, .editor-styles-wrapper) blockquote,
 .wp-block-quote {
 	max-width: tokens.$cjw-measure;
-	margin: 0 0 22px;
 	padding: 8px 18px 8px 22px;
 	border-left: 5px solid var(--apricot);
 	border-radius: 4px 24px 4px 18px;
@@ -46,7 +45,6 @@
 }
 
 .wp-block-pullquote {
-	margin: 0 0 26px;
 	padding: 30px 26px;
 	border: 3px dashed var(--apricot);
 	text-align: center;
@@ -84,7 +82,6 @@
 --------------------------------------------- */
 
 .wp-block-table {
-	margin: 0 0 26px;
 	overflow-x: auto;
 
 	table {
@@ -116,7 +113,7 @@
 
 hr.wp-block-separator:not(.is-style-dots) {
 	height: auto;
-	margin: 32px auto;
+	margin-inline: auto;
 	border: 0;
 	border-top: 3px dashed var(--sage);
 	opacity: 1;
@@ -191,7 +188,6 @@ hr.wp-block-separator.wp-block-separator:not(.is-style-wide, .is-style-dots) {
 
 .wp-block-details {
 	max-width: tokens.$cjw-measure;
-	margin: 0 0 22px;
 	padding: 18px 22px;
 	background: #fffdf6;
 	border: 2px solid var(--sage);
@@ -219,7 +215,6 @@ hr.wp-block-separator.wp-block-separator:not(.is-style-wide, .is-style-dots) {
 .wp-block-code,
 .wp-block-preformatted {
 	max-width: 100%;
-	margin: 0 0 22px;
 	padding: 18px 20px;
 	overflow-x: auto;
 	background: #f3e9d5;
@@ -275,7 +270,6 @@ hr.wp-block-separator.wp-block-separator:not(.is-style-wide, .is-style-dots) {
 // emits its inline grid-template-columns when it is set; leaving it off
 // keeps the proportion here in CSS where the design belongs.
 :is(.entry-content, .editor-styles-wrapper) .wp-block-media-text {
-	margin: 0 0 46px;
 	grid-template-columns: 45% auto;
 
 	&.has-media-on-the-right {
@@ -283,12 +277,10 @@ hr.wp-block-separator.wp-block-separator:not(.is-style-wide, .is-style-dots) {
 	}
 
 	// The gutter between photo and copy, on whichever side the photo sits.
+	// The copy's own first and last margins are trimmed in _flow.scss, with
+	// every other container that starts a fresh flow.
 	.wp-block-media-text__content {
 		padding-inline: 7% 0;
-
-		> :last-child {
-			margin-bottom: 0;
-		}
 	}
 
 	&.has-media-on-the-right .wp-block-media-text__content {
@@ -439,7 +431,6 @@ hr.wp-block-separator.wp-block-separator:not(.is-style-wide, .is-style-dots) {
 :is(.entry-content, .editor-styles-wrapper) .wp-block-image.is-style-kiekje {
 	position: relative;
 	width: fit-content;
-	margin-bottom: 34px;
 	padding: 12px 12px 8px;
 	background: #fff;
 	box-shadow: 0 8px 22px rgba(38, 51, 45, 0.18);
@@ -498,7 +489,6 @@ hr.wp-block-separator.wp-block-separator:not(.is-style-wide, .is-style-dots) {
 
 	justify-content: center;
 	gap: 26px;
-	margin-bottom: 42px;
 	padding: 6px 0 10px;
 
 	&.has-nested-images figure.wp-block-image:not(#individual-image) {

@@ -1,0 +1,182 @@
+// Vertical rhythm for editor content.
+// --
+// Every gap between two blocks on a page used to be declared next to the
+// block that happened to need it: 16px under a paragraph in _page.scss, 22px
+// under a list, 26px under a table, 32px around a separator, 34px under a
+// taped photo, 42px under a photo strip, 46px under a photo row. Nine numbers
+// with no relationship to each other, so no one -- least of all a
+// kampbeheerder in the editor -- could predict what a page would look like,
+// and the only way to fix a cramped spot was to drop a spacer block in.
+// --
+// Measured on /zomerkamp/, /historie/ and /praktische-info/ at 1440px, that
+// left three concrete faults:
+// --
+//   1. Sections did not read as sections. A paragraph followed by an <h2>
+//      got 26px and by an <h3> 20px, against 16px between two paragraphs in
+//      the same breath -- a section break 1.25x the size of a line break,
+//      under a heading set 36-54px tall.
+//   2. The theme's own decoration was never paid for. The dashed frame on a
+//      photo row sits at inset -13px and both it and the photo are tilted, so
+//      a row bleeds ~6px above and ~8px below its layout box; the taped
+//      snapshot and the photo strip carry their tape at top: -11px. A
+//      paragraph declared 16px above a photo row therefore rendered 7.8px of
+//      real air, and a "46px" gap between two rows measured anywhere from
+//      30.8px to 42px depending on which way the tilt happened to fall.
+//   3. The editor showed none of it. The margins lived under .entry-content,
+//      a wrapper the block canvas does not have, so the page being written
+//      and the page being published were spaced differently.
+// --
+// So all of it moves here, into one scale, on the shared
+// :is(.entry-content, .editor-styles-wrapper) scope both surfaces answer to.
+// The rule is: a block's spacing is a property of the flow, not of the block.
+
+@use "tokens";
+
+/* The scale
+--------------------------------------------- */
+
+// Body copy is 17px/1.6, so a line box is ~27px. The steps below are read
+// against that line, which is what the eye actually measures a gap in:
+// roughly 0.6, 1.1, 1.5 and 2.6 lines. They are custom properties rather
+// than Sass variables so a block style can raise one for its own subtree,
+// and so the editor canvas inherits the same numbers.
+:is(.entry-content, .editor-styles-wrapper) {
+	// Between two paragraphs of the same thought.
+	--flow-tight: 16px;
+
+	// Around a self-contained block: a list, a table, a quote, a plain figure.
+	--flow-block: 30px;
+
+	// Before an <h3>: a new sub-section of the section you are already in.
+	--flow-sub: clamp(34px, 3.5vw, 44px);
+
+	// Before an <h2>: a new section. Clamped because the heading it precedes
+	// is itself clamp(38px, 4.5vw, 54px) -- the gap has to grow with it, or a
+	// 54px heading on a wide screen sits in the same air as a 38px one.
+	--flow-section: clamp(50px, 5.5vw, 74px);
+
+	// Around a framed, tilted photo row or taped snapshot. Larger than
+	// --flow-block by about the 10px of frame and tape that overhang the
+	// layout box, so the rendered gap lands near --flow-block's rhythm
+	// rather than 10px short of it.
+	--flow-media: clamp(38px, 4vw, 54px);
+
+	// The same allowance, for a photo that follows its own heading directly
+	// and should still read as belonging to it.
+	--flow-media-tight: 24px;
+
+	// Under a heading, before the thing it introduces. Deliberately the
+	// smallest step in the scale: a heading belongs to what follows it, and
+	// the space above it is what makes it a heading.
+	--flow-after-h2: 12px;
+	--flow-after-h3: 8px;
+}
+
+/* Paragraphs
+--------------------------------------------- */
+
+:is(.entry-content, .editor-styles-wrapper) p {
+	margin-block: 0 var(--flow-tight);
+}
+
+/* Headings: the section breaks
+--------------------------------------------- */
+
+:is(.entry-content, .editor-styles-wrapper) h2 {
+	margin-block: var(--flow-section) var(--flow-after-h2);
+}
+
+:is(.entry-content, .editor-styles-wrapper) :is(h3, h4, h5, h6) {
+	margin-block: var(--flow-sub) var(--flow-after-h3);
+}
+
+/* Self-contained blocks
+--------------------------------------------- */
+
+// .wp-block-image rather than figure.wp-block-image: :is() is as specific as
+// its heaviest argument, and the one qualified selector in this list lifted
+// the whole rule to (0,2,1) -- above the heading rule at the foot of the file
+// that is supposed to override it.
+:is(.entry-content, .editor-styles-wrapper) :is(ul, ol, blockquote, .wp-block-image, .wp-block-table, .wp-block-details, .wp-block-code, .wp-block-preformatted, .wp-block-pullquote, .wp-block-quote, .wp-block-gallery, .wp-block-buttons, .wp-block-embed, .wp-block-video, .wp-block-columns, .wp-block-group) {
+	margin-block: var(--flow-block);
+}
+
+// A nested list continues the line above it rather than starting a block.
+:is(.entry-content, .editor-styles-wrapper) :is(ul, ol, .wp-block-list) :is(ul, ol, .wp-block-list) {
+	margin-block: 8px 0;
+}
+
+// The figures inside a gallery are laid out by the gallery's own gap; the
+// block margin belongs to the gallery, not to each photo in it.
+:is(.entry-content, .editor-styles-wrapper) .wp-block-gallery figure.wp-block-image {
+	margin-block: 0;
+}
+
+// A separator is a section break drawn rather than written, so it is spaced
+// like one. margin-inline stays with the rule that centres it in _blocks.scss.
+:is(.entry-content, .editor-styles-wrapper) hr.wp-block-separator {
+	margin-block: var(--flow-sub);
+}
+
+/* Framed photography
+--------------------------------------------- */
+
+// The three blocks that render outside their own layout box: the photo row's
+// dashed frame and tilt, and the tape on the taped snapshot and the photo
+// strip. See --flow-media above for why they get their own step.
+:is(.entry-content, .editor-styles-wrapper) .wp-block-media-text,
+:is(.entry-content, .editor-styles-wrapper) .wp-block-image.is-style-kiekje,
+:is(.entry-content, .editor-styles-wrapper) .wp-block-gallery.is-style-fotostrook {
+	margin-block: var(--flow-media);
+}
+
+/* Headings and what they introduce
+--------------------------------------------- */
+
+// Whatever follows a heading hugs it: the heading's own margin-bottom above
+// is the whole gap, so a list under an <h3> keeps its 8px instead of pulling
+// the list's own 30px out of the flow and floating away from its title.
+// --
+// Last in the file, and .wp-block-heading is named alongside the elements on
+// purpose. :is() takes the specificity of its heaviest argument, so naming
+// the class the block editor already puts on every heading lifts this pair
+// from (0,1,1) to (0,2,0) -- level with the block margins above, which source
+// order then settles in this rule's favour. Written as h2..h6 alone it lost
+// to them, and an <h3> sat 30px above its own list instead of 8px.
+:is(.entry-content, .editor-styles-wrapper) :is(h2, h3, h4, h5, h6, .wp-block-heading) + * {
+	margin-top: 0;
+}
+
+// ...except a framed photo, which needs room for the frame it carries
+// outside its box even when it belongs to the heading above it.
+:is(.entry-content, .editor-styles-wrapper) :is(h2, h3, h4, h5, h6, .wp-block-heading) + :is(.wp-block-media-text, .wp-block-image, .wp-block-gallery) {
+	margin-top: var(--flow-media-tight);
+}
+
+/* The ends of the flow
+--------------------------------------------- */
+
+// The container, not the first and last blocks inside it, decides how much air
+// sits above and below a run of content. Without this the gap under a page
+// depended on which block the author happened to end on -- 66px after a photo
+// row, 36px after a paragraph -- and the gap above it on whether the page
+// opened with a heading.
+// --
+// The second selector is the one that matters most: a photo row's copy nearly
+// always opens with its own <h2>, and a section break is the wrong thing to
+// put between the top of a photo and the heading beside it. Every container
+// that starts a fresh flow is named, so the rule holds for a Group, a column
+// and a list item too, not just the two the pages happen to use today.
+// --
+// The pseudo-class in the first selector is doubled to reach (0,3,0), level
+// with the second and with .wp-block-image.is-style-kiekje above -- the same
+// idiom _blocks.scss uses against core's gallery width.
+:is(.entry-content, .editor-styles-wrapper) > :first-child:first-child,
+:is(.entry-content, .editor-styles-wrapper) :is(.wp-block-media-text__content, .wp-block-group, .wp-block-column, .wp-block-details, .wp-block-cover__inner-container, blockquote, li) > :first-child {
+	margin-top: 0;
+}
+
+:is(.entry-content, .editor-styles-wrapper) > :last-child:last-child,
+:is(.entry-content, .editor-styles-wrapper) :is(.wp-block-media-text__content, .wp-block-group, .wp-block-column, .wp-block-details, .wp-block-cover__inner-container, blockquote, li) > :last-child {
+	margin-bottom: 0;
+}

@@ -138,7 +138,13 @@
 	gap: 40px;
 	max-width: 1100px;
 	margin: 0 auto;
-	padding: 50px 24px 20px;
+
+	// The bottom step used to be 20px, on the assumption that the last block
+	// in the content would bring its own margin along -- which made the gap
+	// before the signup band depend on what the author ended the page with:
+	// 66px after a photo row, 36px after a paragraph. _flow.scss now zeroes
+	// that trailing margin, so the template states the distance itself.
+	padding: 50px 24px;
 }
 
 .page-layout__article {
@@ -205,24 +211,17 @@
 	overflow-wrap: anywhere;
 
 	h2 {
-		margin: 26px 0 12px;
 		font-size: clamp(38px, 4.5vw, 54px);
 		line-height: 1;
-
-		&:first-child {
-			margin-top: 0;
-		}
 	}
 
 	h3 {
-		margin: 20px 0 8px;
 		font-size: clamp(28px, 3vw, 36px);
 		line-height: 1;
 	}
 
 	p {
 		max-width: tokens.$cjw-measure;
-		margin: 0 0 16px;
 		font-size: 17px;
 	}
 
@@ -231,7 +230,6 @@
 		flex-direction: column;
 		gap: 8px;
 		max-width: tokens.$cjw-measure;
-		margin: 0 0 22px;
 		padding: 0;
 		list-style: none;
 		font-size: 17px;
@@ -251,14 +249,10 @@
 			}
 		}
 
-		ul {
-			margin: 8px 0 0;
-		}
 	}
 
 	ol {
 		max-width: tokens.$cjw-measure;
-		margin: 0 0 22px;
 		padding-left: 24px;
 		font-size: 17px;
 
