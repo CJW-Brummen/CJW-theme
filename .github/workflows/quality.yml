@@ -32,6 +32,14 @@ env:
   # Bump both together, or WP_UnitTestCase and WordPress disagree about what
   # exists.
   WP_VERSION: "7.1"
+  # The .pot guard below compares a freshly generated file against a committed
+  # one, so it only means anything if both were made by the same tool. Left to
+  # whichever wp-cli the runner image happens to ship, the guard fails on a
+  # difference in reference formatting -- "#: style.css" against
+  # "#: style.css:3" -- which says nothing about whether a translatable string
+  # changed, and a GitHub image bump would break main with no commit behind it.
+  # It also gave a contributor regenerating locally a third format again.
+  WP_CLI_VERSION: "2.12.0"
 
 jobs:
   php:
@@ -82,6 +90,16 @@ jobs:
       # Runs before the linters: an advisory against a pinned tool is a fact
       # about the repository, not about the pull request under review, and
       # finding it first makes an unrelated red build immediately legible.
+      - name: Install pinned WP-CLI
+        shell: bash
+        run: |
+          mkdir -p "$RUNNER_TEMP/bin"
+          curl -sSL "https://github.com/wp-cli/wp-cli/releases/download/v${WP_CLI_VERSION}/wp-cli-${WP_CLI_VERSION}.phar" \
+            -o "$RUNNER_TEMP/bin/wp"
+          chmod +x "$RUNNER_TEMP/bin/wp"
+          # GITHUB_PATH prepends, so this wins over any wp on the image.
+          echo "$RUNNER_TEMP/bin" >> "$GITHUB_PATH"
+
       - name: Security audit
         run: composer security
 
