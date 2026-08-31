@@ -623,16 +623,16 @@
         },
         {
             "name": "friendsofphp/php-cs-fixer",
-            "version": "v3.95.22",
+            "version": "v3.95.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer.git",
-                "reference": "482722e0783c16325a07a998a0d9eda560f9be99"
+                "reference": "b2932a5af3157a0c28324b1efe5e3b556dee09c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/482722e0783c16325a07a998a0d9eda560f9be99",
-                "reference": "482722e0783c16325a07a998a0d9eda560f9be99",
+                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/b2932a5af3157a0c28324b1efe5e3b556dee09c4",
+                "reference": "b2932a5af3157a0c28324b1efe5e3b556dee09c4",
                 "shasum": ""
             },
             "require": {
@@ -715,7 +715,7 @@
             ],
             "support": {
                 "issues": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/issues",
-                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.95.22"
+                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.95.23"
             },
             "funding": [
                 {
@@ -723,7 +723,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-08-24T10:37:43+00:00"
+            "time": "2026-08-26T19:54:54+00:00"
         },
         {
             "name": "gettext/gettext",
@@ -1228,16 +1228,16 @@
         },
         {
             "name": "php-stubs/wordpress-stubs",
-            "version": "v6.9.4",
+            "version": "v7.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-stubs/wordpress-stubs.git",
-                "reference": "90a9412826b9944f93b10bf41d795b5fe68abcd5"
+                "reference": "394570301894799e69a4aa117c9c995427e3ba04"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-stubs/wordpress-stubs/zipball/90a9412826b9944f93b10bf41d795b5fe68abcd5",
-                "reference": "90a9412826b9944f93b10bf41d795b5fe68abcd5",
+                "url": "https://api.github.com/repos/php-stubs/wordpress-stubs/zipball/394570301894799e69a4aa117c9c995427e3ba04",
+                "reference": "394570301894799e69a4aa117c9c995427e3ba04",
                 "shasum": ""
             },
             "conflict": {
@@ -1247,13 +1247,13 @@
                 "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
                 "nikic/php-parser": "^5.5",
                 "php": "^7.4 || ^8.0",
-                "php-stubs/generator": "^0.8.6",
+                "php-stubs/generator": "^0.9",
                 "phpdocumentor/reflection-docblock": "^6.0",
-                "phpstan/phpstan": "^2.1",
+                "phpstan/phpstan": "^2.2",
                 "phpunit/phpunit": "^9.5",
                 "symfony/polyfill-php80": "*",
-                "szepeviktor/phpcs-psr-12-neutron-hybrid-ruleset": "^1.1.1",
-                "wp-coding-standards/wpcs": "3.1.0 as 2.3.0"
+                "szepeviktor/phpcs-psr-12-neutron-hybrid-ruleset": "^1.2",
+                "wp-coding-standards/wpcs": "3.4.1 as 2.3.0"
             },
             "suggest": {
                 "paragonie/sodium_compat": "Pure PHP implementation of libsodium",
@@ -1274,9 +1274,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-stubs/wordpress-stubs/issues",
-                "source": "https://github.com/php-stubs/wordpress-stubs/tree/v6.9.4"
+                "source": "https://github.com/php-stubs/wordpress-stubs/tree/v7.1.0"
             },
-            "time": "2026-05-01T20:36:01+00:00"
+            "time": "2026-08-28T00:32:06+00:00"
         },
         {
             "name": "phpcompatibility/php-compatibility",
@@ -1716,11 +1716,11 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.2.9",
+            "version": "2.2.10",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/13d6b4f347bad222da436580c8304fa6f83e6bd0",
-                "reference": "13d6b4f347bad222da436580c8304fa6f83e6bd0",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/36d1509c998b0602811824143526b4a9ee2774e7",
+                "reference": "36d1509c998b0602811824143526b4a9ee2774e7",
                 "shasum": ""
             },
             "require": {
@@ -1776,7 +1776,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-08-22T07:38:16+00:00"
+            "time": "2026-08-30T12:46:16+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -3946,16 +3946,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v8.1.5",
+            "version": "v8.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "d07c06839e33047e2c894a6793248f3fb66c8129"
+                "reference": "eb7d9957d66739649e931ce7a9d05dab69f8abac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/d07c06839e33047e2c894a6793248f3fb66c8129",
-                "reference": "d07c06839e33047e2c894a6793248f3fb66c8129",
+                "url": "https://api.github.com/repos/symfony/console/zipball/eb7d9957d66739649e931ce7a9d05dab69f8abac",
+                "reference": "eb7d9957d66739649e931ce7a9d05dab69f8abac",
                 "shasum": ""
             },
             "require": {
@@ -4022,7 +4022,7 @@
                 "terminal"
             ],
             "support": {
-                "source": "https://github.com/symfony/console/tree/v8.1.5"
+                "source": "https://github.com/symfony/console/tree/v8.1.6"
             },
             "funding": [
                 {
@@ -4042,7 +4042,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-08-21T14:29:57+00:00"
+            "time": "2026-08-25T14:18:42+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -4283,16 +4283,16 @@
         },
         {
             "name": "symfony/filesystem",
-            "version": "v8.1.5",
+            "version": "v8.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/filesystem.git",
-                "reference": "6b2f4a0eeb28b5d74f90862592923a654bc629b3"
+                "reference": "7599ebb855fede59413ddb7f15198d67bfcae7ba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/filesystem/zipball/6b2f4a0eeb28b5d74f90862592923a654bc629b3",
-                "reference": "6b2f4a0eeb28b5d74f90862592923a654bc629b3",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/7599ebb855fede59413ddb7f15198d67bfcae7ba",
+                "reference": "7599ebb855fede59413ddb7f15198d67bfcae7ba",
                 "shasum": ""
             },
             "require": {
@@ -4330,7 +4330,7 @@
             "description": "Provides basic utilities for the filesystem",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/filesystem/tree/v8.1.5"
+                "source": "https://github.com/symfony/filesystem/tree/v8.1.6"
             },
             "funding": [
                 {
@@ -4350,7 +4350,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-08-21T12:16:08+00:00"
+            "time": "2026-08-23T10:06:25+00:00"
         },
         {
             "name": "symfony/finder",
@@ -5152,7 +5152,7 @@
         },
         {
             "name": "symfony/process",
-            "version": "v8.1.5",
+            "version": "v8.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
@@ -5193,7 +5193,7 @@
             "description": "Executes commands in sub-processes",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/process/tree/v8.1.5"
+                "source": "https://github.com/symfony/process/tree/v8.1.6"
             },
             "funding": [
                 {
@@ -5217,16 +5217,16 @@
         },
         {
             "name": "symfony/service-contracts",
-            "version": "v3.7.1",
+            "version": "v3.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/service-contracts.git",
-                "reference": "c0a284bab1ed8aa0417e3d69250ab437739563a0"
+                "reference": "15e6a07ec2a2c75ceb1b21dd98105ee8456d2257"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/service-contracts/zipball/c0a284bab1ed8aa0417e3d69250ab437739563a0",
-                "reference": "c0a284bab1ed8aa0417e3d69250ab437739563a0",
+                "url": "https://api.github.com/repos/symfony/service-contracts/zipball/15e6a07ec2a2c75ceb1b21dd98105ee8456d2257",
+                "reference": "15e6a07ec2a2c75ceb1b21dd98105ee8456d2257",
                 "shasum": ""
             },
             "require": {
@@ -5280,7 +5280,7 @@
                 "standards"
             ],
             "support": {
-                "source": "https://github.com/symfony/service-contracts/tree/v3.7.1"
+                "source": "https://github.com/symfony/service-contracts/tree/v3.7.3"
             },
             "funding": [
                 {
@@ -5300,7 +5300,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-06-16T09:55:08+00:00"
+            "time": "2026-07-27T15:39:01+00:00"
         },
         {
             "name": "symfony/stopwatch",
@@ -5460,21 +5460,21 @@
         },
         {
             "name": "szepeviktor/phpstan-wordpress",
-            "version": "v2.0.3",
+            "version": "v2.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/szepeviktor/phpstan-wordpress.git",
-                "reference": "aa722f037b2d034828cd6c55ebe9e5c74961927e"
+                "reference": "84577e2ea1e4c2a95537fe5ea2ac8e18f4ceab1a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/szepeviktor/phpstan-wordpress/zipball/aa722f037b2d034828cd6c55ebe9e5c74961927e",
-                "reference": "aa722f037b2d034828cd6c55ebe9e5c74961927e",
+                "url": "https://api.github.com/repos/szepeviktor/phpstan-wordpress/zipball/84577e2ea1e4c2a95537fe5ea2ac8e18f4ceab1a",
+                "reference": "84577e2ea1e4c2a95537fe5ea2ac8e18f4ceab1a",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.4 || ^8.0",
-                "php-stubs/wordpress-stubs": "^6.6.2",
+                "php-stubs/wordpress-stubs": ">=6.6.2",
                 "phpstan/phpstan": "^2.0"
             },
             "require-dev": {
@@ -5517,9 +5517,9 @@
             ],
             "support": {
                 "issues": "https://github.com/szepeviktor/phpstan-wordpress/issues",
-                "source": "https://github.com/szepeviktor/phpstan-wordpress/tree/v2.0.3"
+                "source": "https://github.com/szepeviktor/phpstan-wordpress/tree/v2.0.4"
             },
-            "time": "2025-09-14T02:58:22+00:00"
+            "time": "2026-05-22T16:22:09+00:00"
         },
         {
             "name": "theseer/tokenizer",
