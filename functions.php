@@ -227,6 +227,23 @@ add_action('trashed_post', 'cjw_brummen_flush_sponsors_cache');
 add_action('untrashed_post', 'cjw_brummen_flush_sponsors_cache');
 
 /**
+ * The rental inventory, read from the plugin's verhuurmateriaal records.
+ */
+require get_template_directory() . '/inc/verhuur.php';
+
+/*
+ * The inventory is cached the same way and cleared on the same four events as
+ * the sponsor wall above. An item that has gone out on loan is a number a
+ * hirer is about to plan around, so it must leave the page on save, not within
+ * a day.
+ */
+add_action('save_post_verhuurmateriaal', 'cjw_brummen_flush_rental_cache');
+add_action('deleted_post', 'cjw_brummen_flush_rental_cache');
+add_action('trashed_post', 'cjw_brummen_flush_rental_cache');
+add_action('untrashed_post', 'cjw_brummen_flush_rental_cache');
+add_action('wp_enqueue_scripts', 'cjw_brummen_rental_scripts');
+
+/**
  * Block editor integration: theme.json palette sync, editor styles and
  * block patterns.
  */

@@ -32,6 +32,14 @@ env:
   # Bump both together, or WP_UnitTestCase and WordPress disagree about what
   # exists.
   WP_VERSION: "7.1"
+  # The .pot guard below compares a freshly generated file against a committed
+  # one, so it only means anything if both were made by the same tool. Left to
+  # whichever wp-cli the runner image happens to ship, the guard fails on a
+  # difference in reference formatting -- "#: style.css" against
+  # "#: style.css:3" -- which says nothing about whether a translatable string
+  # changed, and a GitHub image bump would break main with no commit behind it.
+  # It also gave a contributor regenerating locally a third format again.
+  WP_CLI_VERSION: "2.12.0"
 
 jobs:
   php:
@@ -82,6 +90,16 @@ jobs:
       # Runs before the linters: an advisory against a pinned tool is a fact
       # about the repository, not about the pull request under review, and
       # finding it first makes an unrelated red build immediately legible.
+      - name: Install pinned WP-CLI
+        shell: bash
+        run: |
+          mkdir -p "$RUNNER_TEMP/bin"
+          curl -sSL "https://github.com/wp-cli/wp-cli/releases/download/v${WP_CLI_VERSION}/wp-cli-${WP_CLI_VERSION}.phar" \
+            -o "$RUNNER_TEMP/bin/wp"
+          chmod +x "$RUNNER_TEMP/bin/wp"
+          # GITHUB_PATH prepends, so this wins over any wp on the image.
+          echo "$RUNNER_TEMP/bin" >> "$GITHUB_PATH"
+
       - name: Security audit
         run: composer security
 
@@ -143,17 +161,35 @@ jobs:
             exit 0
           fi
 
+          cp languages/cjw-brummen.pot "$RUNNER_TEMP/committed.pot"
           composer make-pot
 
-          # Two header fields are generated from the clock rather than from the
-          # source: the creation timestamp, which changes on every single run,
-          # and the copyright year, which would silently start failing this
-          # guard on 1 January. Neither says anything about whether the
-          # translatable strings drifted, which is the only thing being checked.
-          if ! git diff --exit-code \
-               --ignore-matching-lines='POT-Creation-Date' \
-               --ignore-matching-lines='^# Copyright' \
-               -- languages/cjw-brummen.pot; then
+          # Three kinds of line carry no information about whether a
+          # translatable string changed, and each has failed this guard for a
+          # reason that had nothing to do with translation:
+          #
+          #   POT-Creation-Date  changes on every single run.
+          #   # Copyright (C)    comes from date('Y') and would have started
+          #                      failing on 1 January.
+          #   #: file:line       source references. The same pinned wp-cli
+          #                      writes "#: patterns/cta-band.php" on macOS and
+          #                      "#: patterns/cta-band.php:4" on the Linux
+          #                      runner, so a template regenerated on a laptop
+          #                      could never satisfy a guard run on CI. They
+          #                      also churn whenever an unrelated edit moves a
+          #                      line, which is noise a reviewer has to read
+          #                      past.
+          #
+          # Everything a translator has to act on -- msgid, msgid_plural,
+          # msgctxt, translator comments -- is still compared, so a string that
+          # is added, removed or reworded still fails.
+          strip() {
+            grep -v -e '^"POT-Creation-Date' -e '^# Copyright' -e '^#: ' "$1"
+          }
+
+          if ! diff -u \
+               --label committed <(strip "$RUNNER_TEMP/committed.pot") \
+               --label generated <(strip languages/cjw-brummen.pot); then
             echo "::error::The committed .pot does not match the source strings. Run 'composer make-pot' and commit the result."
             exit 1
           fi

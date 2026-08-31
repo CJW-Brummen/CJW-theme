@@ -182,6 +182,14 @@ dist
 # SvelteKit build / generate output
 .svelte-kit
 
+### JetBrains ###
+# PhpStorm's project directory. The generated list this file came from covers
+# node, macOS, PHPUnit, Composer, php-cs-fixer, PHPCodeSniffer, VS Code and
+# WordPress -- not JetBrains -- which is how ten .idea/ files came to be
+# tracked. They hold one developer's local paths, deployment targets and
+# inspection profile, and mean nothing to anybody else.
+.idea/
+
 ### PHP-CS-Fixer ###
 # Covers PHP CS Fixer
 # Reference: https://cs.symfony.com/

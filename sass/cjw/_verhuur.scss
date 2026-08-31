@@ -1,0 +1,449 @@
+@use "tokens";
+
+// The verhuur blocks: the "Past het?" helper, the tent cards with their
+// to-scale footprints, and the specification table.
+// --
+// Everything here is fed by the plugin's verhuurmateriaal records, so the
+// styles never assume a count: the card grid fills, the plans size themselves
+// off a viewBox the template computes, and the table scrolls rather than
+// forcing the page sideways.
+// --
+// Loaded after cjw/flow, because these three sections render inside
+// .entry-content now and have to settle a few ties with the prose typography
+// there. See the last section of this file for what those are.
+
+/* Past het?
+--------------------------------------------- */
+
+.verhuur-fit {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	padding: 26px 28px 28px;
+	background: #fffdf6;
+	border: 3px solid var(--sage);
+
+	// The gentler corner: the tight sketch radius is for buttons and cards and
+	// bows badly across a panel this wide.
+	@include tokens.cjw-sketch-radius(255px 25px 225px 25px, 25px 225px 25px 255px);
+}
+
+.verhuur-fit__title {
+	margin: 0;
+	font-size: clamp(30px, 3.4vw, 40px);
+	line-height: 1;
+}
+
+.verhuur-fit__form {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 12px;
+
+	label {
+		font-weight: 700;
+		font-size: 16px;
+		color: var(--forest);
+	}
+
+	// .btn sets display: inline-block, which outranks the user agent's
+	// [hidden] { display: none } -- a class selector against a bare attribute
+	// one. Without this the script hides the button and nothing happens, so
+	// every visitor with JavaScript sees a submit button for a form that has
+	// already answered them.
+	.verhuur-fit__submit[hidden] {
+		display: none;
+	}
+
+	// Quieter than the year accent the main calls to action wear: this is a
+	// helper inside a panel, not the thing the page is asking you to do. It
+	// also only ever shows when the script has not loaded.
+	.verhuur-fit__submit {
+		background: var(--sage-deep);
+	}
+
+	input {
+		width: 7rem;
+		padding: 9px 14px;
+		background: var(--paper);
+		border: 2px solid var(--sage);
+		color: var(--ink);
+		font-family: tokens.$cjw-font-body;
+		font-weight: 700;
+		font-size: 17px;
+		font-variant-numeric: tabular-nums;
+
+		@include tokens.cjw-sketch-radius(225px 15px 255px 15px, 15px 255px 15px 225px);
+
+		&:focus-visible {
+			outline: 3px solid var(--year-accent);
+			outline-offset: 2px;
+		}
+	}
+}
+
+.verhuur-fit__answer {
+	display: flex;
+	flex-direction: column;
+	gap: 9px;
+}
+
+.verhuur-fit__line {
+	display: flex;
+	align-items: baseline;
+	gap: 12px;
+	font-size: 16px;
+	color: var(--forest);
+
+	b {
+		min-width: 2.4em;
+		font-family: tokens.$cjw-font-hand;
+		font-weight: 700;
+		font-size: 30px;
+		line-height: 0.9;
+		color: var(--ink);
+		font-variant-numeric: tabular-nums;
+	}
+}
+
+.verhuur-fit__notice {
+	margin: 0;
+	font-weight: 700;
+	font-size: 14.5px;
+	line-height: 1.5;
+	color: var(--sage-deep);
+
+	// No text, no gap: an empty warning paragraph would otherwise leave a
+	// line's worth of air under every answer that has nothing to warn about.
+	&:empty {
+		display: none;
+	}
+}
+
+/* Kaartenrek
+--------------------------------------------- */
+
+.verhuur-rek {
+	display: flex;
+	flex-direction: column;
+	gap: 22px;
+}
+
+.verhuur-rek__title,
+.verhuur-tabel__title {
+	margin: 0;
+	font-size: clamp(38px, 4.5vw, 54px);
+	line-height: 1;
+}
+
+.verhuur-plan-defs {
+	position: absolute;
+	width: 0;
+	height: 0;
+	overflow: hidden;
+}
+
+.verhuur-rek__grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+	gap: 30px 26px;
+}
+
+.verhuur-kaart {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	padding: 20px 20px 18px;
+	background: #fffdf6;
+	border: 2px solid var(--sage);
+
+	@include tokens.cjw-sketch-radius;
+}
+
+.verhuur-kaart__aantal {
+	position: absolute;
+	top: -14px;
+	right: 16px;
+	padding: 4px 12px;
+	background: var(--apricot);
+	color: var(--ink);
+	font-weight: 900;
+	font-size: 13px;
+	letter-spacing: 0.4px;
+	transform: rotate(-3deg);
+
+	@include tokens.cjw-sketch-radius(225px 15px 255px 15px, 15px 255px 15px 225px);
+
+	// "Op aanvraag" is not a quantity, so it does not wear the quantity's
+	// colour -- the live site's "diverse groepstenten, vraag naar de
+	// mogelijkheden" must not read as a number somebody can plan around.
+	&--vraag {
+		// Solid, not a tint: at 18% over the card the label measured well under
+		// 4.5:1, and this is the one label on the page that has to be read
+		// rather than glanced at.
+		background: var(--sage-deep);
+		color: var(--paper);
+		font-weight: 800;
+	}
+}
+
+.verhuur-kaart__naam {
+	margin: 0;
+	padding-right: 4.5em;
+	font-size: 30px;
+	line-height: 1;
+}
+
+.verhuur-kaart__voor {
+	display: flex;
+	align-items: baseline;
+	gap: 8px;
+	margin: 0;
+	color: var(--sage-deep);
+
+	b {
+		font-family: tokens.$cjw-font-hand;
+		font-weight: 700;
+		font-size: 40px;
+		line-height: 0.8;
+	}
+
+	span {
+		font-weight: 700;
+		font-size: 14px;
+	}
+}
+
+.verhuur-kaart__maat {
+	margin: 0;
+	font-weight: 700;
+	font-size: 12.5px;
+	color: var(--forest);
+	font-variant-numeric: tabular-nums;
+}
+
+.verhuur-kaart__op {
+	margin: 0;
+	font-size: 13.5px;
+	line-height: 1.45;
+	color: var(--forest);
+}
+
+.verhuur-plan {
+	display: block;
+	width: 100%;
+	height: auto;
+
+	// currentColor is what the grid pattern paints with: the pattern lives in
+	// one shared <defs> and is used by every plan, so it cannot carry a colour
+	// of its own without every plan getting the same one.
+	color: var(--sage);
+	background: rgba(88, 140, 126, 0.06);
+	border-radius: 10px;
+}
+
+.verhuur-plan__vlak {
+	fill: var(--sage);
+	fill-opacity: 0.3;
+	stroke: var(--sage-deep);
+	stroke-width: 5;
+}
+
+.verhuur-kaart--partytent .verhuur-plan__vlak {
+	fill: var(--apricot);
+	fill-opacity: 0.38;
+}
+
+.verhuur-plan__maat,
+.verhuur-plan__schaal {
+	fill: var(--forest);
+	font-family: tokens.$cjw-font-hand;
+	font-weight: 700;
+}
+
+.verhuur-plan__schaal {
+	fill-opacity: 0.75;
+	font-family: tokens.$cjw-font-body;
+}
+
+.verhuur-plan__lat path {
+	fill: none;
+	stroke: var(--sage-deep);
+	stroke-opacity: 0.5;
+	stroke-width: 4;
+}
+
+.verhuur-rek__legenda {
+	margin: 0;
+	font-weight: 700;
+	font-size: 13px;
+	color: var(--sage-deep);
+}
+
+/* Specificatietabel
+--------------------------------------------- */
+
+.verhuur-tabel {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.verhuur-tabel__scroll {
+	overflow-x: auto;
+}
+
+.verhuur-tabel table {
+	width: 100%;
+	min-width: 640px;
+	background: #fffdf6;
+	border: 2px solid var(--sage);
+	border-collapse: collapse;
+	font-size: 15px;
+}
+
+.verhuur-tabel th,
+.verhuur-tabel td {
+	padding: 11px 14px;
+	border: 1px solid rgba(88, 140, 126, 0.45);
+	text-align: left;
+	vertical-align: top;
+}
+
+.verhuur-tabel thead th {
+	background: rgba(88, 140, 126, 0.12);
+	font-family: tokens.$cjw-font-hand;
+	font-weight: 700;
+	font-size: 24px;
+	line-height: 1.05;
+	white-space: nowrap;
+}
+
+.verhuur-tabel tbody th {
+	font-weight: 800;
+}
+
+.verhuur-tabel tbody tr:nth-child(even) td,
+.verhuur-tabel tbody tr:nth-child(even) th {
+	background: rgba(88, 140, 126, 0.045);
+}
+
+.verhuur-tabel__getal {
+	white-space: nowrap;
+	font-weight: 700;
+	color: var(--sage-deep);
+	font-variant-numeric: tabular-nums;
+}
+
+.verhuur-tabel__totalen {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: 18px 26px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+
+	li {
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+	}
+
+	b {
+		font-family: tokens.$cjw-font-hand;
+		font-weight: 700;
+		font-size: 46px;
+		line-height: 0.9;
+		color: var(--sage-deep);
+		font-variant-numeric: tabular-nums;
+	}
+
+	span {
+		font-weight: 700;
+		font-size: 14px;
+		line-height: 1.4;
+		color: var(--forest);
+	}
+}
+
+@media (max-width: 600px) {
+	.verhuur {
+		padding-inline: 18px;
+	}
+
+	.verhuur-fit {
+		padding: 20px 18px 22px;
+	}
+
+	.verhuur-fit__form input {
+		width: 6rem;
+	}
+}
+
+/* Inside the content flow
+--------------------------------------------- */
+
+// The sections used to sit in a .verhuur wrapper of their own, below the
+// article. As blocks they render inside .entry-content, where the prose
+// typography is already claiming the elements they are built from. Four
+// collisions, each fixed at the scope that actually wins:
+
+// 1. The sections are blocks in the flow and need the rhythm of one. Without
+//    this they inherit nothing and stack straight onto the paragraph above.
+:is(.entry-content, .editor-styles-wrapper) :is(.verhuur-fit, .verhuur-rek, .verhuur-tabel) {
+	margin-block: var(--flow-media, 54px);
+}
+
+// 2. _flow.scss gives every h2 in the content a section break above it, which
+//    inside a bordered panel is 74px of air between the border and the title.
+//    The heading belongs to its section here, not to the page.
+:is(.entry-content, .editor-styles-wrapper) :is(.verhuur-fit__title, .verhuur-rek__title, .verhuur-tabel__title) {
+	margin-block: 0;
+}
+
+// 3. The totals are a <ul>, and .entry-content dresses those in checkmark
+//    bullets: a flex column with 30px of indent and an SVG tick before every
+//    item. Three big numbers do not want to be a checklist.
+:is(.entry-content, .editor-styles-wrapper) .verhuur-tabel__totalen {
+	display: grid;
+	gap: 18px 26px;
+	max-width: none;
+	padding: 0;
+
+	li {
+		padding-left: 0;
+
+		&::before {
+			content: none;
+		}
+	}
+}
+
+// 4. The prose typography sizes every heading in the content, and a card
+//    title is not a page heading -- .entry-content h3 put these at 36px, which
+//    wrapped "Trippstein Super" onto two lines inside its own card.
+:is(.entry-content, .editor-styles-wrapper) .verhuur-kaart__naam {
+	font-size: 30px;
+	line-height: 1;
+}
+
+:is(.entry-content, .editor-styles-wrapper) .verhuur-fit__title {
+	font-size: clamp(30px, 3.4vw, 40px);
+}
+
+// 5. .entry-content sets overflow-wrap: anywhere so a pasted URL cannot run off
+//    the column. It also makes the browser count mid-word break points when it
+//    sizes a grid item, which split "groepstenten" across two lines in a card
+//    with room to spare. Inventory data has no runaway URLs in it; break-word
+//    still rescues a name genuinely too long for its card.
+:is(.entry-content, .editor-styles-wrapper) :is(.verhuur-fit, .verhuur-rek, .verhuur-tabel) {
+	overflow-wrap: break-word;
+}
+
+// 6. Paragraphs in the content carry a bottom margin. These two are the last
+//    thing in their box, and the box already has padding.
+:is(.entry-content, .editor-styles-wrapper) :is(.verhuur-fit__notice, .verhuur-kaart__op, .verhuur-kaart__maat, .verhuur-kaart__voor, .verhuur-rek__legenda) {
+	margin-block: 0;
+	max-width: none;
+}
