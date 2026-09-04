@@ -27,7 +27,9 @@ function cjw_brummen_front_page_defaults()
         'hero_subtitle' => 'Een week tenten, bosspellen en kampvuur voor iedereen van 6 t/m 17 jaar.',
         'theme_title' => 'Level up!',
         'theme_text' => 'Dit jaar wordt het bos één groot spel: verzamel punten met je tentgroep, versla eindbazen bij het bosspel en unlock de bonte avond. Geen schermen nodig — jij bent de speler.',
-        'signup_url' => '#inschrijven',
+        // Blank: without the plugin there is no registration form, so there is
+        // nothing honest for a signup button to link to and the theme shows none.
+        'signup_url' => '',
         'contact_email' => 'info@cjw-brummen.nl',
         'camp_age_range' => '6 t/m 17 jaar',
         'camp_location' => 'Landgoed Brockhausen, Stokkum',

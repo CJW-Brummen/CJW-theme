@@ -49,4 +49,20 @@ final class BridgeTest extends CJW_Brummen_TestCase
     {
         $this->assertTrue(cjw_brummen_registration_open());
     }
+
+    /**
+     * Without the plugin there is no registration form, so there is nothing
+     * honest for a signup button to link to. The old design default was an
+     * anchor no template carried; the button is simply absent now.
+     */
+    public function testThereIsNoSignupButtonWithoutAFormToLinkTo(): void
+    {
+        $this->assertSame('', cjw_brummen_signup_cta()['url']);
+        $this->assertSame('', cjw_brummen_signup_button('btn'));
+    }
+
+    public function testTheClosedTextHasADefaultWithoutThePlugin(): void
+    {
+        $this->assertSame('De inschrijving voor het zomerkamp is gesloten.', cjw_brummen_registration_closed_text());
+    }
 }

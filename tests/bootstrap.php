@@ -82,6 +82,13 @@ if (! defined('DAY_IN_SECONDS')) {
     define('DAY_IN_SECONDS', 86400);
 }
 
+if (! function_exists('wp_strip_all_tags')) {
+    function wp_strip_all_tags(string $text): string
+    {
+        return trim(strip_tags($text));
+    }
+}
+
 if (! function_exists('wp_timezone')) {
     function wp_timezone(): DateTimeZone
     {

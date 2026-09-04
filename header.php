@@ -56,12 +56,7 @@ if ($cjw_brummen_description || is_customize_preview()) :
         ]
     );
 ?>
-				<?php
-    $cjw_brummen_cta = cjw_brummen_signup_cta();
-$cjw_brummen_cta_class = $cjw_brummen_cta['open'] ? 'btn site-nav__cta' : 'btn site-nav__cta btn--muted';
-$cjw_brummen_cta_label = $cjw_brummen_cta['open'] ? $cjw_brummen_cta['label'] : __('Inschrijving gesloten', 'cjw-brummen');
-?>
-				<a class="<?php echo esc_attr($cjw_brummen_cta_class); ?>" href="<?php echo esc_url($cjw_brummen_cta['url']); ?>"><?php echo esc_html($cjw_brummen_cta_label); ?></a>
+				<?php echo cjw_brummen_signup_button('btn site-nav__cta'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- cjw_brummen_signup_button() returns escaped HTML. ?>
 			</nav>
 
 			<button class="menu-toggle" aria-controls="menu-drawer" aria-expanded="false" data-label-open="<?php esc_attr_e('Menu', 'cjw-brummen'); ?>" data-label-close="<?php esc_attr_e('Sluit', 'cjw-brummen'); ?>">
@@ -85,10 +80,5 @@ $cjw_brummen_cta_label = $cjw_brummen_cta['open'] ? $cjw_brummen_cta['label'] : 
             );
 ?>
 		</nav>
-		<?php
-        $cjw_brummen_drawer_cta = cjw_brummen_signup_cta();
-$cjw_brummen_drawer_cta_class = $cjw_brummen_drawer_cta['open'] ? 'btn menu-drawer__cta' : 'btn menu-drawer__cta btn--muted';
-$cjw_brummen_drawer_cta_label = $cjw_brummen_drawer_cta['open'] ? $cjw_brummen_drawer_cta['label'] : __('Inschrijving gesloten', 'cjw-brummen');
-?>
-		<a class="<?php echo esc_attr($cjw_brummen_drawer_cta_class); ?>" href="<?php echo esc_url($cjw_brummen_drawer_cta['url']); ?>"><?php echo esc_html($cjw_brummen_drawer_cta_label); ?></a>
+		<?php echo cjw_brummen_signup_button('btn menu-drawer__cta'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- cjw_brummen_signup_button() returns escaped HTML. ?>
 	</div><!-- #menu-drawer -->

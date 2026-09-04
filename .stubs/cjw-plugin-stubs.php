@@ -107,6 +107,13 @@ abstract class CJW_Summer_Camp_Service
     abstract public function getLateRegistrationLink(?string $baseUrl = null): string;
 
     /**
+     * The address of the page with the registration form, or '' when there is none.
+     *
+     * @return string
+     */
+    abstract public function getRegistrationPageUrl(): string;
+
+    /**
      * Retrieves the private late-registration token.
      *
      * @return string

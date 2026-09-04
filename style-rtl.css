@@ -996,6 +996,7 @@ a:focus-visible {
 }
 
 .btn--muted {
+  cursor: not-allowed;
   background: #dde3da;
   background: color-mix(in srgb, var(--sage) 18%, var(--paper));
   color: var(--ink);
@@ -1701,6 +1702,13 @@ a:focus-visible {
 }
 .fp-card--signup .fp-card__more.btn--muted {
   color: var(--ink);
+}
+.fp-card--signup.fp-card--static {
+  cursor: default;
+}
+.fp-card--signup.fp-card--static:hover, .fp-card--signup.fp-card--static:focus-visible {
+  transform: rotate(0.8deg);
+  box-shadow: none;
 }
 .fp-card--signup:hover, .fp-card--signup:focus-visible {
   transform: rotate(-1deg) translateY(-4px);

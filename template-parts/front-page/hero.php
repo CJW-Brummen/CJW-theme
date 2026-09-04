@@ -11,9 +11,6 @@
 
 $cjw_brummen_hero_id = cjw_brummen_hero_image_id();
 $cjw_brummen_badge = cjw_brummen_hero_badge_text();
-$cjw_brummen_cta = cjw_brummen_signup_cta();
-$cjw_brummen_cta_class = $cjw_brummen_cta['open'] ? 'btn btn--hero' : 'btn btn--hero btn--muted';
-$cjw_brummen_cta_label = $cjw_brummen_cta['open'] ? $cjw_brummen_cta['label'] : __('Inschrijving gesloten', 'cjw-brummen');
 $cjw_brummen_hero_alt = cjw_brummen_hero_image_alt();
 $cjw_brummen_secondary = cjw_brummen_hero_secondary_cta();
 ?>
@@ -70,7 +67,7 @@ if ($cjw_brummen_hero_img) {
 				<h1 class="fp-hero__title"><?php echo esc_html(cjw_brummen_hero_title()); ?></h1>
 				<p class="fp-hero__lead"><?php echo esc_html(cjw_brummen_hero_subtitle()); ?></p>
 				<div class="fp-hero__actions">
-					<a class="<?php echo esc_attr($cjw_brummen_cta_class); ?>" href="<?php echo esc_url($cjw_brummen_cta['url']); ?>"><?php echo esc_html($cjw_brummen_cta_label); ?></a>
+					<?php echo cjw_brummen_signup_button('btn btn--hero'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- cjw_brummen_signup_button() returns escaped HTML. ?>
 					<?php if (null !== $cjw_brummen_secondary) : ?>
 						<a class="btn btn--hero btn--ghost" href="<?php echo esc_url($cjw_brummen_secondary['url']); ?>"><?php echo esc_html($cjw_brummen_secondary['label']); ?></a>
 					<?php endif; ?>

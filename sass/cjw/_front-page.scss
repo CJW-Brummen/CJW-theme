@@ -438,6 +438,18 @@
 		color: var(--ink);
 	}
 
+	// Not a link: registration is closed, or there is no form page yet. The
+	// card keeps its place in the row and loses the lift that promises a click.
+	&.fp-card--static {
+		cursor: default;
+
+		&:hover,
+		&:focus-visible {
+			transform: rotate(-0.8deg);
+			box-shadow: none;
+		}
+	}
+
 	&:hover,
 	&:focus-visible {
 		transform: rotate(1deg) translateY(-4px);

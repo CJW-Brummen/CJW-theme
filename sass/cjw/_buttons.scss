@@ -75,9 +75,12 @@
 }
 
 // Muted variant while the registration is closed: a quiet sage chip in ink
-// at reduced emphasis, without the playful lift. It stays a link, so the
-// pointer cursor is kept.
+// at reduced emphasis, without the playful lift. It is no longer a link -- a
+// closed registration has nowhere to send anyone -- so the cursor says so and
+// the reason sits in the title attribute for hover.
 .btn--muted {
+	cursor: not-allowed;
+
 	// Opaque, and without the opacity it used to carry. Translucency made this
 	// chip unreadable in two places at once: over the hero photograph the ink
 	// showed through onto the picture, and on the signup card the opacity faded

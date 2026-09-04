@@ -389,29 +389,89 @@ function cjw_brummen_registration_open()
 /**
  * The signup call-to-action, from the plugin's primary hero CTA.
  *
+ * The plugin answers with the page that holds the registration form, or with
+ * an address the organiser chose instead. An empty URL means there is no such
+ * page yet: the theme then shows no button rather than one that goes nowhere,
+ * which is what the old `#inschrijven` default did on every page of the site.
+ *
  * @return array{label: string, url: string, open: bool}
  */
 function cjw_brummen_signup_cta()
 {
     $camp = cjw_brummen_camp();
+    $label = __('Schrijf je in!', 'cjw-brummen');
+    $url = cjw_brummen_front_page_defaults()['signup_url'];
 
     if ($camp) {
         $cta = $camp->getPrimaryHeroCta();
 
-        if (! empty($cta['url']) && ! empty($cta['label'])) {
-            return [
-                'label' => $cta['label'],
-                'url' => $cta['url'],
-                'open' => cjw_brummen_registration_open(),
-            ];
+        if (! empty($cta['label'])) {
+            $label = (string) $cta['label'];
         }
+
+        $url = trim((string) ($cta['url'] ?? ''));
     }
 
     return [
-        'label' => __('Schrijf je in!', 'cjw-brummen'),
-        'url' => cjw_brummen_front_page_defaults()['signup_url'],
+        'label' => $label,
+        'url' => $url,
         'open' => cjw_brummen_registration_open(),
     ];
+}
+
+/**
+ * Why registration is closed, as one line of plain text.
+ *
+ * The plugin's closed text is HTML written for the form page; here it goes
+ * into a title attribute on the muted button, so the tags come off.
+ *
+ * @return string
+ */
+function cjw_brummen_registration_closed_text()
+{
+    $text = trim(wp_strip_all_tags((string) cjw_brummen_camp_setting('getRegistrationClosedText', '')));
+
+    return '' !== $text ? $text : __('De inschrijving voor het zomerkamp is gesloten.', 'cjw-brummen');
+}
+
+/**
+ * The signup button, ready to print.
+ *
+ * Three states, decided in one place so the header, the hero, the drawer and
+ * the CTA band cannot drift apart:
+ *
+ * - registration open and a form page to link to: a link;
+ * - registration closed: a muted chip that is not a link, carrying the closed
+ *   text for hover and for screen readers;
+ * - registration open but no form page: nothing. Site Health reports that
+ *   case; a link to nowhere would only hide it.
+ *
+ * @param string $class CSS classes for the button.
+ * @return string Escaped HTML, or an empty string.
+ */
+function cjw_brummen_signup_button($class)
+{
+    $cta = cjw_brummen_signup_cta();
+
+    if (! $cta['open']) {
+        return sprintf(
+            '<span class="%1$s" title="%2$s">%3$s<span class="screen-reader-text">: %2$s</span></span>',
+            esc_attr(trim($class . ' btn--muted')),
+            esc_attr(cjw_brummen_registration_closed_text()),
+            esc_html(__('Inschrijving gesloten', 'cjw-brummen'))
+        );
+    }
+
+    if ('' === $cta['url']) {
+        return '';
+    }
+
+    return sprintf(
+        '<a class="%s" href="%s">%s</a>',
+        esc_attr($class),
+        esc_url($cta['url']),
+        esc_html($cta['label'])
+    );
 }
 
 /**

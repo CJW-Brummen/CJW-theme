@@ -15,9 +15,6 @@ get_header();
 $cjw_brummen_prices = cjw_brummen_camp_prices();
 $cjw_brummen_facts = cjw_brummen_camp_facts();
 $cjw_brummen_cta_band = cjw_brummen_cta_band();
-$cjw_brummen_cta = cjw_brummen_signup_cta();
-$cjw_brummen_cta_class = $cjw_brummen_cta['open'] ? 'btn btn--hero' : 'btn btn--hero btn--muted';
-$cjw_brummen_cta_label = $cjw_brummen_cta['open'] ? $cjw_brummen_cta['label'] : __('Inschrijving gesloten', 'cjw-brummen');
 
 while (have_posts()) :
     the_post();
@@ -83,7 +80,7 @@ while (have_posts()) :
 					<h2 class="page-cta__title"><?php echo esc_html($cjw_brummen_cta_band['title']); ?></h2>
 					<p class="page-cta__text"><?php echo esc_html($cjw_brummen_cta_band['text']); ?></p>
 				</div>
-				<a class="<?php echo esc_attr($cjw_brummen_cta_class); ?>" href="<?php echo esc_url($cjw_brummen_cta['url']); ?>"><?php echo esc_html($cjw_brummen_cta_label); ?></a>
+				<?php echo cjw_brummen_signup_button('btn btn--hero'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- cjw_brummen_signup_button() returns escaped HTML. ?>
 			</div>
 		</section>
 

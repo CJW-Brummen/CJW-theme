@@ -67,6 +67,29 @@ final class FakeCamp
     /**
      * @return array<string, string>
      */
+    public function getPrimaryHeroCta(): array
+    {
+        return (array) $this->value('primary_cta', [ 'label' => 'Meld je aan', 'url' => '' ]);
+    }
+
+    public function isRegistrationOpen(): bool
+    {
+        return (bool) $this->value('registration_open', true);
+    }
+
+    public function getRegistrationClosedText(): string
+    {
+        return (string) $this->value('registration_closed_text', '');
+    }
+
+    public function getRegistrationPageUrl(): string
+    {
+        return (string) $this->value('registration_page_url', '');
+    }
+
+    /**
+     * @return array<string, string>
+     */
     public function getSecondaryHeroCta(): array
     {
         return (array) $this->value('secondary_cta', [ 'label' => 'Lees meer', 'url' => '#meer' ]);
