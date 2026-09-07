@@ -116,6 +116,16 @@ The integration suite boots a real WordPress against a scratch database and asks
 
 ## Changelog
 
+### 1.5.0 — one address for every signup button
+
+* The call to action defaulted to `#inschrijven`, an anchor no template has ever carried, so it
+  scrolled nowhere on every page of the site — and when registration was closed it stayed a live
+  link to that nowhere.
+* The plugin now answers where the registration form lives, and `cjw_brummen_signup_button()`
+  renders all seven call sites from that one answer: a link while registration is open, a muted
+  chip carrying the reason when it is closed, and nothing at all when there is no form page to
+  link to. A test fails if any template links to the old anchor again.
+
 ### 1.4.0 — the verhuurpagina, rendered from the records
 
 * The rental page was a template with the inventory written into it by hand, so the tents on the
