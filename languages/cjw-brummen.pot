@@ -9,23 +9,23 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-30T20:09:43+00:00\n"
+"POT-Creation-Date: 2026-09-07T17:49:51+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: cjw-brummen\n"
 
 #. Theme Name of the theme
-#: style.css
+#: style.css:3
 msgid "CJW Brummen"
 msgstr ""
 
 #. Description of the theme
-#: style.css
+#: style.css:5
 msgid "Het speelse CJW Zomerkampen-ontwerp: papier, salie en abrikoos met handgetekende accenten, volledig geïntegreerd met de blok-editor."
 msgstr ""
 
 #. Author of the theme
-#: style.css
+#: style.css:4
 msgid "Imre Boersma"
 msgstr ""
 
@@ -69,12 +69,12 @@ msgid "Footermenu"
 msgstr ""
 
 #: footer.php:34
-#: template-parts/front-page/cards.php:20
+#: template-parts/front-page/cards.php:29
 msgid "Snel naar"
 msgstr ""
 
 #: footer.php:49
-#: inc/front-page.php:88
+#: inc/front-page.php:90
 msgid "Contact"
 msgstr ""
 
@@ -102,29 +102,20 @@ msgid "Ga naar de inhoud"
 msgstr ""
 
 #: header.php:62
-#: header.php:91
-#: page-templates/met-feitenkaart.php:20
-#: page.php:63
-#: template-parts/front-page/cards.php:16
-#: template-parts/front-page/hero.php:16
-msgid "Inschrijving gesloten"
-msgstr ""
-
-#: header.php:67
-#: header.php:68
+#: header.php:63
 msgid "Menu"
 msgstr ""
 
-#: header.php:67
+#: header.php:62
 msgid "Sluit"
 msgstr ""
 
-#: header.php:73
-#: header.php:75
+#: header.php:68
+#: header.php:70
 msgid "Mobiel menu"
 msgstr ""
 
-#: header.php:74
+#: header.php:69
 msgid "Sluit menu"
 msgstr ""
 
@@ -326,7 +317,7 @@ msgstr ""
 
 #: inc/blocks.php:285
 #: inc/editor-setup.php:194
-#: page-templates/met-feitenkaart.php:31
+#: page-templates/met-feitenkaart.php:28
 msgid "CJW Zomerkamp"
 msgstr ""
 
@@ -370,54 +361,63 @@ msgstr ""
 msgid "Fotostrook"
 msgstr ""
 
-#: inc/front-page.php:64
+#: inc/front-page.php:66
 msgid "Home"
 msgstr ""
 
-#: inc/front-page.php:68
+#: inc/front-page.php:70
 msgid "Zomerkamp"
 msgstr ""
 
-#: inc/front-page.php:72
+#: inc/front-page.php:74
 msgid "Praktische info"
 msgstr ""
 
-#: inc/front-page.php:76
+#: inc/front-page.php:78
 msgid "Historie"
 msgstr ""
 
-#: inc/front-page.php:80
+#: inc/front-page.php:82
 #: page-templates/verhuur.php:33
 msgid "Verhuur"
 msgstr ""
 
-#: inc/front-page.php:84
+#: inc/front-page.php:86
 msgid "Sponsoren"
 msgstr ""
 
-#: inc/summer-camp.php:411
-#: patterns/cta-band.php:28
+#: inc/summer-camp.php:402
+#: patterns/cta-band.php:36
 msgid "Schrijf je in!"
 msgstr ""
 
-#: inc/summer-camp.php:866
+#: inc/summer-camp.php:434
+msgid "De inschrijving voor het zomerkamp is gesloten."
+msgstr ""
+
+#: inc/summer-camp.php:461
+#: template-parts/front-page/cards.php:22
+msgid "Inschrijving gesloten"
+msgstr ""
+
+#: inc/summer-camp.php:926
 #: template-parts/front-page/jaarthema.php:37
 msgid "nachtje slapen tot kamp!"
 msgid_plural "nachtjes slapen tot kamp!"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/summer-camp.php:868
+#: inc/summer-camp.php:928
 #: template-parts/front-page/jaarthema.php:39
 msgid "NU"
 msgstr ""
 
-#: inc/summer-camp.php:869
+#: inc/summer-camp.php:929
 #: template-parts/front-page/jaarthema.php:40
 msgid "We zitten nú op kamp in het bos!"
 msgstr ""
 
-#: inc/summer-camp.php:872
+#: inc/summer-camp.php:932
 #: template-parts/front-page/jaarthema.php:42
 msgid "Dat was ’m weer — tot volgend jaar!"
 msgstr ""
@@ -541,36 +541,38 @@ msgid "Vul een aantal personen in."
 msgstr ""
 
 #. Template Name of the theme
+#: page-templates/met-feitenkaart.php:3
 msgid "Pagina met feitenkaart"
 msgstr ""
 
-#: page-templates/met-feitenkaart.php:50
+#: page-templates/met-feitenkaart.php:47
 msgid "Goed om te weten"
 msgstr ""
 
-#: page-templates/met-feitenkaart.php:51
+#: page-templates/met-feitenkaart.php:48
 msgid "Data:"
 msgstr ""
 
-#: page-templates/met-feitenkaart.php:53
+#: page-templates/met-feitenkaart.php:50
 msgid "Leeftijd:"
 msgstr ""
 
-#: page-templates/met-feitenkaart.php:56
+#: page-templates/met-feitenkaart.php:53
 msgid "Locatie:"
 msgstr ""
 
-#: page-templates/met-feitenkaart.php:59
+#: page-templates/met-feitenkaart.php:56
 msgid "Kosten:"
 msgstr ""
 
 #. translators: 1: week price, 2: weekend price.
-#: page-templates/met-feitenkaart.php:63
+#: page-templates/met-feitenkaart.php:60
 #, php-format
 msgid "€ %1$s (week) · € %2$s (weekend)"
 msgstr ""
 
 #. Template Name of the theme
+#: page-templates/verhuur.php:4
 msgid "Verhuurpagina"
 msgstr ""
 
@@ -579,12 +581,12 @@ msgstr ""
 msgid "Pagina&rsquo;s:"
 msgstr ""
 
-#: patterns/checklijst.php
+#: patterns/checklijst.php:4
 msgctxt "Pattern title"
 msgid "Checklijst"
 msgstr ""
 
-#: patterns/checklijst.php
+#: patterns/checklijst.php:7
 msgctxt "Pattern description"
 msgid "Kop, korte intro en een lijst met vinkjes — een startpunt voor bijvoorbeeld de paklijst."
 msgstr ""
@@ -617,30 +619,30 @@ msgstr ""
 msgid "Verkleedkleren voor het jaarthema"
 msgstr ""
 
-#: patterns/cta-band.php
+#: patterns/cta-band.php:4
 msgctxt "Pattern title"
 msgid "Oproep-banner"
 msgstr ""
 
-#: patterns/cta-band.php
+#: patterns/cta-band.php:7
 msgctxt "Pattern description"
 msgid "Inschrijf-oproep in een omkaderd vlak met titel, tekst en knop, zoals onderaan elke pagina."
 msgstr ""
 
-#: patterns/cta-band.php:18
+#: patterns/cta-band.php:26
 msgid "Zin gekregen?"
 msgstr ""
 
-#: patterns/cta-band.php:22
+#: patterns/cta-band.php:30
 msgid "Vol = vol, dus wacht niet te lang."
 msgstr ""
 
-#: patterns/foto-met-tekst.php
+#: patterns/foto-met-tekst.php:4
 msgctxt "Pattern title"
 msgid "Foto met tekst"
 msgstr ""
 
-#: patterns/foto-met-tekst.php
+#: patterns/foto-met-tekst.php:7
 msgctxt "Pattern description"
 msgid "Foto naast een kop met onderstreping, een alinea en een lijst met vinkjes."
 msgstr ""
@@ -665,12 +667,12 @@ msgstr ""
 msgid "Bonte avond met het hele kamp"
 msgstr ""
 
-#: patterns/verhuurpagina.php
+#: patterns/verhuurpagina.php:4
 msgctxt "Pattern title"
 msgid "Verhuurpagina"
 msgstr ""
 
-#: patterns/verhuurpagina.php
+#: patterns/verhuurpagina.php:7
 msgctxt "Pattern description"
 msgid "De hele verhuurpagina: intro met contactadres, de \"Past het?\"-hulp, de tentkaarten en de tabel met alles erop."
 msgstr ""
@@ -721,12 +723,12 @@ msgstr ""
 msgid "Lees verder<span class=\"screen-reader-text\"> \"%s\"</span>"
 msgstr ""
 
-#: template-parts/front-page/cards.php:15
+#: template-parts/front-page/cards.php:24
 msgid "Schrijf je in →"
 msgstr ""
 
-#: template-parts/front-page/cards.php:26
-#: template-parts/front-page/cards.php:33
+#: template-parts/front-page/cards.php:35
+#: template-parts/front-page/cards.php:42
 msgid "Lees meer →"
 msgstr ""
 
