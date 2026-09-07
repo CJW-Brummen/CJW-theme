@@ -116,6 +116,12 @@ The integration suite boots a real WordPress against a scratch database and asks
 
 ## Changelog
 
+### 1.4.0 — the verhuurpagina, rendered from the records
+
+* The rental page was a template with the inventory written into it by hand, so the tents on the
+  site and the tents in the records drifted apart every year. It is now rendered from the rental
+  records the plugin keeps, as blocks an editor can reorder.
+
 ### 1.3.0 — one vertical rhythm for page content
 
 * Page content had nine competing vertical rhythms, so the spacing between a heading and the

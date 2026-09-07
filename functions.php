@@ -10,7 +10,7 @@
 
 if (! defined('CJW_BRUMMEN_VERSION')) {
     // Replace the version number of the theme on each release.
-    define('CJW_BRUMMEN_VERSION', '1.3.0');
+    define('CJW_BRUMMEN_VERSION', '1.4.0');
 }
 
 /**
