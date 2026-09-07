@@ -26,7 +26,7 @@ if (! defined('ABSPATH')) {
 }
 
 if (! defined('CJW_BRUMMEN_VERSION')) {
-    define('CJW_BRUMMEN_VERSION', '1.1.0');
+    define('CJW_BRUMMEN_VERSION', '1.2.0');
 }
 
 if (! function_exists('__')) {

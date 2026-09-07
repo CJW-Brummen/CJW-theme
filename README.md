@@ -114,6 +114,23 @@ The integration suite boots a real WordPress against a scratch database and asks
 - Dutch in the interface, English in the code and comments.
 - Never read camp data directly: go through `inc/summer-camp.php`, so the fallback stays in one place.
 
+## Changelog
+
+### 1.2.0 — the audit, and what Underscores left behind
+
+* All 23 findings from the theme audit. The largest of them: four controls on the plugin's Thema
+  tab were being collected from the organiser and then quietly ignored here, so typing in them
+  changed nothing on the site.
+* The blog and classic-editor styling is gone. There is no blog on this site and there will not be
+  one; 23 selectors were removed after checking each against the markup all five pages of the live
+  site actually render. The pages render byte-identical HTML before and after.
+* The sponsor wall reads its link from post meta instead of through ACF, so the theme stops
+  depending on a plugin it did not need, and the wall is cached rather than rebuilt on every front
+  page render for data that changes a few times a year.
+* Sass moved to the module system, and the tooling, CI and Dependabot setup now match the plugin's.
+
+Releases before 1.2.0 predate this file; their history is in the repository.
+
 ## Credits
 
 Built on [Underscores](https://underscores.me/) by Automattic, and licensed under the GPL v2 or later — see `LICENSE`. Very little of the starter theme is left; what remains is normalize, the accessibility helpers, and the menu scaffolding.
