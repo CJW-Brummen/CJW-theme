@@ -116,6 +116,12 @@ The integration suite boots a real WordPress against a scratch database and asks
 
 ## Changelog
 
+### 1.3.0 — one vertical rhythm for page content
+
+* Page content had nine competing vertical rhythms, so the spacing between a heading and the
+  paragraph under it depended on which block happened to be there. It now has one.
+* Two things the post-merge verification turned up, fixed with it.
+
 ### 1.2.0 — the audit, and what Underscores left behind
 
 * All 23 findings from the theme audit. The largest of them: four controls on the plugin's Thema
