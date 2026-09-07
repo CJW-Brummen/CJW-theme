@@ -1,0 +1,202 @@
+# Puts the theme on the live server after a merge to main.
+#
+# Three things make this safe enough to run unattended, and each one exists
+# because mirroring with --delete is unforgiving:
+#
+#   1. It only runs after "Pull Request Quality" has passed on main, so a merge
+#      that broke something is never deployed.
+#   2. The remote path must end in wp-content/themes/cjw-theme. A typo cannot point
+#      the delete at the document root.
+#   3. The folder it is about to mirror into must already look like this theme
+#      -- or be empty. Pointing it at somebody else's directory stops the run
+#      rather than emptying it.
+#
+# What gets uploaded is what `git archive` produces minus the development
+# files, which is the same set the `npm run bundle` zip contains. Anything
+# gitignored -- vendor, node_modules, caches -- cannot reach the server.
+name: Deploy
+
+on:
+  workflow_run:
+    workflows: [ "Pull Request Quality" ]
+    types: [ completed ]
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Only report what would change"
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+# One deploy at a time, and never cancel one halfway: a half-uploaded theme
+# directory is a broken site.
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Upload to the server
+    runs-on: ubuntu-latest
+
+    # Add required reviewers to this environment in the repository settings to
+    # turn merges into approvals without touching this file.
+    environment: production
+
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.event == 'push')
+
+    env:
+      SFTP_HOST: ${{ secrets.SFTP_HOST }}
+      SFTP_PORT: ${{ secrets.SFTP_PORT }}
+      SFTP_USER: ${{ secrets.SFTP_USER }}
+      SFTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
+      SFTP_KEY: ${{ secrets.SFTP_KEY }}
+      SFTP_KNOWN_HOSTS: ${{ secrets.SFTP_KNOWN_HOSTS }}
+      SFTP_PATH: ${{ secrets.SFTP_PATH }}
+      REMOTE_MUST_END_IN: wp-content/themes/cjw-theme
+      SENTINEL: style.css
+
+    steps:
+      - name: Is this configured yet?
+        id: config
+        run: |
+          missing=""
+          [ -n "$SFTP_HOST" ] || missing="$missing SFTP_HOST"
+          [ -n "$SFTP_USER" ] || missing="$missing SFTP_USER"
+          [ -n "$SFTP_PATH" ] || missing="$missing SFTP_PATH"
+          if [ -z "$SFTP_KEY" ] && [ -z "$SFTP_PASSWORD" ]; then
+            missing="$missing SFTP_KEY-or-SFTP_PASSWORD"
+          fi
+
+          if [ -n "$missing" ]; then
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Deploy skipped. Add these repository secrets to switch it on:$missing. See docs/deploy.md."
+            exit 0
+          fi
+
+          echo "configured=true" >> "$GITHUB_OUTPUT"
+
+      - name: Refuse a remote path that is not this plugin's folder
+        if: steps.config.outputs.configured == 'true'
+        run: |
+          clean="${SFTP_PATH%/}"
+          case "$clean" in
+            *"/$REMOTE_MUST_END_IN") ;;
+            "$REMOTE_MUST_END_IN") ;;
+            *)
+              echo "::error::SFTP_PATH is '$SFTP_PATH'. It has to end in $REMOTE_MUST_END_IN, because this job deletes files that are not in the repository."
+              exit 1
+              ;;
+          esac
+          echo "REMOTE_PATH=$clean" >> "$GITHUB_ENV"
+
+      - uses: actions/checkout@v4
+        if: steps.config.outputs.configured == 'true'
+        with:
+          # workflow_run hands us the default branch, which is what we deploy.
+          ref: main
+
+      - name: Assemble exactly what belongs on the server
+        if: steps.config.outputs.configured == 'true'
+        run: |
+          set -euo pipefail
+          mkdir -p build
+
+          # Tracked files only, so anything gitignored -- vendor, node_modules,
+          # caches, .env -- cannot reach the server even by accident.
+          git archive HEAD | tar -x -C build
+
+          # Tracked, but development-only. Same list as the release bundle.
+          cd build
+          rm -rf \
+            .editorconfig .gitattributes .github .gitignore \
+            .php-cs-fixer.dist.php .stubs .stylelintrc.json .vscode \
+            README.md composer.json composer.lock eslint.config.js \
+            package-lock.json package.json phpcs.xml.dist \
+            phpstan-bootstrap.php phpstan.neon.dist \
+            phpunit.xml.dist phpunit-integration.xml.dist tests \
+            sass style.css.map
+          cd ..
+
+          test -f "build/$SENTINEL" || { echo "::error::build/$SENTINEL is missing; refusing to upload."; exit 1; }
+
+          # style.css and its two siblings are build outputs, and they ship.
+          # Pull Request Quality already fails a commit whose compiled CSS does
+          # not match its sass, and this job only runs after that passed, so
+          # there is nothing to re-check here.
+
+          echo "Files to upload: $(find build -type f | wc -l)"
+
+      - name: Set up the SSH credentials
+        if: steps.config.outputs.configured == 'true'
+        run: |
+          set -euo pipefail
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+
+          if [ -n "$SFTP_KNOWN_HOSTS" ]; then
+            printf '%s\n' "$SFTP_KNOWN_HOSTS" > ~/.ssh/known_hosts
+            chmod 600 ~/.ssh/known_hosts
+            echo "HOST_KEY_CHECKING=yes" >> "$GITHUB_ENV"
+          else
+            # Without a pinned host key the first connection cannot be
+            # distinguished from a machine-in-the-middle. Allowed, so the very
+            # first deploy is possible, but said out loud every time.
+            echo "::warning::SFTP_KNOWN_HOSTS is not set, so the server's identity is not verified. Add it: ssh-keyscan -p PORT HOST"
+            echo "HOST_KEY_CHECKING=no" >> "$GITHUB_ENV"
+          fi
+
+          if [ -n "$SFTP_KEY" ]; then
+            printf '%s\n' "$SFTP_KEY" > ~/.ssh/deploy_key
+            chmod 600 ~/.ssh/deploy_key
+            echo "AUTH=key" >> "$GITHUB_ENV"
+          else
+            echo "AUTH=password" >> "$GITHUB_ENV"
+          fi
+
+      - name: Install lftp
+        if: steps.config.outputs.configured == 'true'
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+
+      - name: Check the folder is the one we think it is
+        if: steps.config.outputs.configured == 'true'
+        run: |
+          set -euo pipefail
+          listing="$(bash .github/scripts/lftp.sh "cls -1 ${REMOTE_PATH}/ || true" 2>/dev/null || true)"
+
+          if [ -z "$(printf '%s' "$listing" | tr -d '[:space:]')" ]; then
+            echo "The folder is empty or new; nothing to check against."
+            exit 0
+          fi
+
+          if printf '%s\n' "$listing" | grep -qx "$SENTINEL"; then
+            echo "Found $SENTINEL: this is the right folder."
+            exit 0
+          fi
+
+          echo "::error::${REMOTE_PATH} holds files but no $SENTINEL. Refusing to mirror into it, because that would delete whatever is there."
+          printf '%s\n' "$listing" | head -20
+          exit 1
+
+      - name: Upload
+        if: steps.config.outputs.configured == 'true'
+        run: |
+          set -euo pipefail
+          dry=""
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.dry_run }}" = "true" ]; then
+            dry="--dry-run"
+            echo "::notice::Dry run: reporting what would change, uploading nothing."
+          fi
+
+          bash .github/scripts/lftp.sh \
+            "mirror --reverse --delete --verbose $dry --no-perms --parallel=4 build/ ${REMOTE_PATH}/"
+
+      - name: Done
+        if: steps.config.outputs.configured == 'true'
+        run: echo "::notice::Deployed $(git rev-parse --short HEAD) to ${REMOTE_PATH}."

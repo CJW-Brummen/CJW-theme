@@ -114,6 +114,46 @@ The integration suite boots a real WordPress against a scratch database and asks
 - Dutch in the interface, English in the code and comments.
 - Never read camp data directly: go through `inc/summer-camp.php`, so the fallback stays in one place.
 
+## Deploying
+
+A merge to `main` uploads the theme to the server over SFTP, once the
+`Pull Request Quality` workflow has gone green for that merge. Nothing happens
+until the secrets exist: without them the job says what is missing and stops,
+so merges stay green while this is being set up. The plugin repository has the
+same arrangement, pointing at its own folder.
+
+Add these under Settings → Secrets and variables → Actions:
+
+| Secret | What it is | Required |
+| --- | --- | --- |
+| `SFTP_HOST` | The server's host name | yes |
+| `SFTP_USER` | The SFTP user | yes |
+| `SFTP_PATH` | The theme folder. **Must end in `wp-content/themes/cjw-theme`** | yes |
+| `SFTP_KEY` | A private SSH key, header and footer included | one of these two |
+| `SFTP_PASSWORD` | The SFTP password | one of these two |
+| `SFTP_PORT` | Only when the server does not use 22 | no |
+| `SFTP_KNOWN_HOSTS` | `ssh-keyscan -p 22 host`, so the server's identity is verified | no, but it warns every run without it |
+
+Prefer the key: it can be given to this repository alone and withdrawn without
+changing anybody's password.
+
+What travels is `git archive` of the merge commit minus the development files —
+the same set `npm run bundle` zips, so `sass/`, `tests/` and everything
+gitignored stay behind. The compiled `style.css`, `style-rtl.css` and
+`editor-style.css` do ship; Pull Request Quality already fails a commit whose
+compiled CSS does not match its sass, and the deploy runs only after that
+passed.
+
+The upload mirrors, so a file deleted here is deleted there. Two guards stand
+in front of that: `SFTP_PATH` must end in `wp-content/themes/cjw-theme`, and
+the remote folder must already contain `style.css` or be empty — anything else
+stops the run rather than emptying it.
+
+Actions → Deploy → Run workflow does a dry run by default: it lists every file
+it would send or delete and uploads nothing. Run that first. To turn merges
+into approvals, add required reviewers to the `production` environment under
+Settings → Environments; the workflow needs no change.
+
 ## Changelog
 
 ### 1.5.0 — one address for every signup button
