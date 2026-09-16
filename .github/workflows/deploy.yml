@@ -96,7 +96,7 @@ jobs:
           esac
           echo "REMOTE_PATH=$clean" >> "$GITHUB_ENV"
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         if: steps.config.outputs.configured == 'true'
         with:
           # workflow_run hands us the default branch, which is what we deploy.
