@@ -12,7 +12,7 @@ The plugin owns the data, the theme renders it. The theme reads everything
 through `cjw_summer_camp()` / `CJW_Summer_Camp_Service` and falls back to design
 defaults when the plugin is not active, so it never fatals on its own.
 
-`.github/dependabot.yml`, `.github/workflows/quality.yml`, `.editorconfig`,
+`renovate.json`, `.github/workflows/quality.yml`, `.editorconfig`,
 `.php-cs-fixer.dist.php` and the `rules` block of `.stylelintrc.json` are
 identical in both repositories on purpose. **Change one, change the other.**
 
@@ -101,8 +101,10 @@ change the version.
 
 - Branch off `main`.
 - `composer check` and `npm run lint` must pass; CI runs the same commands.
-- Dependency bumps are Dependabot's job. Minor and patch bumps arrive grouped
-  once a week; majors and security fixes arrive on their own.
+- Dependency bumps are Renovate's job, with the shared preset of
+  `ImreBoersma/projects`. On weekends, patch bumps arrive in one PR that merges
+  itself when the checks pass, and minor bumps in one PR to review; majors and
+  security fixes arrive on their own.
 
 Both repositories are licensed under the
 [GNU General Public License v2 (or later)](LICENSE).
